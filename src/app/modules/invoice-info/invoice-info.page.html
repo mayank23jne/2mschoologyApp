@@ -1,0 +1,50 @@
+<app-header></app-header>
+
+<ion-content [fullscreen]="true">
+  <ion-row>
+    <ion-col size="12" *ngFor="let data of invoiceData">
+     <ion-card class="invoice">
+            <ion-card-content>
+                <ion-row>
+                  <ion-col><ion-icon name="person-outline"></ion-icon> Student </ion-col>
+                  <ion-col>{{ data.student }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col><ion-icon name="school-outline"></ion-icon> Class </ion-col>
+                  <ion-col>{{ data.class }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col><ion-icon name="chatbox-ellipses-outline"></ion-icon> Invoice Title </ion-col>
+                  <ion-col>{{ data.title }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col><ion-icon name="cash-outline"></ion-icon> Total Amount </ion-col>
+                  <ion-col>${{ data.total_amount }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col><ion-icon name="cash-outline"></ion-icon> Paid Amount </ion-col>
+                  <ion-col>${{ data.paid_amount }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col><ion-icon name="star-outline"></ion-icon> Status </ion-col>
+                  <ion-col>{{ data.status }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col><ion-icon name="calendar-outline"></ion-icon> Creation Date  </ion-col>
+                  <ion-col>{{ data.created_at }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-button *ngIf="data.status != 'Paid'" (click)="makePaymentModal(data)"><ion-icon name="logo-paypal"></ion-icon>  Make Payment</ion-button> 
+                    <ion-button *ngIf="data.status === 'Paid'" (click)="invoiceModal(data.id)"><ion-icon name="eye-outline"></ion-icon>  View Invoice</ion-button> 
+                  </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="invoiceData.length === 0 && apiIsLoaded"  class="center-content">
+        Invoice not found
+  </ion-row>
+</ion-content>
+

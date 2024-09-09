@@ -1,0 +1,74 @@
+<app-header></app-header>
+  <ion-card class="head">
+    <b>Dashboard</b> - <span>{{school_name}}</span>
+  </ion-card>
+  <ion-content class="dashboard">
+  <ion-row class="p-children" *ngIf="role == 'parent'">
+    <ion-select  label="Select Student" label-placement="floating" (ionChange)="onChange($event)">
+      <ion-select-option class="capitalize" *ngFor="let item of childrens" [value]="item.user_id">{{ item.name }}</ion-select-option>
+    </ion-select>
+  </ion-row>
+  <ion-card class="attendance" routerLink="/attendance">
+    <b>Todays Attendance</b>
+    <p *ngIf="role == 'parent' && dashboardData.today_attendance" class="mt25">{{dashboardData.today_attendance}}</p>
+    <p *ngIf="role == 'parent' && !dashboardData.today_attendance" class="mt25">Select A Student To See Attendance</p>
+    <p *ngIf="role == 'student' && dashboardData.today_attendance" class="mt25">{{dashboardData.today_attendance}}</p>
+    <p *ngIf="role == 'teacher'" class="text-center count">{{total_attendance}}</p>
+    <p *ngIf="role == 'teacher'" class="text-center">{{total_attendance}} Student are attending today</p>
+  </ion-card>
+  <ion-row>
+    <ion-col *ngIf="role == 'parent'">
+      <ion-card class="teacher-card" routerLink="/teacher">
+        <ion-icon name="people"></ion-icon>
+        <p>Teachers</p>
+        <p class="text-center">{{teachersCount}}</p>
+      </ion-card>
+    </ion-col>
+    <ion-col *ngIf="role == 'teacher'">
+      <ion-card routerLink="/student">
+        <ion-icon name="people"></ion-icon>
+        <p>Students</p>
+        <p class="text-center">{{studentsCount}}</p>
+      </ion-card>
+    </ion-col>
+    <ion-col *ngIf="role == 'teacher'">
+      <ion-card routerLink="/parent">
+        <ion-icon name="people"></ion-icon>
+        <p>Parents</p>
+        <p class="text-center">{{parents}}</p>
+      </ion-card>
+    </ion-col>
+    <ion-col *ngIf="role == 'student'">
+      <ion-card  routerLink="/tabs/tab2">
+        <ion-icon name="document-text"></ion-icon>
+        <p class="text-center">{{ dashboardData.total_number_of_submitted_assignments }}</p>
+        <p>Submit-assignment</p>
+      </ion-card>
+    </ion-col>
+    <ion-col *ngIf="role == 'student'">
+      <ion-card routerLink="/tabs/tab2">
+        <ion-icon name="document"></ion-icon>
+        <p class="text-center">{{ dashboardData.total_number_of_pending_assignments }}</p>
+        <p>Pending-assignment</p>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  
+  <ion-card class="events" *ngIf="progress"  routerLink="/progress">
+    <b class="pl10">Performance</b>
+      <div class="event-card" >
+        <p *ngIf="role == 'parent'">Student: {{ progress.student_name }}</p>
+        <p>Note: <span>{{ progress.note }}</span></p>
+        <p>Performance : <span class="capitalize">{{ progress.performance }}</span></p>
+      </div>
+  </ion-card>
+  
+  <ion-card class="events" routerLink="/event_calendar">
+    <b class="pl10">Recent Events</b>
+    <div class="event-card" *ngFor="let item of event_list">
+      <p>{{ item.title }}</p>
+      <p>{{ item.starting_date}} - {{ item.ending_date}}</p>
+    </div>
+  </ion-card>
+  
+</ion-content>

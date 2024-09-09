@@ -1,0 +1,134 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+    <ion-avatar class="profile">
+      <img [src]="imagepath" alt="Profile Picture">
+      <label for="pfile-input" class="edit-bg"><ion-icon aria-hidden="true" src="assets/icon/edit.svg"
+          class="custom-icon"></ion-icon></label>
+      <input type="file" (change)="loadProfileFromDevice($event)" id="pfile-input"
+        accept="image/png, image/jpeg, image/jpg" style="display:none;">
+    </ion-avatar>
+    <ion-list class="mt25">
+      <ion-label>Name <span class="req">*</span> </ion-label>
+      <ion-input type="text" formControlName="name" placeholder="Name" required></ion-input>
+      <ion-row class="err"
+        *ngIf="form.get('name')?.invalid && form.get('name')?.hasError('required') && form.get('name')?.touched">
+        <ion-text color="danger">Name is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Email <span class="req">*</span> </ion-label>
+      <ion-input type="text" formControlName="email" placeholder="Email"></ion-input>
+    </ion-list>
+    <ion-list>
+      <ion-label>Parent <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="parent_id" >
+          <ion-select-option *ngFor="let item of parent_list" [value]="item.id">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('parent_id')?.invalid && form.get('parent_id')?.hasError('required') && form.get('parent_id')?.touched">
+        <ion-text color="danger">Parent is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Class <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="class_id" label-placement="floating" (ionChange)="onClassChange()">
+          <ion-select-option *ngFor="let item of classes" [value]="item.id">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('class_id')?.invalid && form.get('class_id')?.hasError('required') && form.get('class_id')?.touched">
+        <ion-text color="danger">Class is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Section <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="section_id" label-placement="floating">
+          <ion-select-option *ngFor="let item of sections" [value]="item.id">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('section_id')?.invalid && form.get('section_id')?.hasError('required') && form.get('section_id')?.touched">
+        <ion-text color="danger">Section is required.</ion-text>
+      </ion-row>
+    </ion-list>
+  
+    <ion-list>
+      <ion-label>Birthday <span class="req">*</span> </ion-label>
+      <ion-input id="date" formControlName="birthday" class="ion-text-start pl-10" name="birthday"
+        [value]="form.get('birthday')?.value | date: 'MM/dd/yyyy'">
+        <ion-icon aria-hidden="true" name="calendar-clear-outline" class="date-icon"></ion-icon>
+      </ion-input>
+
+      <ion-popover trigger="date" size="cover">
+        <ng-template>
+          <ion-datetime presentation="date" locale="en-US" (ionChange)="setdate()" formControlName="birthday">
+          </ion-datetime>
+          <ion-row>
+            <ion-col><ion-button class="reset-date-btn" (click)="resetDate()" expand="block"
+                color="primary">Reset</ion-button></ion-col>
+            <ion-col><ion-button class="reset-date-btn" (click)="savedate()" expand="block"
+                color="primary">OK</ion-button></ion-col>
+          </ion-row>
+        </ng-template>
+      </ion-popover>
+    </ion-list>
+    <ion-list>
+      <ion-label>Gender <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="gender"  value="male">
+          <ion-select-option value="Male">Male</ion-select-option>
+          <ion-select-option value="Female">Female</ion-select-option>
+          <ion-select-option value="Others">Others</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('gender')?.invalid && form.get('gender')?.hasError('required') && form.get('gender')?.touched">
+        <ion-text color="danger">Gender is required.</ion-text>
+      </ion-row>
+    </ion-list>
+   
+    <ion-list>
+      <ion-label>Blood group <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="blood_group" >
+          <ion-select-option value="a+">A+</ion-select-option>
+          <ion-select-option value="a-">A-</ion-select-option>
+          <ion-select-option value="b+">B+</ion-select-option>
+          <ion-select-option value="b-">B-</ion-select-option>
+          <ion-select-option value="ab+">AB+</ion-select-option>
+          <ion-select-option value="ab-">AB-</ion-select-option>
+          <ion-select-option value="o+">O+</ion-select-option>
+          <ion-select-option value="o-">O-</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('blood_group')?.invalid && form.get('blood_group')?.hasError('required') && form.get('blood_group')?.touched">
+        <ion-text color="danger">Blood group is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Phone <span class="req">*</span> </ion-label>
+      <ion-input type="text" formControlName="phone" placeholder="Phone"></ion-input>
+    </ion-list>
+    <ion-list>
+      <ion-label>Address <span class="req">*</span> </ion-label>
+      <ion-textarea formControlName="address" type="text" placeholder="Address"
+        required></ion-textarea>
+    </ion-list>
+
+    <ion-button expand="block" (click)="update()" class="submit-btn mt-20">Submit</ion-button>
+
+  </form>
+</ion-content>

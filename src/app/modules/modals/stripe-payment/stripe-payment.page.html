@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Stripe Payment</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row class="mt20">
+    <ion-col>
+      Student Name :
+    </ion-col>
+    <ion-col class="capitalize">
+      <span *ngIf="student_name" >{{student_name}}</span>
+    </ion-col>
+  </ion-row>
+  <ion-row class="mt20">
+    <ion-col>
+      Amount To Pay :
+    </ion-col>
+    <ion-col>
+      <span *ngIf="amount"> ${{amount}}</span>
+    </ion-col>
+  </ion-row>
+  <form (ngSubmit)="getPaymentIntent()" class="payment-form">
+    <div id="card-element" class="card-element"></div>
+    <button type="submit" [disabled]="isProcessing" class="pay-button">Pay <span *ngIf="amount"> ${{amount}}</span></button>
+  </form>
+</ion-content>

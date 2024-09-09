@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row>
+    <ion-col size="12" *ngFor="let data of routineData">
+     <ion-card  class="routine">
+            <ion-card-content>
+                <ion-row>
+                  <ion-col><ion-icon name="book-outline"></ion-icon><span class="lbl">Subject</span></ion-col>
+                  <ion-col class="val">{{ data.subjects }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col><ion-icon name="time-outline"></ion-icon><span class="lbl">Hours</span></ion-col>
+                  <ion-col class="val">{{ data.hours }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col><ion-icon name="person-outline"></ion-icon><span class="lbl">Name</span></ion-col>
+                  <ion-col class="val">{{ data.name }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col><ion-icon name="storefront-outline"></ion-icon><span class="lbl">Class Rooms</span></ion-col>
+                  <ion-col class="val">{{ data.class_rooms }}</ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="routineData.length === 0"  class="center-content">
+        Routine not found
+  </ion-row>
+
+</ion-content>

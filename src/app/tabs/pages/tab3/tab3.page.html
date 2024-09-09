@@ -1,0 +1,43 @@
+<app-header></app-header>
+<ion-content>
+  <form [formGroup]="form">
+    <ion-avatar class="profile">
+      <img [src]="imagepath" alt="Profile Picture">
+      <label for="pfile-input" class="edit-bg"><ion-icon aria-hidden="true" src="assets/icon/edit.svg"
+          class="custom-icon"></ion-icon></label>
+      <input type="file" (change)="loadProfileFromDevice($event)" id="pfile-input"
+        accept="image/png, image/jpeg, image/jpg" style="display:none;">
+    </ion-avatar>
+    <ion-list class="mt25">
+      <ion-label>Name <span class="req">*</span></ion-label>
+      <ion-input type="text" formControlName="name" placeholder="Name" required></ion-input>
+      <ion-row class="err"
+        *ngIf="form.get('name')?.invalid && form.get('name')?.hasError('required') && form.get('name')?.touched">
+        <ion-text color="danger">Name is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Email <span class="req">*</span></ion-label>
+      <ion-input type="text" formControlName="email" placeholder="Email" required></ion-input>
+      <ion-row class="err"
+        *ngIf="form.get('email')?.invalid && form.get('email')?.hasError('required') && form.get('email')?.touched">
+        <ion-text color="danger">Email is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Phone <span class="req">*</span></ion-label>
+      <ion-input type="text" formControlName="phone" placeholder="Phone" required></ion-input>
+      <ion-row class="err"
+        *ngIf="form.get('phone')?.invalid && form.get('phone')?.hasError('required') && form.get('phone')?.touched">
+        <ion-text color="danger">Phone is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Address </ion-label>
+      <ion-textarea type="text" formControlName="address" placeholder="Address" required></ion-textarea>
+    </ion-list>
+
+    <ion-button expand="block" (click)="update()" class="submit-btn mt-20">Update</ion-button>
+
+  </form>
+</ion-content>

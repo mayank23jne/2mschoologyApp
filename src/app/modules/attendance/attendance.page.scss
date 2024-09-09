@@ -1,0 +1,90 @@
+.submit-btn{
+    width: 90%;
+    margin-top: 20px;
+}
+ion-calendar {
+    .day {
+      &.green {
+        background-color: green;
+      }
+  
+      &.red {
+        background-color: red;
+      }
+  
+      &.white {
+        background-color: white;
+      }
+    }
+  }
+
+.content-grid{
+  
+  margin-top: 20px;
+
+  .attendance-container {
+    display: flex;
+  }
+  
+  .fixed-column {
+    flex: 0 0 20%; /* Adjust width as needed */
+    background-color: #f9f9f9;
+  }
+  
+  .scrollable-column {
+    flex: 1;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .header-cell, .cell {
+    display: inline-block;
+    min-width: 40px;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    min-height: 32px;
+  }
+  .name{
+    display: block !important;
+  }
+  .scrollable-header {
+    display: flex;
+  }
+  
+  .scrollable-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .scrollable-row {
+    display: flex;
+  }
+  
+  .fixed-cell {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+  }
+  
+  .fixed-cell strong {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .red-text {
+    color: red;
+  }
+  
+  .green-text {
+    color: green;
+  }
+}

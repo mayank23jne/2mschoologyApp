@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="role == 'student'">Submit assignment</ion-title>
+    <ion-title *ngIf="role == 'parent'" >Syllabus content</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<ion-row class="p-20 mt30" *ngIf="role == 'student' && homeworkData?.statusClass == 'status-pending'">
+  <input type="file" (change)="loadProfileFromDevice($event)" id="pfile-input">
+</ion-row>
+<div class="p-20">
+  <b><p class="link" (click)="open(homeworkData?.file)">View Assignment</p></b>
+</div>
+
+ <div class="p-20">
+  <p *ngIf="homeworkData?.submission_status"><b>Assignment Status: </b><span class="capitalize" > {{homeworkData?.submission_status}}</span></p>
+ </div>
+ <div class="p-20">
+  <p *ngIf="homeworkData?.statusClass == 'status-submitted-green'"><b>Assignment Status: </b><span class="capitalize" > {{homeworkData?.statusScoreDisplay}}</span></p>
+ </div>
+<div class="fixed-footer" *ngIf="role == 'student' && homeworkData?.statusClass == 'status-pending'">
+  <ion-button (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+</div>  
+</ion-content>

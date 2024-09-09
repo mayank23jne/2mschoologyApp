@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+    <ion-label>Date <span class="req">*</span></ion-label>
+    <ion-item class="dropdown-s">
+    <ion-input id="date" formControlName="dob" class="ion-text-start pl-10" name="dob"
+      [value]="form.get('dob')?.value | date: 'YYYY-MM-dd'">
+      <ion-icon aria-hidden="true" name="calendar-clear-outline" class="date-icon"></ion-icon>
+    </ion-input>
+    </ion-item>
+    <app-class-filter (filterChange)="onFilterChange($event)"></app-class-filter>
+    <ion-popover trigger="date" size="cover">
+      <ng-template>
+        <ion-datetime presentation="date" locale="en-US" (ionChange)="setdate()" formControlName="dob">
+        </ion-datetime>
+        <ion-row>
+          <ion-col><ion-button class="reset-date-btn" (click)="resetDate()" expand="block"
+              color="primary">Reset</ion-button></ion-col>
+          <ion-col><ion-button class="reset-date-btn" (click)="savedate()" expand="block"
+              color="primary">OK</ion-button></ion-col>
+        </ion-row>
+      </ng-template>
+    </ion-popover>
+   
+    
+    <ion-button expand="block" (click)="show_student_list()" class="submit-btn mt-20">Show Student List</ion-button>
+  </form>
+
+  <form *ngIf="show" [formGroup]="formAttendance" (ngSubmit)="onSubmit()">
+    <ion-row>
+      <ion-col class="text-center">
+        <ion-button (click)="presentAll()">Present all</ion-button>
+      </ion-col>
+      <ion-col class="text-center">
+        <ion-button (click)="absentAll()">Absent all</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><b>Name</b></ion-col>
+      <ion-col><b>Status</b></ion-col>
+    </ion-row>
+    <ion-row class="ats-row" formArrayName="attendances"
+      *ngFor="let attendance of attendances?.controls; let i = index">
+      <ion-col>
+        <span>{{ attendance.get('name')?.value }}</span>
+      </ion-col>
+      <ion-col [formGroupName]="i">
+        <ion-radio-group formControlName="status">
+          <ion-radio value="P" labelPlacement="start"></ion-radio><span>Present</span>
+          <ion-radio class="abs" value="A" labelPlacement="start"></ion-radio><span class="abs-label">Absent</span>
+        </ion-radio-group>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="text-center">
+        <ion-button type="submit" class="submit-btn" (click)="add()">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+</ion-content>

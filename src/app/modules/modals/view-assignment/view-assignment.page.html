@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>View Syllabus</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+
+    <ion-label class="label">Assignment Title </ion-label>
+    <ion-list>
+      <ion-textarea type="text" formControlName="assignment" readonly></ion-textarea>
+    </ion-list>
+
+    <ion-label>Last date </ion-label>
+    <ion-list>
+    <ion-input id="date" formControlName="last_date"  name="last_date" readonly>
+      </ion-input>
+    </ion-list>
+
+    <ion-label>Class </ion-label>
+    <ion-list>
+      <ion-input formControlName="class_id"  name="class_id" readonly>
+      </ion-input>
+    </ion-list>
+
+    <ion-label>Section </ion-label>
+    <ion-list>
+      <ion-input formControlName="section_id"  name="section_id" readonly>
+      </ion-input>
+    </ion-list>
+    <div *ngIf="homeworkData?.homework_file" class="view_syllabus">
+      <ion-row (click)="open(homeworkData?.homework_file)"> <b class="link">View Syllabus</b></ion-row>
+    </div> 
+    <ion-label class="label">Page number </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="page_number" readonly></ion-input>
+    </ion-list>
+
+    <ion-label class="label">Line number </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="line_number" readonly></ion-input>
+    </ion-list>
+ 
+  </form>
+  <ion-card class="list-card" *ngFor="let item of studentsList">
+    <ion-row>
+      <ion-col size="10">
+        <p class="title capitalize">Student Name: <b>{{ item.student_name }}</b></p>
+        <p>Submitted on : {{ item.submitted_on}}</p>
+        <p>File : <span class="link" *ngIf="item.file != 'No File'; else noFile" (click)="openSubmitGrade(item)">View file</span>
+        <ng-template #noFile>
+        <span>No file</span>
+        </ng-template></p>
+        <p>Performance : <span class="capitalize">{{ item.performance}}</span></p>
+        <p>Marks/Grade : {{ item.marks_or_Grade}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

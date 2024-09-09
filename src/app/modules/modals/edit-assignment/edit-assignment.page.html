@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit assignment</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+
+    <ion-label class="label">Assignment Title </ion-label>
+    <ion-list>
+      <ion-textarea type="text" formControlName="assignment" readonly></ion-textarea>
+    </ion-list>
+
+    <ion-label>Last date </ion-label>
+    <ion-list>
+    <ion-input id="date" formControlName="last_date"  name="last_date" readonly>
+      </ion-input>
+    </ion-list>
+
+    <ion-label>Class </ion-label>
+    <ion-list>
+      <ion-input formControlName="class_id"  name="class_id" readonly>
+      </ion-input>
+    </ion-list>
+
+    <ion-label>Section </ion-label>
+    <ion-list>
+      <ion-input formControlName="section_id"  name="section_id" readonly>
+      </ion-input>
+    </ion-list>
+
+    <div *ngIf="syllabus_file && syllabus_show" class="view_syllabus">
+      <ion-row (click)="open(syllabus_file)">View Syllabus</ion-row>
+    </div>
+    
+    <ion-label class="label">Page number </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="page_number" required></ion-input>
+    </ion-list>
+
+    <ion-label class="label">Line number </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="line_number" required></ion-input>
+    </ion-list>
+  
+    <ion-label class="label">Select Students</ion-label>
+    <div *ngIf="students" class="student-list">
+      <ion-item *ngFor="let student of students">
+        <ion-label>{{ student.name }}</ion-label>
+        <ion-checkbox slot="start" [checked]="isSelected(student.user_id)"
+          (ionChange)="toggleSelection(student.user_id, $event)"></ion-checkbox>
+      </ion-item>
+    </div>
+    
+  <div class="fixed-footer">
+    <ion-button (click)="update()" class="submit-btn mt-20">Update</ion-button>
+  </div>  
+
+  </form>
+
+</ion-content>

@@ -1,0 +1,66 @@
+<app-header></app-header>
+<ion-content [fullscreen]="true">
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-select label="Month" label-placement="floating"  [(ngModel)]="selected_month">
+          <ion-select-option *ngFor="let item of months" [value]="item.value">{{item.title}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+      <ion-col><ion-item>
+        <ion-select label="Year" label-placement="floating"  [(ngModel)]="selected_year">
+          <ion-select-option *ngFor="let item of years" [value]="item.value">{{item.value}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+<app-class-filter (filterChange)="onFilterChange($event)"></app-class-filter>
+
+<div class="text-center">
+    <ion-button type="submit" class="submit-btn" (click)="filter()">Filter</ion-button>
+</div>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="role == 'teacher'">
+    <ion-fab-button (click)="openAddModal()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+</ion-fab>
+
+<div class="content-grid">
+
+  <div class="attendance-container" *ngIf="attendanceData.length != 0">
+    <div class="fixed-column">
+      <div class="header-cell name">
+        <b>Name</b>
+      </div>
+      <div *ngFor="let student of attendanceData" class="fixed-cell">
+        {{ student.student_name }}
+      </div>
+    </div>
+    <div class="scrollable-column">
+      <div class="scrollable-header">
+        <div class="header-cell" *ngFor="let day of daysInMonth">
+          <strong>{{ day }}</strong>
+        </div>
+      </div>
+      <div class="scrollable-content">
+        <div *ngFor="let student of attendanceData" class="scrollable-row">
+          <div class="cell" *ngFor="let day of daysInMonth">
+            <span [ngStyle]="{
+              'color': getAttendanceStatus(student, day) === 'A' ? 'red' :
+                        getAttendanceStatus(student, day) === 'P' ? 'green' : 'inherit'
+            }">
+              {{ getAttendanceStatus(student, day) }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+</div>
+</ion-content>

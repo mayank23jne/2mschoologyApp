@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Submit Grades</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+    <div class="pt20" *ngIf="homework_file">
+      <b><p class="link" (click)="openFile(homework_file)">View Assignment</p></b>
+    </div>
+  <ion-list class="mt25">
+    <ion-label>Marks/Grades <span class="req">*</span></ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="marks" label-placement="floating" (click)="onChange($event)">
+        <ion-select-option value="marks">MARKS(Out of 10)</ion-select-option>
+        <ion-select-option value="grades">GRADES</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+    <ion-input
+    *ngIf="form.get('marks')?.value == 'marks'"
+    type="number"
+    min="0"
+    max="100"
+    formControlName="marks_value"
+    required>
+  </ion-input>
+  
+  <ion-input
+    *ngIf="form.get('marks')?.value == 'grades'"
+    type="text"
+    formControlName="marks_value"
+    required>
+  </ion-input>
+
+  <ion-row class="err" *ngIf="form.get('marks_value')?.hasError('required') && form.get('marks_value')?.touched">
+    This field is required.
+  </ion-row>
+  <ion-row class="err" *ngIf="form.get('marks')?.value == 'marks' && form.get('marks_value')?.hasError('min') && form.get('marks_value')?.touched">
+    Marks must be at least 0.
+  </ion-row>
+  <ion-row class="err" *ngIf="form.get('marks')?.value == 'marks' && form.get('marks_value')?.hasError('max') && form.get('marks_value')?.touched">
+    Marks cannot exceed 10.
+  </ion-row>
+ 
+  </ion-list>
+  <ion-list class="mt25">
+    <ion-label>Feedback <span class="req">*</span></ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="feedback" label-placement="floating" (click)="onFeedChange($event)">
+        <ion-select-option value="good">Good</ion-select-option>
+        <ion-select-option value="average">Average</ion-select-option>
+        <ion-select-option value="bad">Bad</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row class="err"
+      *ngIf="form.get('marks')?.invalid && form.get('marks')?.hasError('required') && form.get('marks')?.touched">
+      <ion-text color="danger">Required</ion-text>
+    </ion-row>
+  </ion-list>
+  <ion-button expand="block" (click)="updateMarks()" class="submit-btn mt-20">Submit</ion-button>
+</form>
+    
+</ion-content>

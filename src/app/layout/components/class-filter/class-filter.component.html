@@ -1,0 +1,31 @@
+<div *ngIf="role == 'teacher' || role == 'student' || role == 'admin' ">
+  <div *ngIf="role == 'teacher' || role == 'admin'">
+    <ion-item>
+      <ion-select label="Class" label-placement="floating" [(ngModel)]="selectedClass" (ionChange)="onFilterChange()">
+        <ion-select-option *ngFor="let class of classes" [value]="class.id">{{ class.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <div *ngIf="role == 'student'">
+    <ion-item>
+      <ion-select label="Class" label-placement="floating" [(ngModel)]="selectedClass" (ionChange)="onFilterChange()">
+        <ion-select-option *ngFor="let class of classes" [value]="class.class_id">{{ class.class_name
+          }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <ion-item>
+    <ion-select label="Section" label-placement="floating" [(ngModel)]="selectedSection"
+      (ionChange)="onFilterSectionChange()">
+      <ion-select-option *ngFor="let section of sections" [value]="section.id">{{ section.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</div>
+<div *ngIf="role == 'parent'">
+  <ion-item>
+    <ion-select label="Student" label-placement="floating" [(ngModel)]="selectedStudentData"
+      (ionChange)="onFilterStudentChange()">
+      <ion-select-option *ngFor="let item of students" [value]="item">{{ item.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</div>

@@ -1,0 +1,28 @@
+<app-header></app-header>
+<ion-content>
+    <div *ngIf="detail != 0">
+        <ion-card class="list-card" *ngFor="let item of detail" >
+          <ion-row>
+              <ion-col size="8">
+                    <p class="title capitalize">{{ item.student_name }}</p>
+                    <p class="sub capitalize">Performance : {{ item.performance }}</p>
+                    <p class="sub capitalize">Date : {{ item.created_at }}</p>
+                    <p class="sub capitalize">Note : {{ item.note }}</p>
+              </ion-col>
+              <ion-col size="4" class="icons" *ngIf="role == 'teacher'">
+                <ion-icon  class="edit" name="pencil-outline" (click)="openEditModal(item.id)"></ion-icon>
+                <ion-icon class="trash" name="trash-outline" (click)="delete(item.id)"></ion-icon>
+          </ion-col>
+          </ion-row>
+        </ion-card>
+      </div>
+      <div *ngIf="detail.length == 0" class="empty_box">
+      <img class="empty_box_img" src="../../../assets/icon/empty_box.png">
+      </div>
+    
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="role == 'teacher'">
+        <ion-fab-button (click)="openAddModal()">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+</ion-content>

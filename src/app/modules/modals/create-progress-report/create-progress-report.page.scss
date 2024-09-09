@@ -1,0 +1,37 @@
+.st_name{
+    position: relative;
+    top: 13px;
+}
+ion-textarea{
+    --padding-start: 10px;
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+    height: 60vh; 
+  }
+  
+  .scrollable-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 60px; 
+  }
+  
+  .fixed-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white; 
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    z-index: 999;
+  }
+.submit-btn {
+    --background: #727cf5;
+    color: #ffffff;
+    text-transform: capitalize;
+    width: 90% !important;
+}
+.submit-report{
+  padding-left: 5%;
+}

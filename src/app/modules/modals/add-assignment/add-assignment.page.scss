@@ -1,0 +1,61 @@
+form {
+    margin: 20px 15px;
+}
+form ion-input{
+    padding: 12px;
+    padding-left: 15px !important;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+form ion-textarea {
+    padding-left: 15px !important;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+ion-label{
+    margin-top: 10px;
+}
+.submit-btn{
+    margin-top:20px;
+}
+.dropdown-s{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.date-icon{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 999;
+}
+.reset-date-btn{
+    width: 90%;
+    margin: 0px auto;
+}
+.view_syllabus{
+    color: #727cf5;
+    margin: 20px 0px 20px 0px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    height: 60vh; 
+}
+.scrollable-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 60px; 
+}
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white; 
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+.student-list {
+    max-height: 300px; /* Set the height as per your requirement */
+    overflow-y: auto; /* Enables vertical scrolling */
+  }

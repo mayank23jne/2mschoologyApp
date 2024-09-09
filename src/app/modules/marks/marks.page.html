@@ -1,0 +1,62 @@
+<app-header></app-header>
+<ion-content>
+    <ion-item>
+        <ion-select label="Exam" label-placement="floating" [(ngModel)]="exam_id">
+            <ion-select-option *ngFor="let item of exam_data" [value]="item">{{ item.name }}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <app-class-filter (filterChange)="onFilterChange($event)"></app-class-filter>
+    <ion-item>
+        <ion-select label="Subject" label-placement="floating" [(ngModel)]="subject_id">
+            <ion-select-option *ngFor="let item of subjects" [value]="item">{{ item.name }}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <div class="text-center">
+        <ion-button type="submit" class="submit-btn" (click)="filter()">Filter</ion-button>
+    </div>
+    <ion-row *ngIf="code == '401'">
+        <ion-card class="access_den">
+           <ion-card-header class="access-title">{{ access_msg_title }}</ion-card-header> 
+           <ion-card-content>{{ access_msg }}</ion-card-content> 
+        </ion-card>
+    </ion-row>
+    <div *ngIf="role == 'teacher' && mark_data">
+        <ion-card class="manage_marks">
+            <ion-card-header><span>Manage Marks</span></ion-card-header>
+            <ion-card-content>
+                <p *ngIf="class_name">Class : {{ class_name }}</p>
+                <p *ngIf="section_name">Section : {{ section_name }}</p>
+                <p *ngIf="subject_name">Subject : {{ subject_name }}</p>
+            </ion-card-content>
+        </ion-card>
+        <ion-card class="marks_table" *ngFor="let item of mark_data" (click)="openAddMarksModal(item)">
+         {{item.student_name}}
+        </ion-card>
+    </div>
+    <div *ngIf="role != 'teacher' && mark_data">
+        <div *ngIf="mark_data">
+        <ion-card  class="manage_marks">
+            <ion-card-header><span>Manage Marks</span></ion-card-header>
+            <ion-card-content>
+                <p *ngIf="class_name">Class : {{ class_name }}</p>
+                <p *ngIf="section_name">Section : {{ section_name }}</p>
+                <p *ngIf="subject_name">Subject : {{ subject_name }}</p>
+            </ion-card-content>
+        </ion-card>
+        <ion-card class="marks_table" *ngFor="let item of mark_data">
+        <ion-row>
+            <ion-col>Student Name:</ion-col>
+            <ion-col class="capitalize">{{ item.student_name }}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Marks:</ion-col>
+            <ion-col>{{ item.mark_obtained }}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Comment:</ion-col>
+            <ion-col>{{ item.comment }}</ion-col>
+           </ion-row>
+        </ion-card>
+        </div>
+    </div>
+</ion-content>

@@ -1,0 +1,86 @@
+form {
+    margin: 20px 15px;
+}
+
+form ion-input{
+    padding: 12px;
+    padding-left: 15px !important;
+}
+form ion-textarea {
+    padding-left: 15px !important;
+}
+form .ion-touched.ion-invalid.sc-ion-input-md-h {
+    padding-right: 15px !important;
+}
+form .ion-touched.ion-invalid.sc-ion-textarea-md-h{
+    padding-right: 15px !important;
+}
+.date-icon{
+    position: absolute;
+    right: 0px;
+    top: 15px;
+    z-index: 999;
+}
+.reset-date-btn{
+    width: 90%;
+    margin: 0px auto;
+}
+ion-popover{
+    bottom: none;
+}
+ion-list{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+ion-item{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.prs{
+    position: relative;
+    right: 5px;
+}
+.abs{
+    position: relative;
+    left: 10px;
+}
+ion-radio-group .abs-label{
+    position: relative;
+    left: 15px;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: center;
+  }
+  
+.radio-item {
+    --ion-item-background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --inner-padding-start: 0;
+    --padding-end: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+}
+span{
+    position: relative;
+    bottom: 3px;
+    left: 5px;
+}
+ion-button{
+    width: 100%;
+}
+.ats-row{
+    margin: 10px 0px;
+}
+.st_name{
+    position: relative;
+    top: 5px;
+}
+.dropdown-s{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

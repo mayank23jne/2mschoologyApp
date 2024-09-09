@@ -1,0 +1,41 @@
+#pdf-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    width: 100%;
+    padding: 10px;
+  
+    canvas {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+  }
+  .fixed-footer{
+    text-align: center;
+  }
+  
+.submit-btn {
+    width: 90%;
+}
+
+.progress-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 24px;
+  margin-top: 16px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #3880ff;
+  width: 0;
+  transition: width 0.3s;
+}
+.ifrm{
+  height: 100%;
+  width: 59vh;
+}

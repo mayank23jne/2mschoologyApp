@@ -1,0 +1,19 @@
+<app-header></app-header>
+<ion-content>
+<div *ngIf="studentData">
+  <ion-card class="list-card" *ngFor="let item of studentData">
+    <ion-row [routerLink]="['/invoice-info',item.id ]">
+        <ion-col class="days-col"size="9">
+              <p class="days-name capitalize pl5">{{item.student}}</p>
+        </ion-col>
+        <ion-col class="days-col"size="3">
+              <p class="days-name" [ngStyle]="{'color': item.status == 'Paid' ? 'green' : 'red'}" >{{item.status}}</p>
+        </ion-col>
+    </ion-row>
+  </ion-card>
+</div>
+<div *ngIf="studentData.length == 0 && !isloading" class="empty_box">
+  <img class="empty_box_img" src="../../../assets/icon/empty_box.png">
+  <p><b>Data Not Found</b></p>
+  </div>
+</ion-content>

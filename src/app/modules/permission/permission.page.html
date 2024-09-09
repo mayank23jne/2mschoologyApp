@@ -1,0 +1,35 @@
+<app-header></app-header>
+<ion-content [fullscreen]="true">
+  <app-class-filter (filterChange)="onFilterChange($event)"></app-class-filter>
+  <ion-list>
+    <ion-card class="list-card" *ngFor="let item of permissions">
+    <ion-row>
+
+      <p class="title capitalize" *ngIf="item.name"><b><ion-label>{{item.name}}</ion-label></b></p>
+      
+      <ion-row>
+        <ion-col size="6"><ion-label>Marks: </ion-label>
+        </ion-col>
+        <ion-col size="6"><ion-toggle [(ngModel)]="item.marks" [checked]="item.marks == '1'" (ionChange)="onToggleChange(item, 'marks')"></ion-toggle>
+        </ion-col>
+      
+        <ion-col size="6"><ion-label>Assignment:</ion-label>
+        </ion-col>
+        <ion-col size="6"><ion-toggle [(ngModel)]="item.assignment" [checked]="item.assignment == '1'" (ionChange)="onToggleChange(item, 'assignment')"></ion-toggle>
+        </ion-col>
+     
+        <ion-col size="6"><ion-label>Progress:</ion-label>
+        </ion-col>
+        <ion-col size="6"><ion-toggle [(ngModel)]="item.progress" [checked]="item.progress == '1'" (ionChange)="onToggleChange(item, 'progress')"></ion-toggle>
+        </ion-col>
+     
+        <ion-col size="6"><ion-label>Attendance:</ion-label>
+        </ion-col>
+        <ion-col size="6"><ion-toggle [(ngModel)]="item.attendance" [checked]="item.attendance == '1'" (ionChange)="onToggleChange(item, 'attendance')"></ion-toggle>
+        </ion-col>
+      </ion-row>
+         
+      </ion-row>
+    </ion-card>
+  </ion-list>
+</ion-content>

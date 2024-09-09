@@ -1,0 +1,131 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  
+  <!-- Class form-->
+  <form [formGroup]="classForm" *ngIf="module_name == 'class'">
+    <ion-label class="label">Class Name <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="class_name" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="classForm.get('class_name')?.invalid && classForm.get('class_name')?.hasError('required') && classForm.get('class_name')?.touched">
+      <ion-text color="danger">Name is required.</ion-text>
+    </ion-row>
+    <ion-button *ngIf="classForm.valid"  expand="block" (click)="submit_class()" class="submit-btn mt-20">Submit</ion-button>
+  </form>
+
+  <!-- Class room form-->
+  <form [formGroup]="classRoomForm" *ngIf="module_name == 'classRoom'">
+    <ion-label class="label">Class Room Name <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="class_room_name" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="classRoomForm.get('class_room_name')?.invalid && classRoomForm.get('class_room_name')?.hasError('required') && classRoomForm.get('class_room_name')?.touched">
+      <ion-text color="danger">Name is required.</ion-text>
+    </ion-row>
+    <ion-button *ngIf="classRoomForm.valid"  expand="block" (click)="submit_classRoom()" class="submit-btn mt-20">Submit</ion-button>
+  </form>
+
+  <!-- Department form-->
+  <form [formGroup]="deptForm" *ngIf="module_name == 'dept'">
+    <ion-label class="label">Department Name <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="dept_name" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="deptForm.get('dept_name')?.invalid && deptForm.get('dept_name')?.hasError('required') && deptForm.get('dept_name')?.touched">
+      <ion-text color="danger">Name is required.</ion-text>
+    </ion-row>
+    <ion-button *ngIf="deptForm.valid"  expand="block" (click)="submit_department()" class="submit-btn mt-20">Submit</ion-button>
+  </form>
+
+   <!-- Subject form -->
+   <form [formGroup]="subjectForm" *ngIf="module_name == 'subject'">
+    <div *ngIf="showClass">
+      <ion-label class="label">Class <span class="req">*</span></ion-label>
+      <ion-list>
+        <ion-select  formControlName="class" (ionChange)="onFilterChange()">
+          <ion-select-option value="">Select Class</ion-select-option>
+          <ion-select-option *ngFor="let class of classList" [value]="class.id">{{ class.class }}</ion-select-option>
+        </ion-select>
+      </ion-list>
+    <ion-row class="err"
+      *ngIf="subjectForm.get('class')?.invalid && subjectForm.get('class')?.hasError('required') && subjectForm.get('class')?.touched">
+      <ion-text color="danger">Class is required.</ion-text>
+    </ion-row>
+    </div>
+    <ion-label class="label">Subject <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="subject_name" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="subjectForm.get('subject_name')?.invalid && subjectForm.get('subject_name')?.hasError('required') && subjectForm.get('subject_name')?.touched">
+      <ion-text color="danger">Name is required.</ion-text>
+    </ion-row>
+    <ion-button *ngIf="subjectForm.valid"  expand="block" (click)="submit_subject()" class="submit-btn mt-20">Submit</ion-button>
+  </form>
+
+  <!-- Event Calendar form -->
+ 
+  <form [formGroup]="eventCalendarForm" *ngIf="module_name == 'event'">
+   
+    <ion-label class="label">Title <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="title" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="eventCalendarForm.get('title')?.invalid && eventCalendarForm.get('title')?.hasError('required') && eventCalendarForm.get('title')?.touched">
+      <ion-text color="danger">Title is required.</ion-text>
+    </ion-row>
+
+    <ion-list>
+      <ion-label>Starting Date <span class="req">*</span> </ion-label>
+      <ion-input id="sdate" formControlName="starting_date" class="ion-text-start pl-10 mt10" name="starting_date"
+        [value]="eventCalendarForm.get('starting_date')?.value | date: 'MM/dd/yyyy'">
+        <ion-icon aria-hidden="true" name="calendar-clear-outline" class="date-icon"></ion-icon>
+      </ion-input>
+
+      <ion-popover trigger="sdate" size="cover">
+        <ng-template>
+          <ion-datetime  [value]="setDefaultDate"  presentation="sdate" locale="en-US" (ionChange)="setStartDate()" formControlName="starting_date">
+          </ion-datetime>
+          <ion-row>
+            <ion-col><ion-button class="reset-date-btn" (click)="resetStartDate()" expand="block"
+                color="primary">Reset</ion-button></ion-col>
+            <ion-col><ion-button class="reset-date-btn" (click)="savedate()" expand="block"
+                color="primary">OK</ion-button></ion-col>
+          </ion-row>
+        </ng-template>
+      </ion-popover>
+    </ion-list>
+    <ion-list>
+      <ion-label>Ending Date <span class="req">*</span> </ion-label>
+      <ion-input id="end_date" formControlName="ending_date" class="ion-text-start pl-10 mt10" name="ending_date"
+        [value]="eventCalendarForm.get('ending_date')?.value | date: 'MM/dd/yyyy'">
+        <ion-icon aria-hidden="true" name="calendar-clear-outline" class="date-icon"></ion-icon>
+      </ion-input>
+
+      <ion-popover trigger="end_date" size="cover">
+        <ng-template>
+          <ion-datetime  [value]="setDefaultDate"  presentation="end_date" locale="en-US" (ionChange)="setEndDate()" formControlName="ending_date">
+          </ion-datetime>
+          <ion-row>
+            <ion-col><ion-button class="reset-date-btn" (click)="resetEndDate()" expand="block"
+                color="primary">Reset</ion-button></ion-col>
+            <ion-col><ion-button class="reset-date-btn" (click)="saveEndDate()" expand="block"
+                color="primary">OK</ion-button></ion-col>
+          </ion-row>
+        </ng-template>
+      </ion-popover>
+    </ion-list>
+    <ion-button *ngIf="eventCalendarForm.valid"  expand="block" (click)="submit_event()" class="submit-btn mt-20">Submit</ion-button>
+  </form>
+</ion-content>

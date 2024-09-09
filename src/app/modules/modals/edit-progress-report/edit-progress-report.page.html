@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+    <ion-list class="mt25">
+      <ion-input type="text" formControlName="name" placeholder="Student Name" readonly></ion-input>
+    </ion-list>
+    <ion-list>
+      <ion-textarea type="text" formControlName="note" placeholder="Note" required></ion-textarea>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="form.get('note')?.invalid && form.get('note')?.hasError('required') && form.get('note')?.touched">
+      <ion-text color="danger">Note is required</ion-text>
+    </ion-row>
+    <ion-list>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="performance" label="Performance" label-placement="floating">
+          <ion-select-option value="very good">Very Good</ion-select-option>
+          <ion-select-option value="good">Good</ion-select-option>
+          <ion-select-option value="average">Average</ion-select-option>
+          <ion-select-option value="below average">Below average</ion-select-option>
+          <ion-select-option value="poor">Poor</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('performance')?.invalid && form.get('performance')?.hasError('required') && form.get('performance')?.touched">
+        <ion-text color="danger">Performance is required</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-button expand="block" (click)="update()" class="submit-btn mt-20">Update</ion-button>
+
+  </form>
+</ion-content>

@@ -1,0 +1,53 @@
+.dashboard ion-card{
+    padding-top: 20%;
+    min-height: 150px;
+    text-align: center;
+    position: relative;
+    margin: 0px;
+    background-color: #f4f6f9;
+}
+.head{
+    padding: 15px;
+    background-color: #f4f6f9;
+}
+.dashboard .teacher-card{
+    padding-top: 10%;
+    min-height: 150px;
+    text-align: center;
+    position: relative;
+    margin: 0px;
+    background-color: #f4f6f9;
+}
+ion-icon{
+    margin: 0px auto;
+    position: relative;
+    top: 2px;
+    font-size: 26px;
+}
+// ion-col p{
+//     font-size: 16px;
+//     margin-top: 5px;
+// }
+ion-row{
+    padding: 10px;
+}
+.dashboard .attendance{
+    margin: 12px;
+    padding-top: 7%;
+    background-color: #727cf5;
+    color: #ffffff;
+}
+.dashboard .events{
+    margin: 12px;
+    padding-top: 7%;
+    text-align: left;
+}
+.count{
+    font-size: 20px;
+}
+.event-card{
+    padding: 10px;
+}
+.p-children{
+    padding: 15px;
+}

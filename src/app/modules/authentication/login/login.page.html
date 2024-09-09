@@ -1,0 +1,39 @@
+<ion-content>
+
+  <div class="login-top">
+
+  </div>
+  <div class="logo-img">
+    <img src="assets/logo.jpg">
+  </div>
+  <form [formGroup]="form">
+
+    <ion-list class="mb-2">
+      <ion-input type="text" formControlName="email" placeholder="Email" required></ion-input>
+      <ion-row class="err"
+        *ngIf="form.get('email')?.invalid && form.get('email')?.hasError('required') && form.get('email')?.touched">
+        <ion-text color="danger">Email is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-input [type]="loginPasswordType" formControlName="password" placeholder="Password" required>
+      </ion-input>
+      <ion-row class="err"
+        *ngIf="form.get('password')?.invalid && form.get('password')?.hasError('required') && form.get('password')?.touched">
+        <ion-text color="danger">Password is required.</ion-text>
+      </ion-row>
+      <div class="showHidePassword"><ion-icon [ngClass]="{
+    'input-icon': !form.get('password')?.invalid || !form.get('password')?.hasError('required') || !form.get('password')?.touched,
+    'input-icon-error': form.get('password')?.invalid && form.get('password')?.hasError('required') && form.get('password')?.touched
+  }" slot="end" [name]="loginPasswordIcon" color="gray" (click)="loginPassword()"></ion-icon></div>
+    </ion-list>
+
+    <ion-button expand="block" (click)="login()" class="submit-btn mt-20">Login</ion-button>
+
+  </form>
+  <ion-row class="ion-justify-content-end" style="padding: 16px;">
+    <ion-router-link routerLink="/forgot-password" class="login-link">Forgot Password ?</ion-router-link>
+  </ion-row>
+
+
+</ion-content>
