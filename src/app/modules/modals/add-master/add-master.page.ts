@@ -97,8 +97,8 @@ export class AddMasterPage implements OnInit {
     
     this.eventCalendarForm = this.fb.group({
       title: [this.editEventData?.title || '', Validators.required],
-      starting_date: [this.editEventData?.starting_date || this.formatDate(this.defaultDate), Validators.required],
-      ending_date: [this.editEventData?.ending_date || this.formatDate(this.defaultDate), Validators.required],
+      starting_date: [this.formatDate(this.editEventData?.starting_date) || this.formatDate(this.defaultDate), Validators.required],
+      ending_date: [this.formatDate(this.editEventData?.ending_date) || this.formatDate(this.defaultDate), Validators.required],
     });
 }
 

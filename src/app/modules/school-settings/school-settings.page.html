@@ -1,0 +1,19 @@
+<app-header></app-header>
+<ion-content >
+  <form [formGroup]="schoolSettingForm" >
+    <ion-label class="label">School Name </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="school_name"></ion-input>
+    </ion-list>
+    <ion-label class="label">Phone</ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="phone"></ion-input>
+    </ion-list>
+    <ion-label class="label">Address </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="address"></ion-input>
+    </ion-list>
+    
+    <ion-button *ngIf="schoolSettingForm.valid"  expand="block" (click)="update()" class="submit-btn mt-20">Update</ion-button>
+  </form>
+</ion-content>

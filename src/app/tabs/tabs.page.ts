@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../core/services/data.service';
 
 @Component({
   selector: 'app-tabs',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabs.page.scss'],
 })
 export class TabsPage implements OnInit {
-
-  constructor() { }
+  role:any;
+  constructor(private data: DataService) { }
 
   ngOnInit() {
+    this.data.role$.subscribe((role: any) => {
+      this.role = role;
+    });
   }
 
 }

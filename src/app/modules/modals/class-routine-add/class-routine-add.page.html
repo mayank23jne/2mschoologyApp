@@ -1,0 +1,140 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="form">
+   
+    <ion-list>
+      <ion-label>Class <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="class_id" label-placement="floating" (ionChange)="onClassChange()">
+          <ion-select-option *ngFor="let item of classes" [value]="item.id">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('class_id')?.invalid && form.get('class_id')?.hasError('required') && form.get('class_id')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Section <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="section_id" label-placement="floating">
+          <ion-select-option *ngFor="let item of sections" [value]="item.id">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('section_id')?.invalid && form.get('section_id')?.hasError('required') && form.get('section_id')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Subject <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="subject_id" label-placement="floating">
+          <ion-select-option *ngFor="let item of subjects" [value]="item.id">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('subject_id')?.invalid && form.get('subject_id')?.hasError('required') && form.get('subject_id')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Teacher <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="teacher_id" label-placement="floating">
+          <ion-select-option *ngFor="let item of teachers" [value]="item.id">{{ item.uname }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('teacher_id')?.invalid && form.get('teacher_id')?.hasError('required') && form.get('teacher_id')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Class Room <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="class_room_id" label-placement="floating">
+          <ion-select-option *ngFor="let item of classRoomList" [value]="item.id">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('class_room_id')?.invalid && form.get('class_room_id')?.hasError('required') && form.get('class_room_id')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Day <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="day" label-placement="floating">
+          <ion-select-option *ngFor="let item of dayOptions" [value]="item.value">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('day')?.invalid && form.get('day')?.hasError('required') && form.get('day')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Starting hour <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="starting_hour" label-placement="floating">
+          <ion-select-option *ngFor="let item of hourOptions" [value]="item.value.toString()">{{ item.name  }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('starting_hour')?.invalid && form.get('starting_hour')?.hasError('required') && form.get('starting_hour')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
+      <ion-label>Starting minute <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="starting_minute" label-placement="floating">
+          <ion-select-option *ngFor="let item of minuteOptions" [value]="item.value.toString()">{{ item.name  }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('starting_minute')?.invalid && form.get('starting_minute')?.hasError('required') && form.get('starting_minute')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+    </ion-list>
+
+    <ion-list>
+      <ion-label>Ending hour <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="ending_hour" label-placement="floating">
+          <ion-select-option *ngFor="let item of hourOptions" [value]="item.value.toString()">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('ending_hour')?.invalid && form.get('ending_hour')?.hasError('required') && form.get('ending_hour')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+    </ion-list>
+
+    <ion-list>
+      <ion-label>Ending minute <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="ending_minute" label-placement="floating">
+          <ion-select-option *ngFor="let item of minuteOptions" [value]="item.value.toString()">{{ item.name  }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="form.get('ending_minute')?.invalid && form.get('ending_minute')?.hasError('required') && form.get('ending_minute')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+    </ion-list>
+
+    <ion-button *ngIf="form.valid" expand="block" (click)="add()" class="submit-btn mt-20">Submit</ion-button>
+
+  </form>
+</ion-content>

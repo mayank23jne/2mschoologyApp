@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DataService } from 'src/app/core/services/data.service';
 import { ClassRoutineInfoPage } from '../modals/class-routine-info/class-routine-info.page';
+import { ClassRoutineAddPage } from '../modals/class-routine-add/class-routine-add.page';
 
 @Component({
   selector: 'app-routine',
@@ -37,7 +38,7 @@ export class RoutinePage implements OnInit {
     });
   }
 
-  async openAddModal(day: any) {
+  async openDetailModal(day: any) {
     const modal = await this.modalController.create({
       component: ClassRoutineInfoPage,
       cssClass: '',
@@ -52,6 +53,19 @@ export class RoutinePage implements OnInit {
 
     });
 
+    return await modal.present();
+  }
+ 
+  async openAddModal() {
+    const modal = await this.modalController.create({
+      component: ClassRoutineAddPage,
+      cssClass: '',
+      componentProps: {
+        title: "Add Class Routine",
+      }
+    });
+    modal.onDidDismiss().then((dataReturned) => {
+    });
     return await modal.present();
   }
 

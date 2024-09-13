@@ -24,11 +24,15 @@
                   <ion-col class="val">{{ data.name }}</ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col><ion-icon name="storefront-outline"></ion-icon><span class="lbl">Class Rooms</span></ion-col>
+                  <ion-col><ion-icon name="storefront-outline"></ion-icon><span class="lbl">Class Room</span></ion-col>
                   <ion-col class="val">{{ data.class_rooms }}</ion-col>
                 </ion-row>
             </ion-card-content>
-        </ion-card>
+            <div class="icon">
+              <ion-icon *ngIf="role == 'admin' " class="pencil" name="pencil" (click)="openEditModal(data)"></ion-icon>
+              <ion-icon class="trash" name="trash-outline" *ngIf="role == 'admin' " (click)="delete(data.id)"></ion-icon>
+            </div>
+          </ion-card>
     </ion-col>
   </ion-row>
   <ion-row *ngIf="routineData.length === 0"  class="center-content">

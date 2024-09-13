@@ -10,6 +10,7 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 })
 export class DataService {
   private teacherData: any;
+  
   private stripePromise: Promise<Stripe | null>;
   private roleSubject = new BehaviorSubject<string>(localStorage.getItem('role') || '');
   role$ = this.roleSubject.asObservable();
@@ -46,12 +47,10 @@ export class DataService {
   
   const date = new Date(input);
 
-  
   if (isNaN(date.getTime())) {
       throw new Error("Invalid date format");
   }
 
-  
   const options: Intl.DateTimeFormatOptions = {
       weekday: 'short',
       day: '2-digit',

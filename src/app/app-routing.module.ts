@@ -170,10 +170,6 @@ const routes: Routes = [
     loadChildren: () => import('./modules/librarian/librarian.module').then( m => m.LibrarianPageModule)
   },
   {
-    path: 'grade',
-    loadChildren: () => import('./modules/grade/grade.module').then( m => m.GradePageModule)
-  },
-  {
     path: 'promotion',
     loadChildren: () => import('./modules/promotion/promotion.module').then( m => m.PromotionPageModule)
   },
@@ -197,7 +193,31 @@ const routes: Routes = [
     path: 'manage_class',
     loadChildren: () => import('./modules/manage-class/manage-class.module').then( m => m.ManageClassPageModule)
   },
- 
+  {
+    path: 'student/create',
+    loadChildren: () => import('./modules/admission/admission.module').then( m => m.AdmissionPageModule)
+  },
+  {
+    path: 'school_settings',
+    loadChildren: () => import('./modules/school-settings/school-settings.module').then( m => m.SchoolSettingsPageModule)
+  },
+  {
+    path: 'payment_settings',
+    loadChildren: () => import('./modules/payment-settings/payment-settings.module').then( m => m.PaymentSettingsPageModule)
+  },
+  {
+    path: 'update_plan',
+    loadChildren: () => import('./modules/update-plan/update-plan.module').then( m => m.UpdatePlanPageModule)
+  },
+  {
+    path: 'attendance_report',
+    loadChildren: () => import('./modules/attendance-report/attendance-report.module').then( m => m.AttendanceReportPageModule)
+  },
+  {
+    path: 'class-routine-add',
+    loadChildren: () => import('./modules/modals/class-routine-add/class-routine-add.module').then( m => m.ClassRoutineAddPageModule)
+  },
+
 ];
 
 @NgModule({

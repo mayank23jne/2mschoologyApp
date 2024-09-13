@@ -94,6 +94,18 @@ body {
 .mt30{
     margin-top: 30px;
 }
+.p0{
+    padding: 0px !important;
+}
+.p10{
+    padding: 10px !important;
+}
+.p20{
+    padding: 20px !important;
+}
+.p25{
+    padding: 25px !important;
+}
 .pl10{
     padding-left: 10px !important;
 }
@@ -167,6 +179,9 @@ ion-button{
 }
 .text-center{
     text-align: center;
+}
+.text-right{
+    text-align: right;
 }
 .success-toast-background{
     --background: green;

@@ -1,0 +1,68 @@
+<app-header></app-header>
+<ion-content>
+  <ion-content>
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+      <app-class-filter (filterChange)="onFilterChange($event)"></app-class-filter>
+      <div formArrayName="students">
+        <div *ngFor="let student of students.controls; let i = index" [formGroupName]="i">
+          <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-label>Name <span class="req">*</span> </ion-label>
+                <ion-input type="text" formControlName="name" placeholder="Name" ></ion-input>
+              </ion-list>
+            </ion-col>
+            <ion-col>
+              <ion-list>
+                <ion-label>Parent  <span class="req">*</span></ion-label>
+                <ion-item class="dropdown-s">
+                  <ion-select formControlName="parent_id" >
+                    <ion-select-option *ngFor="let item of parent_list" [value]="item.id">{{ item.name }}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-list>
+                  <ion-label>Email  <span class="req">*</span></ion-label>
+                  <ion-input type="text" formControlName="email" placeholder="Email" ></ion-input>
+                </ion-list>
+              </ion-col>
+          </ion-row>
+            <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-label>Gender <span class="req">*</span> </ion-label>
+                <ion-item class="dropdown-s">
+                  <ion-select formControlName="gender"  value="male">
+                    <ion-select-option value="Male">Male</ion-select-option>
+                    <ion-select-option value="Female">Female</ion-select-option>
+                    <ion-select-option value="Others">Others</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+              <ion-col>
+                <ion-list>
+                  <ion-label>Password <span class="req">*</span> </ion-label>
+                  <ion-input type="text" formControlName="password" placeholder="Password"></ion-input>
+                </ion-list>
+                
+              </ion-col>
+              </ion-row>
+          <div class="text-right">
+            <ion-button color="danger" (click)="removeStudent(i)" *ngIf="students.length > 1">Remove</ion-button>
+          </div>
+          
+          <ion-item-divider></ion-item-divider>
+        </div>
+      </div>
+      <div class="text-right">
+        <ion-button (click)="addStudent()">Add More</ion-button>
+        <ion-button type="submit">Submit</ion-button>
+      </div>
+    </form>
+  </ion-content>
+</ion-content>

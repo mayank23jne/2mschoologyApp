@@ -31,11 +31,10 @@ export class Tab1Page implements OnInit {
       this.handleBackButton();
     });
   }
-
   ngOnInit() {
 
   }
-
+  
   ionViewDidEnter() {
     this.loader.present();
     this.data.role$.subscribe(role => {

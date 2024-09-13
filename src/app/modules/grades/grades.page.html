@@ -9,19 +9,29 @@
             <ion-button class="search-btn" (click)="searchRes()"><ion-icon name="search"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
-      <ion-card >
+      <ion-card class="list-card">
         <ion-row class="text-center th">
           <ion-col>Grade</ion-col>
           <ion-col>Point</ion-col>
           <ion-col>From</ion-col>
           <ion-col>Upto</ion-col>
+          <ion-col>Actions</ion-col>
          </ion-row>
        <ion-row class="text-center" *ngFor="let item of grades_data">
         <ion-col>{{ item.name }}</ion-col>
         <ion-col>{{ item.grade_point }}</ion-col>
         <ion-col>{{ item.mark_from }}</ion-col>
         <ion-col>{{ item.mark_upto }}</ion-col>
+        <ion-col class="icons">
+          <ion-icon *ngIf="role == 'admin' " class="pencil" name="pencil" (click)="openEditModal(item)"></ion-icon>
+          <ion-icon class="trash" name="trash-outline" *ngIf="role == 'admin'" (click)="delete(item.id)"></ion-icon>
+        </ion-col>
        </ion-row>
     </ion-card>
 </div>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="role == 'admin' ">
+  <ion-fab-button (click)="openAddModal()">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
 </ion-content>

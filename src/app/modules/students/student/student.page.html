@@ -10,30 +10,38 @@
       </ion-col>
     </ion-row>
 
- <ion-card class="list-card" *ngFor="let item of studentData" (click)="openDetailModal(item.student_id)">
-  <ion-row>
-      <ng-container *ngIf="item.image; else noImage">
-          <ion-col size="4" class="pro-img" imgPath>
-              <ion-img src="{{ item.image }}"></ion-img>
+    <ion-item>
+      <ion-label>Select All</ion-label>
+      <ion-checkbox [(ngModel)]="selectAllChecked" (ionChange)="toggleSelectAll()"></ion-checkbox>
+      <ion-button *ngIf="ShowDelete" color="danger" (click)="deleteSelectedStudents()">Delete Selected</ion-button>
+    </ion-item>
+    <ion-card class="list-card" *ngFor="let item of studentData">
+        <ion-row>
+          <ng-container *ngIf="item.image; else noImage">
+            <ion-col size="3" class="pro-img" imgPath>
+              <ion-img [src]="item.image"></ion-img>
+            </ion-col>
+          </ng-container>
+          <ng-template #noImage>
+            <ion-col size="4" class="pro-img">
+              <ion-avatar>
+                <ion-img [src]="demoimgPath"></ion-img>
+              </ion-avatar>
+            </ion-col>
+          </ng-template>
+          <ion-col size="7">
+            <ion-row>
+              <p class="capitalize">Student id : {{ item.student_id }}</p>
+            </ion-row>
+            <ion-row>
+              <p class="capitalize">Name: {{ item.name }}</p>
+            </ion-row>
           </ion-col>
-      </ng-container>
-      <ng-template #noImage>
-          <ion-col size="4" class="pro-img">
-            <ion-avatar>
-              <ion-img src="{{demoimgPath}}"></ion-img>
-            </ion-avatar>
+          <ion-col size="1" class="deleteCheck">
+            <ion-checkbox [checked]="isSelected(item.student_id)" (ionChange)="onStudentCheckChange(item.student_id, $event)"></ion-checkbox>
           </ion-col>
-      </ng-template>
-      <ion-col size="8">
-          <ion-row>
-            <p class="capitalize">Student id : {{ item.student_id }}</p>
-          </ion-row>
-          <ion-row>
-            <p class="capitalize">Student Name: {{ item.name }}</p>
-          </ion-row>
-      </ion-col>
-  </ion-row>
-  </ion-card>
+        </ion-row>
+    </ion-card>
   </div>
  <div *ngIf="!studentData" class="empty_box">
       <img class="empty_box_img" src="../../../assets/icon/empty_box.png">

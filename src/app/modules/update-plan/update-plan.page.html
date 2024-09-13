@@ -1,0 +1,37 @@
+<app-header></app-header>
+  <ion-segment [(ngModel)]="billingCycle" (ionChange)="toggleBillingCycle()">
+    <ion-segment-button value="monthly">
+      Monthly
+    </ion-segment-button>
+    <ion-segment-button value="yearly">
+      Yearly
+    </ion-segment-button>
+  </ion-segment>
+<ion-content>
+  <div *ngIf="billingCycle === 'monthly'">
+    <ion-card *ngFor="let item of monthlyList" class="list-card">
+      <ion-card-header>
+        <ion-card-title class="text-center">{{ item.plan_name }}</ion-card-title>
+        <ion-card-subtitle class="text-center">${{ item.amount }} / month</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="p0">
+       <ul >
+        <li *ngFor="let itm of item.feature">{{ itm }}</li>
+       </ul>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div *ngIf="billingCycle === 'yearly'">
+    <ion-card *ngFor="let item of yearlyList" class="list-card">
+      <ion-card-header>
+        <ion-card-title class="text-center">{{ item.plan_name }}</ion-card-title>
+        <ion-card-subtitle class="text-center">${{ item.amount }} / year</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="p0">
+          <ul>
+            <li *ngFor="let itm of item.feature">{{ itm }}</li>
+          </ul>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

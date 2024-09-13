@@ -1,0 +1,102 @@
+<app-header></app-header>
+<ion-content>
+  <h5 class="text-center">System Currency</h5>
+
+  <form [formGroup]="currencyForm" >
+    <ion-item>
+      <ion-select label="System Currency" label-placement="floating"  formControlName="system_currency">
+        <ion-select-option *ngFor="let item of currencyData" [value]="item">{{ item }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Currency Position" label-placement="floating"  formControlName="currency_position">
+        <ion-select-option class="capitalize" *ngFor="let item of currencyPositionData" [value]="item">{{ item }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="p25">
+      <ion-button *ngIf="currencyForm.valid"  expand="block" (click)="updatePaymentSetting('system_currency')" class="submit-btn mt-20">Update System Currency</ion-button>
+    </div>
+  </form>
+
+  <h5 class="text-center">Paypal Settings</h5>
+  <form [formGroup]="paypalForm" >
+    <ion-item>
+    <ion-select label="Active" label-placement="floating" formControlName="paypal_active">
+      <ion-select-option value="yes">Yes</ion-select-option>
+      <ion-select-option value="no">No</ion-select-option>
+    </ion-select>
+  </ion-item>
+    <ion-item>
+      <ion-select label="Paypal Currency" label-placement="floating"  formControlName="paypal_currency">
+        <ion-select-option *ngFor="let item of currencyData" [value]="item">{{ item }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Mode" label-placement="floating" formControlName="paypal_mode">
+        <ion-select-option value="sandbox">Sandbox</ion-select-option>
+        <ion-select-option value="production">Production</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-list>
+      <ion-label class="label">Client id (Sandbox) </ion-label>
+          <ion-textarea formControlName="paypal_client_id_sandbox" rows="4" type="text" 
+            ></ion-textarea>
+      </ion-list>
+      
+      <ion-list>
+        <ion-label class="label">Client id (Production) </ion-label>
+          <ion-textarea formControlName="paypal_client_id_production" rows="4" type="text" 
+            ></ion-textarea>
+      </ion-list>
+    <div class="p25">
+      <ion-button *ngIf="paypalForm.valid" expand="block" (click)="updatePaymentSetting('payment_setting')" class="submit-btn mt-20">Update paypal setting</ion-button>
+    </div>
+  </form>
+
+  <h5 class="text-center">Stripe Settings</h5>
+  <form [formGroup]="stripeForm" >
+    <ion-item>
+      <ion-select label="Active" label-placement="floating" formControlName="stripe_active">
+        <ion-select-option value="yes">Yes</ion-select-option>
+        <ion-select-option value="no">No</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Stripe Currency" label-placement="floating"  formControlName="stripe_currency">
+        <ion-select-option *ngFor="let item of currencyData" [value]="item">{{ item }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Test mode" label-placement="floating"  formControlName="stripe_mode">
+        <ion-select-option value="on">On</ion-select-option>
+        <ion-select-option value="off">Off</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-list>
+      <ion-label class="label">Test secret key </ion-label>
+          <ion-textarea formControlName="stripe_test_secret_key" rows="4" type="text" 
+            ></ion-textarea>
+      </ion-list>
+      
+      <ion-list>
+        <ion-label class="label">Test public key</ion-label>
+          <ion-textarea formControlName="stripe_test_public_key" rows="4" type="text" 
+            ></ion-textarea>
+      </ion-list>
+      <ion-list>
+        <ion-label class="label">Live secret key </ion-label>
+            <ion-textarea formControlName="stripe_live_secret_key" rows="4" type="text" 
+              ></ion-textarea>
+        </ion-list>
+        
+        <ion-list>
+          <ion-label class="label">Live public key  </ion-label>
+            <ion-textarea formControlName="stripe_live_public_key" rows="4" type="text" placeholder=""
+              ></ion-textarea>
+        </ion-list>
+    <div class="p25">
+      <ion-button *ngIf="stripeForm.valid" expand="block" (click)="updatePaymentSetting('stripe_settings')" class="submit-btn mt-20">Update stripe setting</ion-button>
+    </div>
+  </form>
+</ion-content>

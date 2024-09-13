@@ -21,7 +21,7 @@
     </ion-select>
   </ion-item>
 </div>
-<div *ngIf="role == 'parent'">
+<div *ngIf="role == 'parent' ">
   <ion-item>
     <ion-select label="Student" label-placement="floating" [(ngModel)]="selectedStudentData"
       (ionChange)="onFilterStudentChange()">

@@ -9,18 +9,24 @@
             <ion-button class="search-btn" (click)="searchRes()"><ion-icon name="search"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
-    <ion-card *ngFor="let item of exam_data">
-        <ion-row class="mt10">
-            <ion-col>Exam Name : {{ item.name }}</ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>
-                <p>Start date : </p><p>{{ item.starting_date}}</p>
-            </ion-col>
-            <ion-col>
-                <p>End date :  </p><p>{{ item.ending_date}}</p>
-            </ion-col>
-        </ion-row>
+    <ion-card *ngFor="let item of exam_data" class="list-card">
+      <ion-row>
+        <ion-col size="10">
+          <p class="capitalize"><b>{{ item.name }}</b></p>
+          <p>Start date: {{ item.starting_date}}</p>
+          <p>End date :  {{ item.ending_date}}</p>
+        </ion-col>
+        <ion-col size="2" class="icons">
+          <ion-icon *ngIf="role == 'admin' " class="pencil" name="pencil" (click)="openEditModal(item)"></ion-icon>
+          <ion-icon class="trash" name="trash-outline" *ngIf="role == 'admin'" (click)="delete(item.id)"></ion-icon>
+      </ion-col>
+      </ion-row>
       </ion-card>
       </div>
+
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="role == 'admin' ">
+        <ion-fab-button (click)="openAddModal()">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
 </ion-content>

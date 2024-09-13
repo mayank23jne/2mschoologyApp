@@ -257,6 +257,17 @@ export class SchoolDataService {
     const endpoint = `deleteUserMaster`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
+
+  bulkStudentAdmission(data : any = ""): Observable<any> {
+    const endpoint = `bulkStudentAdmission`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
+  // student
+  deleteAllStudent(data : any = ""): Observable<any> {
+    const endpoint = `deleteAllStudent`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
   // Teacher Master
   addTeacherMaster(data : any = ""): Observable<any> {
     const endpoint = `addTeacher`;
@@ -277,11 +288,15 @@ export class SchoolDataService {
   }
   
   //Academic master
-  addAdminssionSingleStudent(data : any = ""): Observable<any> {
-    const endpoint = `addClass`;
+  addAdmissionSingleStudent(data : any = ""): Observable<any> {
+    const endpoint = `addAdmissionSingleStudent`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
 
+  getAttendanceReport(data: any = ""): Observable<any> {
+    const endpoint = `attendanceReport`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
   // Class class room
   addClass(data : any = ""): Observable<any> {
     const endpoint = `addClass`;
@@ -346,25 +361,80 @@ export class SchoolDataService {
     return this.makeApiCall(endpoint, 'POST', data);
   }
 
-  // Class routine
-  addClassRoutine(data : any = ""): Observable<any> {
-    const endpoint = `addClassRoutine`;
-    return this.makeApiCall(endpoint, 'POST', data);
-  }
-  
-
   // Exam master
 
   addExam(data : any = ""): Observable<any> {
     const endpoint = `addExam`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
+  deleteExamMaster(data : any = ""): Observable<any> {
+    const endpoint = `deleteExamMaster`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
   addGrade(data : any = ""): Observable<any> {
     const endpoint = `addGrade`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  addPromotion(data : any = ""): Observable<any> {
-    const endpoint = `addPromotion`;
+
+  deleteGrade(data : any = ""): Observable<any> {
+    const endpoint = `deleteGrade`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
+
+  viewPromotion(data : any = ""): Observable<any> {
+    const endpoint = `viewPromotion`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  updatePromotion(data : any = ""): Observable<any> {
+    const endpoint = `updatePromotionStatus`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  // SETTINGS 
+  // School setting
+  schoolSettings(data : any = ""): Observable<any> {
+    const endpoint = `schoolSettings`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  updateSchoolSettings(data : any = ""): Observable<any> {
+    const endpoint = `updateSchoolSettings`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  // Payment setting 
+  getPaymentSettings(data : any = ""): Observable<any> {
+    const endpoint = `getPaymentSettings`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  updatePaymentSettings(data : any = ""): Observable<any> {
+    const endpoint = `updatePaymentSettings`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  // Plan Update
+  updatePlan(data : any = ""): Observable<any> {
+    const endpoint = `updatePlan`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
+  // Class routine
+
+  deleteClassRoutine(data : any = ""): Observable<any> {
+    const endpoint = `deleteClassRoutine`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  addClassRoutine(data : any = ""): Observable<any> {
+    const endpoint = `addClassRoutine`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
+  dropdownClassRoutine(data : any = ""): Observable<any> {
+    const endpoint = `dropdownClassRoutine`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  routineSingleRowData(data : any = ""): Observable<any> {
+    const endpoint = `routineSingleRowData`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  
+
+ 
 }

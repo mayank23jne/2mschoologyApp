@@ -42,3 +42,20 @@ ion-popover{
     margin-top: 10px;
     margin-bottom: 10px;
 }
+.date-icon{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 999;
+}
+.reset-date-btn{
+    width: 90%;
+    margin: 0px auto;
+}
+ion-popover{
+    bottom: none;
+}
+ion-list{
+    margin-top: 2px;
+    margin-bottom: 5px;
+}

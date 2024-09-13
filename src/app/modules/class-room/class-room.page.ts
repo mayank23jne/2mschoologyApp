@@ -25,11 +25,11 @@ export class ClassRoomPage implements OnInit {
     this.data.role$.subscribe(role => {
       this.role = role;
     });
-    this.formData = new FormData();
-    this.list(this.formData);
+    
+    this.list();
   }
   
-  list(data:any){
+  list(data:any = ""){
     this.loader.present();
     this.fetch.viewClassRoom(data).subscribe({
       next:(res:any) => {

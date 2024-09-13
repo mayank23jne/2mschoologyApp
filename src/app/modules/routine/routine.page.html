@@ -1,21 +1,19 @@
 <app-header></app-header>
 <ion-content>
 <app-class-filter (filterChange)="onFilterChange($event)"></app-class-filter>
-<!-- <ion-row *ngIf="syllabusData.length != 0">
-  <ion-col size="10">
-    <ion-searchbar show-clear-button="always" [(ngModel)]="search" (ionCancel)="searchCancel()"></ion-searchbar>
-  </ion-col>
-  <ion-col size="2">
-    <ion-button class="search-btn" (click)="searchRes()"><ion-icon name="search"></ion-icon></ion-button>
-  </ion-col>
-</ion-row> -->
+
 <div *ngIf="showWeekList">
   <ion-card class="list-card" *ngFor="let item of weekDays">
     <ion-row>
-        <ion-col class="days-col" (click)="openAddModal(item)" size="12">
+        <ion-col class="days-col" (click)="openDetailModal(item)" size="12">
               <p class="days-name">{{item}}</p>
         </ion-col>
     </ion-row>
   </ion-card>
 </div>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="role == 'admin'">
+  <ion-fab-button (click)="openAddModal()">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
 </ion-content>

@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { PromotionPageRoutingModule } from './promotion-routing.module';
 import { PromotionPage } from './promotion.page';
 import { SharedModule } from 'src/app/layout/shared/shared.module';
+import { ClassSectionFilterModule } from 'src/app/layout/components/class-filter/class-filter.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { SharedModule } from 'src/app/layout/shared/shared.module';
     FormsModule,
     IonicModule,
     SharedModule,
+    ClassSectionFilterModule,
     PromotionPageRoutingModule
   ],
   declarations: [PromotionPage]
