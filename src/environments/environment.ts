@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: '/api',
+  apiUrl: 'https://2mschoology.com/api',
   Url: '/login',
   fileUrl: 'https://2mschoology.com/uploads/syllabus/',
   stripe:{

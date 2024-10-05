@@ -15,16 +15,16 @@
           <ion-col>Point</ion-col>
           <ion-col>From</ion-col>
           <ion-col>Upto</ion-col>
-          <ion-col>Actions</ion-col>
+          <ion-col *ngIf="role == 'admin' ">Actions</ion-col>
          </ion-row>
        <ion-row class="text-center" *ngFor="let item of grades_data">
         <ion-col>{{ item.name }}</ion-col>
         <ion-col>{{ item.grade_point }}</ion-col>
         <ion-col>{{ item.mark_from }}</ion-col>
         <ion-col>{{ item.mark_upto }}</ion-col>
-        <ion-col class="icons">
-          <ion-icon *ngIf="role == 'admin' " class="pencil" name="pencil" (click)="openEditModal(item)"></ion-icon>
-          <ion-icon class="trash" name="trash-outline" *ngIf="role == 'admin'" (click)="delete(item.id)"></ion-icon>
+        <ion-col class="icons" *ngIf="role == 'admin' ">
+          <ion-icon  class="pencil" name="pencil" (click)="openEditModal(item)"></ion-icon>
+          <ion-icon class="trash" name="trash-outline"  (click)="delete(item.id)"></ion-icon>
         </ion-col>
        </ion-row>
     </ion-card>

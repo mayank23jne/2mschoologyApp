@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{heading_title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="invoiceData.length != 0">
+  <div  id="invoiceCard"  >
+    <!-- Invoice Logo-->
+    <ion-row class="mt20">
+      <ion-col>
+         <b>{{invoiceData.school_name}}</b>
+      </ion-col>
+    </ion-row>
+
+    <!-- Invoice Detail-->
+    <ion-row>
+      <ion-col size="6">
+        <div class="float-left mt-3">
+          <p><b>Hello, {{invoiceData.parent_name}}</b></p>
+          <p class="text-muted font-13">Please Find Below The Invoice.</p>
+        </div>
+      </ion-col>
+      <ion-col size="4" offset="2">
+        <div class="mt-3 float-sm-right">
+          <p class="font-13"><strong>Invoice No: </strong> &nbsp;&nbsp;&nbsp; {{invoiceData.invoice_no}}</p>
+          <p class="font-13"><strong>Date: </strong> &nbsp;&nbsp;&nbsp; {{invoiceData.date}}</p>
+          <p class="font-13"><strong>Status: </strong>
+            <ion-badge color="success" style="font-size: small;">{{invoiceData.status}}</ion-badge>
+          </p>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- Billing Details-->
+    <ion-row class="mt-4">
+      <ion-col size="4">
+        <h6>Billing Details</h6>
+        <address>
+          {{invoiceData.parent_name}}<br>
+          <br>
+          <small *ngFor="let name of studentNamesArray">
+            {{ name }} <br>
+          </small>
+          
+          <abbr title="Phone">P: </abbr>{{invoiceData.phone}}<br>
+          <abbr title="Address">Address: </abbr>{{invoiceData.address}}<br>
+        </address>
+      </ion-col>
+    </ion-row>
+
+    <!-- Total Invoice Amount-->
+    <ion-row class="mt-4">
+      <ion-col>
+        <h5>Total Invoice Amount: ${{invoiceData.invoice_amount}}</h5>
+      </ion-col>
+    </ion-row>
+
+    <!-- Invoice Table-->
+    <ion-row>
+      <ion-col size="12">
+          <table width="100%" border="1px">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Invoice Title</th>
+                <th>Paid Amount</th>
+                <th class="text-right">Due Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of invoiceData.invoice_data ; let i = index" >
+                <td>{{i+1}}</td>
+                <td>{{data.title}}<br>
+                    {{data.created_at}}
+                </td>
+                <td class="text-center">${{data.paid_amount}}</td>
+                <td class="text-center" >${{data.due_amount}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </ion-col>
+    </ion-row>
+
+    <!-- Total Amounts-->
+    <ion-row>
+      <ion-col size="6">
+        <div class="clearfix pt-3">
+          <h6 class="text-muted"></h6>
+          <small></small>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <div style="float:right;">
+          <p><b>Total Amount: </b> <span class="float-right">${{invoiceData.invoice_amount}}</span></p>
+          <p><b>Total Paid Amount: </b> <span class="float-right" >${{invoiceData.total_paid_amount}}</span></p>
+          <p>
+            <b>Due Amount: </b> <b class="float-right" style="font-size: 16px;"><span *ngIf="invoiceData.due_amount != 'No Dues'">${{invoiceData.due_amount}}</span><span *ngIf="invoiceData.due_amount == 'No Dues'">{{invoiceData.due_amount}} <ion-icon name="happy-outline" style="font-size: x-large;"></ion-icon></span> </b>
+          </p>
+        </div>
+        <div class="clearfix"></div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="text-center p-20">
+    <ion-button (click)="downloadInvoice()">
+      <ion-icon name="download"></ion-icon> Download Invoice
+    </ion-button>
+   
+  </div>
+</ion-content>

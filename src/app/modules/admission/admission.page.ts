@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { SchoolDataService } from 'src/app/core/services/school-data.service';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { StudentExcelPage } from '../modals/student-excel/student-excel.page';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-admission',
@@ -18,7 +20,7 @@ export class AdmissionPage implements OnInit {
   section_id:any;
   // Mock parent data for dropdown
   
-  constructor(private toastService:ToastService,private loader: LoaderService,private fetch: SchoolDataService,private fb: FormBuilder) {}
+  constructor(private modalController: ModalController,private toastService:ToastService,private loader: LoaderService,private fetch: SchoolDataService,private fb: FormBuilder) {}
  
   ngOnInit(): void {
    this.studentForm = this.fb.group({
@@ -102,5 +104,18 @@ export class AdmissionPage implements OnInit {
     } else {
       this.toastService.presentErrorToast("Form is invalid")
     }
+  }
+  async openAddModal() {
+    const modal = await this.modalController.create({
+      component: StudentExcelPage,
+      cssClass: '',
+      componentProps: {
+        title: "Add Student excel",
+      }
+    });
+    modal.onDidDismiss().then((dataReturned) => {
+     
+    });
+    return await modal.present();
   }
 }

@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="userForm">
+
+    <ion-label class="label">Name <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="name" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.hasError('required') && userForm.get('name')?.touched">
+      <ion-text color="danger">Name is required.</ion-text>
+    </ion-row>
+    <ion-label class="label">Email </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-list>
+    <ion-label class="label">Password <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="password"></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.hasError('required') && userForm.get('password')?.touched">
+      <ion-text color="danger">Password is required.</ion-text>
+    </ion-row>
+    <ion-label class="label">Phone </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="phone"></ion-input>
+    </ion-list>
+    <ion-list>
+      <ion-label>Gender <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="gender" value="Male" required >
+          <ion-select-option value="Male">Male</ion-select-option>
+          <ion-select-option value="Female">Female</ion-select-option>
+          <ion-select-option value="Others">Others</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="userForm.get('gender')?.invalid && userForm.get('gender')?.hasError('required') && userForm.get('gender')?.touched">
+        <ion-text color="danger">Gender is required.</ion-text>
+      </ion-row>
+    </ion-list>
+      <ion-label>Address  </ion-label>
+      <ion-list>
+      <ion-textarea formControlName="address" type="text" ></ion-textarea>
+    </ion-list>
+    
+
+    <ion-button *ngIf="userForm.valid"  expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+    
+   
+  </form>
+</ion-content>

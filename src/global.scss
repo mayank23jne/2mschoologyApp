@@ -80,7 +80,7 @@ body {
     margin-top: 5px;
 }
 .mt10{
-    margin-top: 10px;
+    margin-top: 10px !important;
 }
 .mt15{
     margin-top: 15px;
@@ -121,8 +121,14 @@ body {
 .pt20{
     padding-top: 20px;
 }
+.pr10{
+    padding-right: 10px;
+}
 .p-20{
     padding: 20px;
+}
+.bold{
+    font-weight: bold;
 }
 form input::placeholder {
     color: #4d4a4a !important;
@@ -185,11 +191,11 @@ ion-button{
 }
 .success-toast-background{
     --background: green;
-    color: #ffffff;
+    color: #ffffff !important;
 }
 .error-toast-background{
     --background: red;
-    color: #ffffff;
+    color: #ffffff !important;
 }
 ion-fab-button{
     --background: #727cf5;
@@ -224,7 +230,6 @@ ion-button{
 .icons {
     color:#727cf5 ;
 }
-
 ion-card{
     border-radius: 0px !important; 
 }
@@ -246,4 +251,55 @@ ion-textarea{
 }
 .link{
     color: #727cf5;
+}
+.daterangepicker {
+    width: 100% !important;
+    margin: auto !important;
+}
+.daterangepicker .ranges li.active {
+    background-color: #727cf5 !important;
+}
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+    background-color: #727cf5 !important;
+}
+.daterangepicker .drp-calendar {
+    max-width: 100%;
+}
+.daterangepicker .ranges ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+.daterangepicker .drp-buttons .btn {
+    background: #727cf5;
+    color: #fff;
+}
+.al-right{
+    float: right;
+}
+ion-buttons ion-button{
+    background: #727cf5;
+    color: #ffffff;
+    border-radius: 3px;
+}
+.success{
+background: rgb(109, 245, 109);
+}
+.warning{
+    background: rgb(241, 69, 69);
+}
+.partial{
+    background: yellow;
+    color: black !important;
+}
+.acrd{
+    padding: 12px;
+}
+.gen-csv-btn{
+    --background:#0acf97;
+    width: 90%;
+}
+.csv-preview{
+    --background:#313a46;
+    width: 90%;
 }

@@ -1,0 +1,83 @@
+<app-header></app-header>
+<ion-content class="ion-padding">
+  <div class="sms-container">
+    <ion-list>
+      <ion-label>Select receiver</ion-label>
+      <ion-item class="dropdown-s mt10">
+        <ion-select placeholder="Select receiver" [(ngModel)]="selectedData.receiver" (ngModelChange)="selectedReceiver()">
+          <ion-select-option *ngFor="let data of receiver" [value]="data.key">{{data.value}}</ion-select-option>
+        </ion-select>
+      </ion-item>   
+    </ion-list>
+    <ion-list>
+      <ion-label>Select a class</ion-label>
+      <ion-item class="dropdown-s mt10">
+        <ion-select placeholder="Select a class" [disabled]="disableDropdown" [(ngModel)]="selectedData.class"  (ngModelChange)="selectedClass()">
+          <ion-select-option *ngFor="let data of class.classes" [value]="data.id">{{data.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>   
+    </ion-list>
+    <ion-list>
+      <ion-label>Select section</ion-label>
+      <ion-item class="dropdown-s mt10">
+        <ion-select placeholder="Select section" [(ngModel)]="selectedData.section_id"  [disabled]="disableDropdown">
+          <ion-select-option *ngFor="let data of section" [value]="data.id">{{data.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>   
+    </ion-list>
+    <ion-button expand="block" (click)="showReceivers()" [disabled]="!selectedData.receiver">Show receivers</ion-button>
+  <ion-list *ngIf="items.length">
+  <ion-item>
+    <ion-label>You can select multiple items</ion-label>
+  </ion-item>
+  
+  <ion-row class="table-header">
+    <ion-col class="table-cell"> 
+      <ion-label>{{colTitle}}</ion-label>
+      <ion-item> 
+        <ion-checkbox [(ngModel)]="allChecked" (ionChange)="toggleAll()" slot="start"></ion-checkbox>
+        <ion-label>Check All</ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col class="table-cell" *ngIf="!signalCol">
+      <ion-label>Student Name</ion-label>
+    </ion-col>
+  </ion-row>
+
+  <div style="max-height: 300px; overflow-y: auto;">
+    <ion-row *ngFor="let item of items; let i = index" class="table-row">
+      <ion-col class="table-cell">
+        <!-- One ion-item block handling both conditions -->
+        <ion-item>
+          <ion-checkbox [(ngModel)]="item.checked" 
+                        (ionChange)="checkIfAllSelected()" 
+                        [value]="item.parent_phone || item.teacher_phone" 
+                        slot="start"></ion-checkbox>
+          <ion-label>{{ signalCol ? (item.student_name || item.teacher_name) : item.parent_name }}</ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col class="table-cell" *ngIf="!signalCol">
+        <ion-label>{{ item.student_name }}</ion-label>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-list>
+    <!-- Message Section -->
+    <ion-list>
+     <ion-item>
+        <ion-label position="stacked">Message to send</ion-label>
+        <ion-textarea
+            placeholder="Write down your message within 160 characters..."
+            maxlength="160"
+            rows="6"
+            [(ngModel)]="selectedData.message"
+        ></ion-textarea>
+        <ion-text class="remaining-char">Remaining characters: {{160 - message.length}}</ion-text>
+    </ion-item>
+    </ion-list>
+
+      <ion-button expand="block" >Send SMS</ion-button>
+
+  </div>
+</ion-content>
+

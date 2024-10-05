@@ -1,0 +1,70 @@
+<app-header></app-header>
+<ion-content class="content">
+    <ion-card class="list-card add-btns">
+            <ion-row>
+                <ion-col>
+                    <ion-button (click)="invoiceAdd('single_invoice')">+ Single invoice</ion-button> 
+                </ion-col>
+                <ion-col>
+                    <ion-button (click)="invoiceAdd('joint_invoice')">+ Joint invoice</ion-button> 
+                </ion-col>
+            </ion-row> 
+            <ion-row>
+                <ion-col>
+                    <ion-button (click)="massInvoiceAdd('mass_invoice')">+ Mass invoice</ion-button> 
+                </ion-col>
+                <ion-col>
+                    <ion-button (click)="massInvoiceAdd('joint_mass_invoice')">+ Joint mass invoice</ion-button> 
+                </ion-col>
+            </ion-row>
+    </ion-card>
+<div style="margin-top: 20px;">
+    <app-date-range-picker (pickedDate)="selectedDate($event)"></app-date-range-picker>
+</div>
+<ion-item>
+    <ion-select label="Class" label-placement="floating" [(ngModel)]="selectedClass" >
+    <ion-select-option  value="all">All Class</ion-select-option>
+    <ion-select-option *ngFor="let item of classes" [value]="item.id">{{ item.name }}</ion-select-option>
+    </ion-select>
+</ion-item>
+<ion-item>
+    <ion-select label="Parent" label-placement="floating" [(ngModel)]="selectedParent" >
+        <ion-select-option value="all">All Parent</ion-select-option>
+        <ion-select-option *ngFor="let item of parentData" [value]="item.id">{{ item.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-select label="Status" label-placement="floating" [(ngModel)]="selectedStatus" >
+      <ion-select-option value="all">All status</ion-select-option>
+      <ion-select-option value="paid">Paid</ion-select-option>
+      <ion-select-option value="partial">Partial</ion-select-option>
+      <ion-select-option value="unpaid">Unpaid</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <div class="text-center mt10">
+    <ion-button class="filter-btn" (click)="filter()">Filter</ion-button>
+  </div>
+
+  <div *ngIf="reportData?.length">
+    <ion-item>
+        <ion-label>Select All</ion-label>
+        <ion-checkbox [(ngModel)]="selectAllChecked" (ionChange)="toggleSelectAll()"></ion-checkbox>
+        <ion-button *ngIf="ShowDelete" color="danger" (click)="deleteSelected()">Delete Selected</ion-button>
+    </ion-item>
+    <ion-card class="list-card" *ngFor="let item of reportData">
+        <ion-row>
+            <ion-col size="9">
+                <b>{{ item.invoice_title }}</b>
+                <p>Invoice type : {{ item.invoice_type}}</p>
+                <p>Invoice amount : <span *ngIf="item.invoice_amount">${{ item.invoice_amount }}</span></p>
+            </ion-col>
+            <ion-col size="2" class="icons">
+                <ion-icon name="eye" (click)="viewDetail(item)"></ion-icon>
+            </ion-col>
+            <ion-col size="1" class="deleteCheck">
+                <ion-checkbox [checked]="isSelected(item.id)" (ionChange)="onInvoiceCheckChange(item.id, $event)"></ion-checkbox>
+              </ion-col>
+        </ion-row>
+    </ion-card>
+  </div>
+</ion-content>

@@ -76,10 +76,11 @@ export class AddSyllabusPage implements OnInit {
   loadProfileFromDevice(event: any) {
     const inputElement = event.target as HTMLInputElement;
     const file = inputElement?.files?.[0];
+    this.selectedFile = inputElement?.files?.[0];
     if (file) {
         const reader = new FileReader();
         reader.onload = () => {
-            this.selectedFile = reader.result as string; 
+            //this.selectedFile = reader.result as string; 
         };
         reader.readAsDataURL(file);
     } else {

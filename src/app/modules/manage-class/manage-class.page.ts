@@ -6,6 +6,7 @@ import { LoaderService } from 'src/app/core/services/loader.service';
 import { SchoolDataService } from 'src/app/core/services/school-data.service';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { AddMasterPage } from '../modals/add-master/add-master.page';
+import { UploadCsvMasterPage } from '../modals/upload-csv-master/upload-csv-master.page';
 
 @Component({
   selector: 'app-manage-class',
@@ -107,6 +108,22 @@ async openAddModal() {
   });
   modal.onDidDismiss().then((dataReturned) => {
   });
+  return await modal.present();
+}
+async openExcelModal() {
+  const modal = await this.modalController.create({
+    component: UploadCsvMasterPage,
+    cssClass: '',
+    componentProps: {
+      title: "Add Class by CSV",
+      module:'class'
+    }
+  });
+
+  modal.onDidDismiss().then(() => {
+    
+  });
+
   return await modal.present();
 }
 

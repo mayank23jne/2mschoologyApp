@@ -27,7 +27,12 @@
       <ion-label>Email <span class="req">*</span> </ion-label>
       <ion-input type="text" formControlName="email" placeholder="Email"></ion-input>
     </ion-list>
+    <ion-list *ngIf="role == 'admin'">
+      <ion-label class="label">Password <span class="req">*</span></ion-label>
     <ion-list>
+      <ion-input type="text" formControlName="password"></ion-input>
+    </ion-list>
+   
       <ion-label>Parent <span class="req">*</span> </ion-label>
       <ion-item class="dropdown-s">
         <ion-select formControlName="parent_id" >

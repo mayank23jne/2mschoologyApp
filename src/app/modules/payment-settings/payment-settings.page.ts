@@ -65,7 +65,6 @@ export class PaymentSettingsPage implements OnInit {
             currency_position: res?.data?.selected_currency_position
           });
           
-          console.log(this.currencyData);
         }
         else {
           this.currencyData = [];
@@ -82,7 +81,7 @@ export class PaymentSettingsPage implements OnInit {
       next: (res: any) => {
         if (res.code == 200) {
           this.paymentData = res?.data;
-          console.log(this.paymentData);
+          //console.log(this.paymentData);
           this.paypalForm.patchValue({
             paypal_active:res?.data?.selected_paypal_active,
             paypal_currency:res?.data?.selected_currency,
@@ -115,7 +114,7 @@ export class PaymentSettingsPage implements OnInit {
             stripe_live_secret_key: res?.data?.selected_stripe_live_secret_key,
             stripe_live_public_key: res?.data?.selected_stripe_live_public_key
           });
-          console.log(this.stripeData);
+          // console.log(this.stripeData);
         }
         else {
           this.stripeData = [];
@@ -129,21 +128,21 @@ export class PaymentSettingsPage implements OnInit {
   updatePaymentSetting(type: any = "") {
     let formData;
     if (type == 'system_currency') {
-      console.log(type);
+      // console.log(type);
       this.currencyForm.patchValue({
         type: type
       });
       formData = this.currencyForm.value;
     }
     if (type == 'payment_setting') {
-      console.log(type);
+      // console.log(type);
       this.paypalForm.patchValue({
         type: type
       });
       formData = this.paypalForm.value;
     }
     if (type == 'stripe_settings') {
-      console.log(type);
+      // console.log(type);
       
       this.stripeForm.patchValue({
         type: type

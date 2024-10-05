@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{heading_title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card class="list-card">
+
+    <div class="add-btns">
+      <ion-row *ngIf="paymentReportData.status != 'paid'">
+          <ion-col>
+              <ion-button (click)="online_payment()">Online Payment</ion-button> 
+          </ion-col>
+          <ion-col>
+              <ion-button (click)="manual_payment()">Manual Payment</ion-button> 
+          </ion-col>
+       </ion-row> 
+      <ion-row>
+      <ion-col *ngIf="paymentReportData.status != 'unpaid'">
+            <ion-button (click)="sub_invoice()">Sub invoice</ion-button> 
+      </ion-col>
+      </ion-row>
+    </div>
+
+    <ion-row class="mt20">
+      <ion-col><b>Invoice Number :</b></ion-col>
+      <ion-col>{{ paymentReportData.invoice_id }}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><b>Invoice Title :</b> </ion-col>
+      <ion-col>{{ paymentReportData.invoice_title }}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><b>Student Name :</b></ion-col>
+      <ion-col>{{ paymentReportData.student_name }}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><b>Class :</b> </ion-col>
+      <ion-col>{{ paymentReportData.class_name }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><b>Status :</b> </ion-col>
+      <ion-col class="capitalize">{{ paymentReportData.status }}</ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-fab class="fab1" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="print_invoice()">
+      <ion-icon name="print"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="delete(paymentReportData.id)">
+      <ion-icon name="trash"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

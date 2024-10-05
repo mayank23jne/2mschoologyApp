@@ -64,10 +64,12 @@ delete(id: any) {
     if (res == true) {
       const formData = new FormData();
       formData.append('id', id);
+      formData.append('user_type', 'accountant');
       this.fetch.userDelete(formData).subscribe({
         next: (res: any) => {
           if (res.code == 200) {
             this.toastService.presentToast(res.response);
+            this.ngOnInit();
           } else {
             this.toastService.presentErrorToast(res.response);
           }
@@ -85,6 +87,7 @@ async openEditModal(item:any) {
     cssClass: '',
     componentProps: {
       title: "Edit Accountant",
+      addUserType:'accountant',
       editUserData:item
     }
   });
@@ -99,10 +102,12 @@ async openAddModal() {
     component: AddUserMasterPage,
     cssClass: '',
     componentProps: {
-      title: "Add Accountant"
+      title: "Add Accountant",
+      addUserType:'accountant',
     }
   });
   modal.onDidDismiss().then((dataReturned) => {
+    this.ngOnInit();
   });
   return await modal.present();
 }

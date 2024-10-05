@@ -1,0 +1,66 @@
+.profile {
+    margin: 10px auto auto auto;
+    width: 100px;
+    height: 100px;
+}
+
+.edit-bg {
+    padding: 5px 3px 2px 5px;
+    background: lightgray;
+    border-radius: 30px;
+    position: relative;
+    left: 70px;
+    bottom: 30px;
+}
+
+.input {
+    --ion-border: #323232;
+    border: 2x solid #323232;
+    border-radius: 22px 0px 22px 0px;
+}
+
+form {
+    margin: 20px 15px;
+}
+
+form ion-input {
+    padding: 12px;
+    padding-left: 15px !important;
+}
+
+form ion-textarea {
+    padding-left: 15px !important;
+}
+
+form .ion-touched.ion-invalid.sc-ion-input-md-h {
+    padding-right: 15px !important;
+}
+
+form .ion-touched.ion-invalid.sc-ion-textarea-md-h {
+    padding-right: 15px !important;
+}
+
+ion-popover {
+    bottom: none;
+}
+
+.dropdown-s {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.date-icon {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 999;
+}
+
+.reset-date-btn {
+    width: 90%;
+    margin: 0px auto;
+}
+
+ion-popover {
+    bottom: none;
+}

@@ -1,0 +1,12 @@
+<app-header></app-header>
+<ion-content>
+  <ion-content>
+    <form [formGroup]="policyForm">
+      <ion-label class="label">Privacy policy</ion-label>
+      <div class="ck">
+        <ckeditor [editor]="editor" [data]="policyData" formControlName="privacy_policy"></ckeditor>
+      </div>
+      <ion-button class="mt20" (click)="submit()">Submit</ion-button>
+    </form>
+  </ion-content>
+</ion-content>

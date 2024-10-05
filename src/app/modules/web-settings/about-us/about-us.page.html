@@ -1,0 +1,13 @@
+<app-header></app-header>
+<ion-content>
+  <form [formGroup]="aboutForm">
+    <ion-label class="label">About us </ion-label>
+    <div class="ck">
+      <ckeditor [editor]="editor" [data]="aboutData" formControlName="about_us"></ckeditor>
+    </div>
+    <ion-label class="label banner">About us banner</ion-label>
+    <img class="mt20" *ngIf="imagepath" [src]="imagepath" alt="banner">
+    <input class="mt20" type="file" (change)="loadProfileFromDevice($event)" id="pfile-input" accept="image/png, image/jpeg, image/jpg">
+    <ion-button class="mt20" (click)="submit()">Submit</ion-button>
+  </form>
+</ion-content>

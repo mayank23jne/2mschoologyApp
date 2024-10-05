@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { AddUserMasterPage } from '../modals/add-user-master/add-user-master.page';
 import { DataService } from 'src/app/core/services/data.service';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { UploadCsvMasterPage } from '../modals/upload-csv-master/upload-csv-master.page';
 
 @Component({
   selector: 'app-parents',
@@ -89,10 +90,12 @@ export class ParentsPage implements OnInit {
       if (res == true) {
         const formData = new FormData();
         formData.append('id', id);
+        formData.append('user_type', 'parent');
         this.fetch.userDelete(formData).subscribe({
           next: (res: any) => {
             if (res.code == 200) {
               this.toastService.presentToast(res.response);
+              this.ngOnInit();
             } else {
               this.toastService.presentErrorToast(res.response);
             }
@@ -110,6 +113,7 @@ export class ParentsPage implements OnInit {
       cssClass: '',
       componentProps: {
         title: "Edit parent",
+        addUserType:'parent',
         editUserData:item
       }
     });
@@ -130,6 +134,23 @@ export class ParentsPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
+      this.ngOnInit();
+    });
+
+    return await modal.present();
+  }
+
+  async openExcelModal() {
+    const modal = await this.modalController.create({
+      component: UploadCsvMasterPage,
+      cssClass: '',
+      componentProps: {
+        title: "Add Parent by CSV",
+        module:'parent'
+      }
+    });
+
+    modal.onDidDismiss().then(() => {
       
     });
 

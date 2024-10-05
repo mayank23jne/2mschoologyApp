@@ -45,22 +45,24 @@ export class AppComponent {
     let log = this.authservice.ifLoggedIn();
     this.user_data = localStorage.getItem('loginUserData');
     if (this.user_data) {
+      this.sidebar();
       this.user_data = JSON.parse(this.user_data);
     } else {
       this.user_data = "";
     }
-    this.sidebar();
+   
 
     this.event.subscribe('user:refresh', (data: any) => {
 
     this.user_data = localStorage.getItem('loginUserData');
       if (this.user_data) {
+        this.sidebar();
         this.user_data = JSON.parse(this.user_data);
         this.menu.enable(true, 'start');
       } else {
         this.user_data = "";
       }
-      this.sidebar();
+     
     });
   }
   async checkNetworkStatus() {
@@ -181,4 +183,10 @@ export class AppComponent {
     this.selectedIndex = -1;
     this.router.navigate(['/tabs/tab1']);
   }
+  gotoPage(p:any){
+    if(p.url == '/Generate Invoice'){
+      this.router.navigate(['/generateinvoice']);
+      this.menu.close();
+    }
+    }
 }

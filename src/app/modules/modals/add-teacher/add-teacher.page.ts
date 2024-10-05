@@ -17,6 +17,7 @@ export class AddTeacherPage implements OnInit {
   addUserType:string = "";
   editTeacherID:any;
   editTeacherData:any;
+  departmentList:any;
 
   constructor(private toastService:ToastService,private loader: LoaderService,private fetch: SchoolDataService,private fb: FormBuilder,private navParams: NavParams,private modalController: ModalController) { }
 
@@ -42,7 +43,7 @@ export class AddTeacherPage implements OnInit {
       this.userForm.patchValue({
         name: this.editTeacherData.name,
         email: this.editTeacherData.email,
-        password: this.editTeacherData.password,
+        password: this.editTeacherData.decr_password,
         designation: this.editTeacherData.designation,
         department: this.editTeacherData.department,
         gender: this.editTeacherData.gender,
@@ -51,6 +52,21 @@ export class AddTeacherPage implements OnInit {
       });
 
     }
+    this.fetch.viewDepartment().subscribe({
+      next:(res:any) => {
+      if(res.code == 200){
+        this.loader.dismiss();
+          this.departmentList = res.data;
+        }
+        else{
+          this.departmentList = "";
+        }
+        this.loader.dismiss();
+      },
+      error: (error:any) => {
+        this.loader.dismiss();
+      }
+    });
     
   }
   closeModal() {

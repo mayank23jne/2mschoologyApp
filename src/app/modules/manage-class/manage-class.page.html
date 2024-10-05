@@ -1,5 +1,6 @@
 <app-header></app-header>
 <ion-content [fullscreen]="true">
+  <div class="text-center" *ngIf="role == 'admin'"><ion-button class="btn" (click)="openExcelModal()">Upload excel</ion-button></div>
   <div *ngIf="classList">
     <ion-row>
       <ion-col size="10">

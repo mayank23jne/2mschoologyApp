@@ -1,0 +1,82 @@
+<app-header></app-header>
+<ion-content>
+  <form [formGroup]="smtpForm">
+    <ion-label>Status <span class="req">*</span> </ion-label>
+    <ion-list>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="mail_sender" (ionChange)="onMailSenderChange($event)" required>
+          <ion-select-option value="php_mailer">Php mailer</ion-select-option>
+          <ion-select-option value="generic_mailer">Generic mailer</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-label class="label">SMTP Protocol <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="smtp_protocol" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="smtpForm.get('smtp_protocol')?.invalid && smtpForm.get('smtp_protocol')?.hasError('required') && smtpForm.get('smtp_protocol')?.touched">
+      <ion-text color="danger">This field is required</ion-text>
+    </ion-row>
+
+    <ion-label class="label">SMTP Host </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="smtp_host"></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="smtpForm.get('smtp_host')?.invalid && smtpForm.get('smtp_host')?.hasError('required') && smtpForm.get('smtp_host')?.touched">
+      <ion-text color="danger">This field is required</ion-text>
+    </ion-row>
+
+    <ion-label class="label">SMTP Port </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="smtp_port"></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="smtpForm.get('smtp_port')?.invalid && smtpForm.get('smtp_port')?.hasError('required') && smtpForm.get('smtp_port')?.touched">
+      <ion-text color="danger">This field is required</ion-text>
+    </ion-row>
+
+    <ion-label class="label">SMTP Username </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="smtp_username"></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="smtpForm.get('smtp_username')?.invalid && smtpForm.get('smtp_username')?.hasError('required') && smtpForm.get('smtp_username')?.touched">
+      <ion-text color="danger">This field is required</ion-text>
+    </ion-row>
+
+    <ion-label class="label">SMTP Password </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="smtp_password"></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="smtpForm.get('smtp_password')?.invalid && smtpForm.get('smtp_password')?.hasError('required') && smtpForm.get('smtp_password')?.touched">
+      <ion-text color="danger">This field is required</ion-text>
+    </ion-row>
+
+    <ion-list *ngIf="showTextFields">
+      <ion-label class="label">SMTP Secure </ion-label>
+      <ion-list>
+        <ion-input type="text" formControlName="smtp_secure"></ion-input>
+      </ion-list>
+      <ion-row class="err"
+        *ngIf="smtpForm.get('smtp_secure')?.invalid && smtpForm.get('smtp_secure')?.hasError('required') && smtpForm.get('smtp_secure')?.touched">
+        <ion-text color="danger">This field is required</ion-text>
+    </ion-row>
+
+    <ion-list *ngIf="showTextFields">
+        <ion-label class="label">SMTP set from </ion-label>
+        <ion-input type="text" formControlName="smtp_set_from"></ion-input>
+      </ion-list>
+      <ion-row class="err"
+        *ngIf="smtpForm.get('smtp_set_from')?.invalid && smtpForm.get('smtp_set_from')?.hasError('required') && smtpForm.get('smtp_set_from')?.touched">
+        <ion-text color="danger">This field is required</ion-text>
+      </ion-row>
+      </ion-list>
+
+      <ion-button *ngIf="smtpForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+
+  </form>
+</ion-content>

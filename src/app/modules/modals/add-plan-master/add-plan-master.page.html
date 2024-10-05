@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="planForm">
+
+    <ion-list>
+      <ion-label>Status <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="status" value="off" required>
+          <ion-select-option value="on">On</ion-select-option>
+          <ion-select-option value="off">Off</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-label class="label">Plan Name <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="plan_name" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="planForm.get('plan_name')?.invalid && planForm.get('plan_name')?.hasError('required') && planForm.get('plan_name')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+   
+    <ion-list>
+      <ion-label>Plan Type <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="plan_type" value="monthly" required slot="end">
+          <ion-select-option value="monthly">Monthly</ion-select-option>
+          <ion-select-option value="yearly">Yearly</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="planForm.get('plan_type')?.invalid && planForm.get('plan_type')?.hasError('required') && planForm.get('plan_type')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+    </ion-list>
+
+    <ion-label class="label">Amount </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="amount"></ion-input>
+    </ion-list>
+    <ion-row class="err"
+    *ngIf="planForm.get('amount')?.invalid && planForm.get('amount')?.hasError('required') && planForm.get('amount')?.touched">
+    <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+      <ion-label class="label">Features</ion-label>
+  <ion-list>
+    <div formArrayName="features">
+      <div *ngFor="let feature of features.controls; let i = index">
+        <ion-item class="mt10 mlm15">
+          <ion-input [formControlName]="i" type="text" placeholder="Enter Feature"></ion-input>
+          <ion-button *ngIf="features.controls.length > 1 && i > 0" (click)="removeFeature(i)" color="danger" slot="end">X</ion-button>
+        </ion-item>
+      </div>
+    </div>
+    <div class="text-right">
+      <ion-button slot="end" (click)="addFeature()">+</ion-button>
+    </div>
+    
+  </ion-list>
+
+    <ion-label>Detail</ion-label>
+    <ion-list>
+      <ion-textarea formControlName="detail" type="text" ></ion-textarea>
+    </ion-list>
+
+    <ion-button *ngIf="planForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+
+  </form>
+</ion-content>
+

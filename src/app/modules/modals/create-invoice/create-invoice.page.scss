@@ -1,0 +1,45 @@
+form {
+    margin: 20px 15px;
+}
+form ion-input{
+    padding: 12px;
+    padding-left: 15px !important;
+}
+form ion-textarea {
+    padding-left: 15px !important;
+}
+form .ion-touched.ion-invalid.sc-ion-input-md-h {
+    padding-right: 15px !important;
+}
+form .ion-touched.ion-invalid.sc-ion-textarea-md-h{
+    padding-right: 15px !important;
+}
+.dropdown-s{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.date-icon{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 999;
+}
+.reset-date-btn{
+    width: 90%;
+    margin: 0px auto;
+}
+ion-popover{
+    bottom: none;
+}
+ion-list{
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+.invoice-form-block{
+    margin-top: 10px;
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 10px;
+}

@@ -1,0 +1,58 @@
+<app-header></app-header>
+  <ion-segment [(ngModel)]="smsCycle" (ionChange)="toggleSmsCycle()">
+    <ion-segment-button value="active_sms">
+      Active SMS gateway
+    </ion-segment-button>
+    <ion-segment-button value="twillio_setting">
+      Twillio Setting
+    </ion-segment-button>
+  </ion-segment>
+<ion-content>
+  <div *ngIf="smsCycle === 'active_sms'">
+    <form [formGroup]="settingsForm" >
+    
+      <ion-list>
+        <ion-radio-group formControlName="communicationProvider">
+          <ion-item>
+            <ion-label>None</ion-label>
+            <ion-radio slot="start" value="none"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Twillio</ion-label>
+            <ion-radio slot="start" value="twillio"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+  
+    </form>
+  </div>
+  <div *ngIf="smsCycle === 'twillio_setting'">
+    <form [formGroup]="twilioForm">
+      <ion-label class="label">Twillio SID <span class="req">*</span></ion-label>
+      <ion-list>
+        <ion-input type="text" formControlName="twillio_sid" required></ion-input>
+      </ion-list>
+      <ion-row class="err"
+        *ngIf="twilioForm.get('twilio_sid')?.invalid && twilioForm.get('twilio_sid')?.hasError('required') && twilioForm.get('twilio_sid')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+      <ion-label class="label">Twillio Token<span class="req">*</span></ion-label>
+      <ion-list>
+        <ion-input type="text" formControlName="twillio_token" required></ion-input>
+      </ion-list>
+      <ion-row class="err"
+        *ngIf="twilioForm.get('twillio_token')?.invalid && twilioForm.get('twillio_token')?.hasError('required') && twilioForm.get('twillio_token')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+      <ion-label class="label">Twillio Sender phone number <span class="req">*</span></ion-label>
+      <ion-list>
+        <ion-input type="text" formControlName="twillio_from" required></ion-input>
+      </ion-list>
+      <ion-row class="err"
+        *ngIf="twilioForm.get('twillio_from')?.invalid && twilioForm.get('twillio_from')?.hasError('required') && twilioForm.get('twillio_from')?.touched">
+        <ion-text color="danger">This field is required.</ion-text>
+      </ion-row>
+      <ion-button *ngIf="twilioForm.valid" expand="block" (click)="submitSetting()" class="submit-btn mt-20">Submit</ion-button>
+    </form>
+  </div>
+</ion-content>

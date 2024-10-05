@@ -1,0 +1,102 @@
+
+<ion-header>
+    <ion-toolbar>
+      <ion-title>{{ heading_title }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">Close</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <form [formGroup]="jointInvoiceForm">
+
+        <ion-label>Class <span class="req">*</span></ion-label>
+          <ion-item class="dropdown-s">
+            <ion-select formControlName="class_id" label-placement="floating" (ionChange)="onClassChange()">
+              <ion-select-option *ngFor="let item of classes" [value]="item.id">{{ item.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-row class="err"
+            *ngIf="jointInvoiceForm.get('class_id')?.invalid && jointInvoiceForm.get('class_id')?.hasError('required') && jointInvoiceForm.get('class_id')?.touched">
+            <ion-text color="danger">This field is required.</ion-text>
+          </ion-row>
+      
+          <ion-label>Parent <span class="req">*</span></ion-label>
+          <ion-item class="dropdown-s">
+            <ion-select formControlName="parent_id" label-placement="floating" (ionChange)="onParentChange($event)">
+              <ion-select-option *ngFor="let item of parentList" [value]="item.parent_id">{{ item.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-row class="err" *ngIf="jointInvoiceForm.get('parent_id')?.invalid && jointInvoiceForm.get('parent_id')?.hasError('required') && jointInvoiceForm.get('parent_id')?.touched">
+            <ion-text color="danger">This field is required.</ion-text>
+          </ion-row>
+          
+          <!-- Student Multi-select Dropdown -->
+          <ion-label>Student <span class="req">*</span></ion-label>
+          <ion-item class="dropdown-s">
+            <ion-select formControlName="student_id" label-placement="floating" multiple="true">
+              <ion-select-option *ngFor="let student of studentsList" [value]="student.id">{{ student.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-row class="err" *ngIf="jointInvoiceForm.get('student_id')?.invalid && jointInvoiceForm.get('student_id')?.hasError('required') && jointInvoiceForm.get('student_id')?.touched">
+            <ion-text color="danger">This field is required.</ion-text>
+          </ion-row>
+      
+          <ion-label class="label">Invoice Title <span class="req">*</span></ion-label>
+          <ion-list>
+            <ion-input type="text" formControlName="title" required></ion-input>
+          </ion-list>
+          <ion-row class="err"
+            *ngIf="jointInvoiceForm.get('title')?.invalid && jointInvoiceForm.get('title')?.hasError('required') && jointInvoiceForm.get('title')?.touched">
+            <ion-text color="danger">This field is required.</ion-text>
+          </ion-row>
+      
+          <ion-label class="label">Invoice Amount <span class="req">*</span></ion-label>
+          <ion-list>
+            <ion-input type="text" formControlName="invoice_amount" required></ion-input>
+          </ion-list>
+          <ion-row class="err"
+            *ngIf="jointInvoiceForm.get('invoice_amount')?.invalid && jointInvoiceForm.get('invoice_amount')?.hasError('required') && jointInvoiceForm.get('invoice_amount')?.touched">
+            <ion-text color="danger">This field is required.</ion-text>
+          </ion-row>
+      
+          <ion-label class="label">Amount to pay <span class="req">*</span></ion-label>
+          <ion-list>
+            <ion-input type="text" formControlName="paid_amount" required></ion-input>
+          </ion-list>
+          <ion-row class="err"
+            *ngIf="jointInvoiceForm.get('paid_amount')?.invalid && jointInvoiceForm.get('paid_amount')?.hasError('required') && jointInvoiceForm.get('paid_amount')?.touched">
+            <ion-text color="danger">This field is required.</ion-text>
+          </ion-row>
+       
+          <ion-label>Status <span class="req">*</span></ion-label>
+          <ion-item class="dropdown-s">
+            <ion-select formControlName="status" label-placement="floating" >
+              <ion-select-option value="partial">Partial paid</ion-select-option>
+              <ion-select-option value="paid">Paid</ion-select-option>
+              <ion-select-option value="unpaid">Unpaid</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-row class="err"
+            *ngIf="jointInvoiceForm.get('status')?.invalid && jointInvoiceForm.get('status')?.hasError('required') && jointInvoiceForm.get('status')?.touched">
+            <ion-text color="danger">This field is required.</ion-text>
+          </ion-row>
+      
+        <!-- <ion-item lines="none">
+          <ion-label>Recurring</ion-label>
+          <ion-checkbox slot="start" formControlName="recurring" (ionChange)="toggleRecurring($event)"></ion-checkbox>
+        </ion-item> -->
+        
+        <!-- Conditionally show the duration input if 'showDuration' is true -->
+       
+        <!-- <ion-label *ngIf="showDuration">Duration </ion-label>
+        <ion-list *ngIf="showDuration">
+          <ion-input type="text" formControlName="duration"></ion-input>
+        </ion-list> 
+
+        -->
+        <ion-button expand="full" type="submit" (click)="submit()" *ngIf="jointInvoiceForm.valid">
+            Submit
+          </ion-button>
+      </form>
+  </ion-content> 

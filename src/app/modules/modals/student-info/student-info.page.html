@@ -8,25 +8,25 @@
 </ion-header>
 <ion-content *ngIf="detail">
   <ion-row class="m-10">
-    <ion-col size="12"><span class="label">Name : </span>{{ detail.name }}</ion-col>
+    <ion-col size="12"><span class="label">Name : </span>{{ detail?.name }}</ion-col>
   </ion-row>
   <ion-row class="m-10">
-    <ion-col size="12"><span class="label">Code: </span>{{ detail.student_code }}</ion-col>
+    <ion-col size="12"><span class="label">Code: </span>{{ detail?.student_code }}</ion-col>
   </ion-row>
   <ion-row class="m-10">
-    <ion-col size="12"><span class="label">Class : </span>{{ detail.class_id.name }}</ion-col>
+    <ion-col size="12"><span class="label">Class : </span>{{ detail?.class_id?.name }}</ion-col>
   </ion-row>
   <ion-row class="m-10">
-    <ion-col size="12"><span class="label">Section: </span>{{ detail.section_id.name }}</ion-col>
+    <ion-col size="12"><span class="label">Section: </span>{{ detail?.section_id?.name }}</ion-col>
   </ion-row>
   <ion-row class="m-10">
-    <ion-col size="12"><span class="label">Parent Name : </span>{{ detail.parent_id.name }}</ion-col>
+    <ion-col size="12"><span class="label">Parent Name : </span>{{ detail?.parent_id?.name }}</ion-col>
   </ion-row>
   <ion-row class="m-10">
-    <ion-col size="12"><span class="label">Parent Email : </span>{{ detail.parent_id.email }}</ion-col>
+    <ion-col size="12"><span class="label">Parent Email : </span>{{ detail?.parent_id?.email }}</ion-col>
   </ion-row>
   <ion-row class="m-10">
-    <ion-col size="12"><span class="label">Parent Phone No : </span>{{ detail.parent_id.phone }}</ion-col>
+    <ion-col size="12"><span class="label">Parent Phone No : </span>{{ detail?.parent_id?.phone }}</ion-col>
   </ion-row>
 
   <ion-fab class="edit-btn" vertical="bottom" horizontal="end" slot="fixed">
@@ -36,7 +36,7 @@
   </ion-fab>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="delete(detail.id)">
+    <ion-fab-button (click)="delete(detail?.id)">
       <ion-icon name="trash"></ion-icon>
     </ion-fab-button>
   </ion-fab>

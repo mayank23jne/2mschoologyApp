@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="expenseModel">
+   <form [formGroup]="expenseForm">
+      <ion-list>
+      <ion-label>Date <span class="req">*</span> </ion-label>
+      <ion-input id="sdate" formControlName="date" class="ion-text-start pl-10 mt10" name="starting_date"
+        [value]="expenseForm.get('date')?.value | date: 'MM/dd/yyyy'">
+        <ion-icon aria-hidden="true" name="calendar-clear-outline" class="date-icon"></ion-icon>
+      </ion-input>
+
+      <ion-popover trigger="sdate" size="cover">
+        <ng-template>
+          <ion-datetime  [value]="setDefaultDate"  presentation="sdate" locale="en-US" formControlName="date">
+          </ion-datetime>
+          <ion-row>
+            <ion-col><ion-button class="reset-date-btn" (click)="savedate()" expand="block"
+                color="primary">OK</ion-button></ion-col>
+          </ion-row>
+        </ng-template>
+      </ion-popover>
+    </ion-list>
+      <ion-list>
+      <ion-label>Amount <span class="req">*</span> </ion-label>
+      <ion-input  type="number" 
+        formControlName="amount" 
+        class="mt10"
+        placeholder="Enter amount"
+        formControlName="amount" required></ion-input>
+    </ion-list>
+   <ion-row class="err"
+      *ngIf="expenseForm.get('amount')?.invalid && expenseForm.get('amount')?.hasError('required') && expenseForm.get('amount')?.touched">
+      <ion-text color="danger">Amount is required.</ion-text>
+    </ion-row>
+     <ion-list>
+      <ion-label>Expense Category <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="expense_category_id" label-placement="floating" placeholder="Expense category">
+          <ion-select-option *ngFor="let item of categories" [value]="item.id">{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>   
+      <ion-row class="err"
+        *ngIf="expenseForm.get('category_id')?.invalid && expenseForm.get('category_id')?.hasError('required') && expenseForm.get('category_id')?.touched">
+        <ion-text color="danger">Category is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-button expand="block" type="submit" (click)="submit_expense()" [disabled]="!expenseForm.valid">Create expense</ion-button>
+  </form>
+
+</ion-content> 
+<ion-content *ngIf="!expenseModel">
+  <form [formGroup]="categoryForm" >
+    <ion-label class="label">Expense Category Name <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="name" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="categoryForm.get('category_name')?.invalid && categoryForm.get('category_name')?.hasError('required') && categoryForm.get('category_name')?.touched">
+      <ion-text color="danger">Name is required.</ion-text>
+    </ion-row>
+    <ion-button *ngIf="categoryForm.valid"  expand="block" (click)="submit_category()" class="submit-btn mt-20">Submit</ion-button>
+  </form>
+</ion-content>
+

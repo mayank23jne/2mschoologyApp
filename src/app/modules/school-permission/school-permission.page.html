@@ -1,0 +1,40 @@
+<app-header></app-header>
+<ion-content [fullscreen]="true">
+
+  <ion-item>
+    <ion-select label="Schools" label-placement="floating" [(ngModel)]="school_id" (ionChange)="onFilterChange()">
+      <ion-select-option *ngFor="let item of school_list" [value]="item.school_id">{{ item.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+    <ion-card class="list-card" *ngIf="showList" >
+    <ion-row>
+      <ng-container *ngFor="let item of permissions">
+        <ion-col size="8">
+          <ion-label><b>Module name: </b></ion-label>
+        </ion-col>
+        <ion-col size="4" class="text-center">
+          Permission
+        </ion-col>
+        <ion-list *ngFor="let key of getKeys(item)" >
+          <ion-row *ngIf="key !== 'school_name' && key !== 'id'">
+              <ion-col size="8">
+                <ion-label><b>{{ key | titlecase }} : </b></ion-label>
+              </ion-col>
+              <ion-col size="4" class="text-center">
+                <ion-toggle [(ngModel)]="item[key]" [checked]="item[key] == '1'" (ionChange)="onToggleChange(item, key)">
+                </ion-toggle>
+              </ion-col>
+            <hr>
+          </ion-row>
+        </ion-list>
+      
+      </ng-container>
+         
+      </ion-row>
+    </ion-card>
+    <div *ngIf="!showList" class="empty_box">
+      <img class="empty_box_img" src="../../../assets/icon/empty_box.png">
+  </div>
+</ion-content>

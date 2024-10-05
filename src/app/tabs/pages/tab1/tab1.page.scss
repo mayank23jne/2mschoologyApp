@@ -1,9 +1,17 @@
 .dashboard ion-card{
-    padding-top: 20%;
+    padding-top: 15%;
     min-height: 150px;
     text-align: center;
     position: relative;
     margin: 0px;
+    background-color: #f4f6f9;
+}
+.dashboard-super ion-card{
+    padding-top: 7%;
+    min-height: 150px;
+    text-align: center;
+    position: relative;
+    margin: 10px;
     background-color: #f4f6f9;
 }
 .head{
@@ -37,6 +45,14 @@ ion-row{
     background-color: #727cf5;
     color: #ffffff;
 }
+.dashboard .sms{
+    margin: 12px;
+    padding-top: 1%;
+    min-height: 50px;
+    text-align: center;
+    background-color: #727cf5;
+    color: #ffffff;
+}
 .dashboard .events{
     margin: 12px;
     padding-top: 7%;
@@ -50,4 +66,10 @@ ion-row{
 }
 .p-children{
     padding: 15px;
+}
+.filter-btn{
+    width: 90%;
+}
+.invoice-card .no{
+min-height: 33px;
 }

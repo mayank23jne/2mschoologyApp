@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<form [formGroup]="singleInvoiceForm" >
+
+  <ion-label>Class <span class="req">*</span></ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="class_id" label-placement="floating" (ionChange)="onClassChange()">
+        <ion-select-option *ngFor="let item of classes" [value]="item.id">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row class="err"
+      *ngIf="singleInvoiceForm.get('class_id')?.invalid && singleInvoiceForm.get('class_id')?.hasError('required') && singleInvoiceForm.get('class_id')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <ion-label>Student <span class="req">*</span></ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="student_id" label-placement="floating" >
+        <ion-select-option *ngFor="let item of studentsList" [value]="item.student_id">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row class="err"
+      *ngIf="singleInvoiceForm.get('student_id')?.invalid && singleInvoiceForm.get('student_id')?.hasError('required') && singleInvoiceForm.get('student_id')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <ion-label class="label">Invoice Title <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="title" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="singleInvoiceForm.get('title')?.invalid && singleInvoiceForm.get('title')?.hasError('required') && singleInvoiceForm.get('title')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <ion-label class="label">Invoice Amount <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="invoice_amount" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="singleInvoiceForm.get('invoice_amount')?.invalid && singleInvoiceForm.get('invoice_amount')?.hasError('required') && singleInvoiceForm.get('invoice_amount')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <ion-label class="label">Amount to pay <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="paid_amount" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="singleInvoiceForm.get('paid_amount')?.invalid && singleInvoiceForm.get('paid_amount')?.hasError('required') && singleInvoiceForm.get('paid_amount')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+ 
+    <ion-label>Status <span class="req">*</span></ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="status" label-placement="floating">
+        <ion-select-option value="partial">Partial paid</ion-select-option>
+        <ion-select-option value="paid">Paid</ion-select-option>
+        <ion-select-option value="unpaid">Unpaid</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row class="err"
+      *ngIf="singleInvoiceForm.get('status')?.invalid && singleInvoiceForm.get('status')?.hasError('required') && singleInvoiceForm.get('status')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <!-- <ion-item lines="none">
+      <ion-label>Recurring</ion-label>
+      <ion-checkbox slot="start" formControlName="recurring" (ionChange)="toggleRecurring($event)"></ion-checkbox>
+    </ion-item>
+    
+    <ion-label *ngIf="showDuration">Duration </ion-label>
+    <ion-list *ngIf="showDuration">
+      <ion-input type="text" formControlName="duration"></ion-input>
+    </ion-list> -->
+   
+    <ion-button expand="full" type="submit" (click)="submit()" *ngIf="singleInvoiceForm.valid">
+      Submit
+    </ion-button>
+</form>
+
+</ion-content>

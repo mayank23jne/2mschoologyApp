@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{heading_title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-row>
+    <ion-col class="text-center">
+      <ion-button 
+        [color]="selectedOption === 'full' ? 'primary' : 'medium'" 
+        (click)="selectOption('full')" 
+        fill="outline">
+        Full Payment
+      </ion-button>
+    </ion-col>
+    <ion-col class="text-center">
+      <ion-button 
+        [color]="selectedOption === 'partial' ? 'primary' : 'medium'" 
+        (click)="selectOption('partial')" 
+        fill="outline">
+        Partial Payment
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="selectedOption === 'partial'">
+    <ion-col>
+      <ion-list>
+        <ion-label position="floating">Enter Amount</ion-label>
+        <ion-input type="number" [(ngModel)]="partialAmount" (ionInput)="validateAmount($event)" ></ion-input>
+      </ion-list>
+      <ion-text color="danger" *ngIf="isAmountExceeded">
+        Invalid amount
+      </ion-text>
+    </ion-col>
+  </ion-row>
+<ion-row>
+  <ion-col size="12"> 
+    <div class="payment-button" [ngClass]="{'selected': selectedPayment === 'stripe'}" (click)="selectPayment('stripe')">
+      <ion-img src="assets/icon/stripe.png" class="stripe-button"></ion-img>
+    </div>
+  </ion-col>
+
+  <ion-col size="12">
+      <ion-img src="assets/icon/we-accept.png" ></ion-img>
+  </ion-col>
+  <ion-col size="12">
+<ion-title>Invoice List</ion-title>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label class="capitalize">
+          <ion-badge slot="start" >1</ion-badge>
+          {{invoice_title}}
+        </ion-label>
+        <ion-label slot="end" color="success">${{invoice_amount}}</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Total</ion-label>
+        <ion-label slot="end">${{invoiceData?.remaining_amount}}</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+
+  </ion-col>
+</ion-row>
+
+</ion-content>
+

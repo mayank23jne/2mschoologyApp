@@ -39,7 +39,7 @@ export class AddUserMasterPage implements OnInit {
       this.userForm.patchValue({
         name: this.editUserData.name,
         email: this.editUserData.email,
-        password: this.editUserData.password,
+        password: this.editUserData.decr_password,
         gender: this.editUserData.gender,
         phone: this.editUserData.phone,
         address: this.editUserData.address,

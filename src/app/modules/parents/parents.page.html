@@ -1,5 +1,6 @@
 <app-header></app-header>
 <ion-content [fullscreen]="true">
+  <div class="text-center"  *ngIf="role == 'admin'"><ion-button class="btn" (click)="openExcelModal()">Upload excel</ion-button></div>
     <ion-row *ngIf="parentData">
       <ion-col size="10">
         <ion-searchbar show-clear-button="always" [(ngModel)]="search" (ionClear)="searchCancel()"></ion-searchbar>
@@ -19,17 +20,17 @@
                 <p class="capitalize">Name: {{ item.name }}</p>
               </ion-row>
               <ion-row>
-                <p class="capitalize">Email: {{ item.email }}</p>
+                <p>Email: {{ item.email }}</p>
               </ion-row>
               <ion-row>
-                <p class="capitalize">Adddress: {{ item.address }}</p>
+                <p class="capitalize">Address: {{ item.address }}</p>
               </ion-row>
           </ion-col>
      
       <ion-col size="4" class="icons">
         <ion-icon *ngIf="role == 'admin'" class="pencil" name="pencil" (click)="openEditModal(item)"></ion-icon>
         <ion-icon class="trash" name="trash-outline" *ngIf="role == 'admin'" (click)="delete(item.id)"></ion-icon>
-    </ion-col>
+      </ion-col>
   </ion-row>
       </ion-card>
  

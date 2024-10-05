@@ -46,7 +46,7 @@
       <ion-label>Department <span class="req">*</span> </ion-label>
       <ion-item class="dropdown-s">
         <ion-select formControlName="department" required>
-          <ion-select-option value="option">option</ion-select-option>
+          <ion-select-option *ngFor="let item of departmentList" [value]="item.id">{{ item.name }}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-row class="err"

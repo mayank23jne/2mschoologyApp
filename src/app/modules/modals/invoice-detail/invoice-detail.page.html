@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{heading_title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="detail">
+  <ion-row class="m-10">
+    <ion-col size="12"><span class="label">Invoice no : </span>{{ detail?.invoice_id }}</ion-col>
+  </ion-row>
+  <ion-row class="m-10">
+    <ion-col size="4"><span class="label">Invoice title: </span>
+    </ion-col>
+    <ion-col size="8">
+      <div *ngFor="let item of detail?.invoice_title">
+      {{ item }}
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row class="m-10">
+    <ion-col size="12"><span class="label">Invoice note : </span>{{ detail?.invoice_note }}</ion-col>
+  </ion-row>
+  <ion-row class="m-10">
+    <ion-col size="12"><span class="label">Remaining amount : </span>{{ detail?.remaining_amount }}</ion-col>
+  </ion-row>
+  <ion-row class="m-10">
+    <ion-col size="12"><span class="label">Paid amount : </span>{{ detail?.paid_amount }}</ion-col>
+  </ion-row>
+  <ion-row class="m-10">
+    <ion-col size="12"><span class="label">Total amount : </span>{{ detail?.total_amount }}</ion-col>
+  </ion-row>
+  <ion-row class="m-10">
+    <ion-col size="12"><span class="label">Status : </span>{{ detail?.status }}</ion-col>
+  </ion-row>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="printPreview(detail?.invoice_id)">
+      <ion-icon name="print"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

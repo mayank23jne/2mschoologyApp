@@ -25,6 +25,8 @@ export class StudentPage implements OnInit {
   ShowDelete:any = false;
   selectedStudentIds: Set<number> = new Set(); // Holds the IDs of selected students
   selectAllChecked = false;
+  class_id:any;
+  section_id:any;
   constructor(private toastService: ToastService,private data: DataService,private fetch: SchoolDataService,private loader: LoaderService,private modalController: ModalController) { }
 
   ngOnInit() {
@@ -33,20 +35,29 @@ export class StudentPage implements OnInit {
     });
     this.user_id = localStorage.getItem("userId");
   }
-
+  onFilterChange(event: any) {
+    this.class_id = event?.class;
+    this.section_id = event?.section;
+    
+    this.studentData = this.studentData.filter((item: { class_id: any, section_id: any }) => 
+      (!this.class_id || item.class_id === this.class_id) && 
+      (!this.section_id || item.section_id === this.section_id)
+    );
+    console.log(this.studentData);
+  }
   ionViewDidEnter(){
     this.loader.present();
     this.list();
     this.search = "";
   }
   
-  async openDetailModal(id: any) {
+  async openDetailModal(item: any) {
     if(this.studentData){
     const modal = await this.modalController.create({
       component: StudentInfoPage,
       componentProps: {
         title: 'Student Info',
-        id:id,
+        studentData:item,
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
@@ -93,7 +104,7 @@ export class StudentPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-      
+      this.list();
     });
 
     return await modal.present();

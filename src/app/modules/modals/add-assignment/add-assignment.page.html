@@ -56,7 +56,7 @@
       </ion-select>
     </ion-item>
     <ion-row class="err"
-      *ngIf="form.get('section')?.invalid && form.get('section')?.hasError('required') && form.get('section')?.touched">
+      *ngIf="form.get('section_id')?.invalid && form.get('section_id')?.hasError('required') && form.get('section_id')?.touched">
       <ion-text color="danger">Section is required.</ion-text>
     </ion-row>
     

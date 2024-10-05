@@ -1,0 +1,102 @@
+<app-header></app-header>
+<ion-content>
+  <form [formGroup]="generalSettingForm">
+    
+    
+    <ion-label class="label">Website title</ion-label>
+    <ion-list>
+      <ion-input
+        type="text"
+        formControlName="website_title"
+        placeholder="Website link"
+      ></ion-input> 
+    </ion-list>
+
+    <ion-label class="label">Social links</ion-label>
+    <ion-list>
+      <ion-input
+        type="text"
+        formControlName="facebook_link"
+        placeholder="Facebook link"
+      ><ion-icon name="logo-facebook" slot="start"></ion-icon> </ion-input>
+    </ion-list>
+      
+    <ion-list>
+      <ion-input
+        type="text"
+        formControlName="twitter_link"
+        placeholder="Twitter link"
+      ><ion-icon name="logo-twitter" slot="start"></ion-icon></ion-input>
+    </ion-list>
+    
+    <ion-list>
+      <ion-input
+        type="text"
+        formControlName="linkedin_link"
+        placeholder="Linkedin link"
+      ><ion-icon name="logo-linkedin" slot="start"></ion-icon> </ion-input>
+    </ion-list>
+    
+    <ion-list>
+      <ion-input
+        type="text"
+        formControlName="google_link"
+        placeholder="Google link"
+      > <ion-icon name="logo-google" slot="start"></ion-icon></ion-input>
+    </ion-list>
+    
+    <ion-list>
+      <ion-input
+        type="text"
+        formControlName="youtube_link"
+        placeholder="Youtube link"
+      ><ion-icon name="logo-youtube" slot="start"></ion-icon> </ion-input>
+    </ion-list>
+    
+    <ion-list>
+      <ion-input
+        type="text"
+        formControlName="instagram_link"
+        placeholder="Instagram link"
+      ><ion-icon name="logo-instagram" slot="start"></ion-icon></ion-input>
+    </ion-list>
+
+    <ion-label class="label">Copyright text</ion-label>
+    <ion-list>
+      <ion-input
+        type="text"
+        formControlName="copyright_text"
+        placeholder="Copyright text"
+      ><ion-icon class="copyright-icon" src="../../../../assets/icon/copyright.svg" slot="start"></ion-icon></ion-input>
+    </ion-list>
+
+    <ion-label class="label">Homepage note title</ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="homepage_note_title" placeholder="Homepage note title" ></ion-input>
+    </ion-list> 
+
+    <ion-label class="label">Homepage note description</ion-label>
+    <ion-list>
+      <ion-input
+        type="text"
+        formControlName="homepage_note_description"
+        placeholder="Homepage note description"></ion-input>
+    </ion-list>
+    
+
+    <ion-label class="label ">Header logo</ion-label>
+    <ion-card>
+      <img class="mt20" *ngIf="imageHeaderlogo" [src]="imageHeaderlogo" alt="logo Picture">
+    </ion-card>
+
+    <input class="file-input" type="file" (change)="loadProfileFromDevice($event,'header')" id="pfile-input" accept="image/png, image/jpeg, image/jpg">
+    
+    <ion-label class="label ">Footer logo</ion-label>
+    <ion-card>
+      <img class="mt20" *ngIf="imageFooterlogo" [src]="imageFooterlogo" alt="logo Picture">
+    </ion-card>
+    <input class="file-input" type="file" (change)="loadProfileFromDevice($event,'footer')" id="pfile-input" accept="image/png, image/jpeg, image/jpg">
+
+    <ion-button class="mt20" (click)="submit()">Submit</ion-button>
+  </form>
+</ion-content>

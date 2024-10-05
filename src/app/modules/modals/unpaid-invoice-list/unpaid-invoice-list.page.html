@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="list-card" *ngFor="let item of unpaidInvoiceData">
+    <ion-row>
+      <ion-col size="12">
+        <p class="capitalize"><b>Student Name : </b>{{ item.student_name }}</p>
+        <p class="capitalize"><b>Class Name : </b>{{ item.class_name }}</p>
+        <p><b>Invoice Title :</b> {{ item.title }}</p>
+        <p><b>Total amount : </b>{{ item.total_amount > 0 ? '$' + item.total_amount : item.total_amount ?? 0 }}</p>
+        <p><b>Paid amount : </b> {{ item.paid_amount > 0 ? '$' + item.paid_amount : item.paid_amount ?? 0 }}</p>
+        <p class="capitalize"><b>Status : </b>{{ item.status }}</p>
+        
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

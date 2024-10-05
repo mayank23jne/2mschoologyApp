@@ -1,0 +1,92 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<form [formGroup]="jointMassInvoiceForm" >
+
+  <ion-label>Class <span class="req">*</span></ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="class_id" label-placement="floating" (ionChange)="onClassChange()">
+        <ion-select-option *ngFor="let item of classes" [value]="item.id">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row class="err"
+      *ngIf="jointMassInvoiceForm.get('class_id')?.invalid && jointMassInvoiceForm.get('class_id')?.hasError('required') && jointMassInvoiceForm.get('class_id')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <ion-label>Parent <span class="req">*</span></ion-label>
+          <ion-item class="dropdown-s">
+            <ion-select multiple="true" formControlName="parent_id" label-placement="floating" >
+              <ion-select-option *ngFor="let item of parentList" [value]="item.parent_id">{{ item.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-row class="err" *ngIf="jointMassInvoiceForm.get('parent_id')?.invalid && jointMassInvoiceForm.get('parent_id')?.hasError('required') && jointMassInvoiceForm.get('parent_id')?.touched">
+            <ion-text color="danger">This field is required.</ion-text>
+          </ion-row>
+
+    <ion-label class="label">Invoice Title <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="title" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="jointMassInvoiceForm.get('title')?.invalid && jointMassInvoiceForm.get('title')?.hasError('required') && jointMassInvoiceForm.get('title')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <ion-label class="label">Invoice Amount <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="invoice_amount" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="jointMassInvoiceForm.get('invoice_amount')?.invalid && jointMassInvoiceForm.get('invoice_amount')?.hasError('required') && jointMassInvoiceForm.get('invoice_amount')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <ion-label class="label">Paid Amount <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="paid_amount" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="jointMassInvoiceForm.get('paid_amount')?.invalid && jointMassInvoiceForm.get('paid_amount')?.hasError('required') && jointMassInvoiceForm.get('paid_amount')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+ 
+    <ion-label>Status <span class="req">*</span></ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="status" label-placement="floating">
+        <ion-select-option value="partial">Partial paid</ion-select-option>
+        <ion-select-option value="paid">Paid</ion-select-option>
+        <ion-select-option value="unpaid">Unpaid</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row class="err"
+      *ngIf="jointMassInvoiceForm.get('status')?.invalid && jointMassInvoiceForm.get('status')?.hasError('required') && jointMassInvoiceForm.get('status')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <!-- <ion-item lines="none">
+      <ion-label>Recurring</ion-label>
+      <ion-checkbox slot="start" formControlName="recurring" (ionChange)="toggleRecurring($event)"></ion-checkbox>
+    </ion-item>
+    
+     Conditionally show the duration input if 'showDuration' is true
+    <ion-label *ngIf="showDuration">Duration </ion-label>
+    <ion-list *ngIf="showDuration">
+      <ion-input type="text" formControlName="duration"></ion-input>
+    </ion-list>
+    -->
+    <ion-button expand="full" type="submit" (click)="submit()" *ngIf="jointMassInvoiceForm.valid">
+      Submit
+    </ion-button>
+</form>
+
+</ion-content>
+
+

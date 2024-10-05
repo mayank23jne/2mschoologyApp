@@ -1,0 +1,92 @@
+<app-header></app-header>
+<ion-content>
+    
+    <form [formGroup]="systemForm">
+
+        <ion-label class="label">System Name <span class="req">*</span></ion-label>
+        <ion-list>
+            <ion-input type="text" formControlName="system_name" required></ion-input>
+        </ion-list>
+        <ion-row class="err"
+            *ngIf="systemForm.get('system_name')?.invalid && systemForm.get('system_name')?.hasError('required') && systemForm.get('system_name')?.touched">
+            <ion-text color="danger">This field is required</ion-text>
+        </ion-row>
+
+        <ion-label class="label">Title <span class="req">*</span></ion-label>
+        <ion-list>
+            <ion-input type="text" formControlName="system_title"></ion-input>
+        </ion-list>
+
+        <ion-label class="label">School email <span class="req">*</span></ion-label>
+        <ion-list>
+            <ion-input type="text" formControlName="system_email"></ion-input>
+        </ion-list>
+        <ion-row class="err"
+            *ngIf="systemForm.get('system_email')?.invalid && systemForm.get('system_email')?.hasError('required') && systemForm.get('system_email')?.touched">
+            <ion-text color="danger">This field is required</ion-text>
+        </ion-row>
+
+        <ion-label class="label">Phone <span class="req">*</span></ion-label>
+        <ion-list>
+            <ion-input type="text" formControlName="phone"></ion-input>
+        </ion-list>
+
+        <ion-label class="label">Fax </ion-label>
+        <ion-list>
+            <ion-input type="text" formControlName="fax"></ion-input>
+        </ion-list>
+
+        <ion-label>Address <span class="req">*</span></ion-label>
+        <ion-list>
+            <ion-textarea  type="text" rows="5" formControlName="address"></ion-textarea>
+        </ion-list>
+
+        <ion-label class="label">Purchase code <span class="req">*</span></ion-label>
+        <ion-list>
+            <ion-input type="text" formControlName="purchase_code"></ion-input>
+        </ion-list>
+
+        <ion-label class="label">Timezone </ion-label>
+        <ion-item class="dropdown-s">
+          <ion-select formControlName="timezone" label-placement="floating" >
+            <ion-select-option *ngFor="let item of timezoneList" [value]="item" >{{ item }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-label class="label">Footer text </ion-label>
+        <ion-list>
+            <ion-input type="text" formControlName="footer_text"></ion-input>
+        </ion-list>
+        <ion-label class="label">Footer link </ion-label>
+        <ion-list>
+            <ion-input type="text" formControlName="footer_link"></ion-input>
+        </ion-list>
+        <ion-button *ngIf="systemForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+
+    </form>
+
+    <form [formGroup]="systemLogo">
+    
+    <ion-label class="label banner">Regular Logo</ion-label>
+    <ion-card class="text-center"><img class="mt20" *ngIf="regularLogo" [src]="regularLogo" alt="Regular Logo"></ion-card>
+    <input class="mt20 file-input" type="file" (change)="loadProfileFromDevice($event,'regularLogo')"  accept="image/png, image/jpeg, image/jpg">
+    
+    <ion-label class="label banner">Light Logo</ion-label>
+    <ion-card class="text-center"><img class="mt20" *ngIf="lightLogo" [src]="lightLogo" alt="Light Logo"></ion-card>
+    <input class="mt20 file-input" type="file" (change)="loadProfileFromDevice($event,'lightLogo')"  accept="image/png, image/jpeg, image/jpg">
+
+    <ion-label class="label banner">Small Logo</ion-label>
+    <ion-card class="text-center">
+    <img class="mt20" *ngIf="smallLogo" [src]="smallLogo" alt="Small Logo"></ion-card>
+    <input class="mt20 file-input" type="file" (change)="loadProfileFromDevice($event,'smallLogo')"  accept="image/png, image/jpeg, image/jpg">
+
+    <ion-label class="label banner">Favicon</ion-label>
+    <ion-card class="text-center">
+    <img class="mt20" *ngIf="favicon" [src]="favicon" alt="banner">
+    </ion-card>
+    
+    <input class="mt20 file-input" type="file" (change)="loadProfileFromDevice($event,'favicon')" accept="image/png, image/jpeg, image/jpg">
+    
+    <ion-button  expand="block" (click)="submit_logos()" class="submit-btn mt-20">Submit</ion-button>
+    </form>
+</ion-content>

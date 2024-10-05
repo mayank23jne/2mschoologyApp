@@ -1,0 +1,29 @@
+.ck-editor__editable_inline {
+    min-height: 300px;
+  }
+.banner{
+  position: relative;
+  top: 10px;
+  }
+  .ck{
+   margin-top: 10px;
+  }
+  form {
+    margin: 20px 15px;
+}
+form ion-input{
+    padding: 12px;
+    padding-left: 15px !important;
+}
+form ion-textarea {
+    padding-left: 15px !important;
+}
+form .ion-touched.ion-invalid.sc-ion-input-md-h {
+    padding-right: 15px !important;
+}
+form .ion-touched.ion-invalid.sc-ion-textarea-md-h{
+    padding-right: 15px !important;
+}
+ion-button{
+  width: 100%;
+}

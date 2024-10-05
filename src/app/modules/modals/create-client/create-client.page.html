@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>{{ heading_title }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">Close</ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="clientForm">
+
+    <ion-label class="label">Name <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="name" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="clientForm.get('name')?.invalid && clientForm.get('name')?.hasError('required') && clientForm.get('name')?.touched">
+      <ion-text color="danger">This field is required</ion-text>
+    </ion-row>
+    <ion-label class="label">Email </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-list>
+    <ion-label class="label">Phone </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="phone"></ion-input>
+    </ion-list>
+    <ion-label class="label">Website url </ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="website_url"></ion-input>
+    </ion-list>
+    <ion-label>Address</ion-label>
+    <ion-list>
+      <ion-textarea formControlName="address" type="text" ></ion-textarea>
+    </ion-list>
+
+    <ion-button *ngIf="clientForm.valid"  expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+  
+  </form>
+</ion-content>

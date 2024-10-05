@@ -217,6 +217,166 @@ const routes: Routes = [
     path: 'class-routine-add',
     loadChildren: () => import('./modules/modals/class-routine-add/class-routine-add.module').then( m => m.ClassRoutineAddPageModule)
   },
+  {
+    path: 'add-expense-category',
+    loadChildren: () => import('./modules/modals/add-expense-category/add-expense-category.module').then( m => m.AddExpenseCategoryPageModule)
+  },
+  {
+    path: 'expense_category',
+    loadChildren: () => import('./modules/expense-category/expense-category.module').then( m => m.ExpenseCategoryPageModule)
+  },
+  {
+    path: 'expense',
+    loadChildren: () => import('./modules/expense/expense.module').then( m => m.ExpensePageModule)
+  },
+  {
+    path: 'unpaid-invoice-list',
+    loadChildren: () => import('./modules/modals/unpaid-invoice-list/unpaid-invoice-list.module').then( m => m.UnpaidInvoiceListPageModule)
+  },
+  {
+    path: 'sendsmssetting',
+    loadChildren: () => import('./modules/sendsmssetting/sendsmssetting.module').then( m => m.SendsmssettingPageModule)
+  },
+  {
+    path: 'sms',
+    loadChildren: () => import('./modules/sms/sms.module').then( m => m.SmsPageModule)
+  },
+  {
+    path: 'payment_report',
+    loadChildren: () => import('./modules/payment-report/payment-report.module').then( m => m.PaymentReportPageModule)
+  },
+  {
+    path: 'joint-invoice-master',
+    loadChildren: () => import('./modules/modals/joint-invoice-master/joint-invoice-master.module').then( m => m.JointInvoiceMasterPageModule)
+  },
+  {
+    path: 'invoice-master',
+    loadChildren: () => import('./modules/modals/invoice-master/invoice-master.module').then( m => m.InvoiceMasterPageModule)
+  },
+  {
+    path: 'payment-report-info',
+    loadChildren: () => import('./modules/modals/payment-report-info/payment-report-info.module').then( m => m.PaymentReportInfoPageModule)
+  },
+  {
+    path: 'mass-invoice-master',
+    loadChildren: () => import('./modules/modals/mass-invoice-master/mass-invoice-master.module').then( m => m.MassInvoiceMasterPageModule)
+  },
+  {
+    path: 'joint-mass-invoice-master',
+    loadChildren: () => import('./modules/modals/joint-mass-invoice-master/joint-mass-invoice-master.module').then( m => m.JointMassInvoiceMasterPageModule)
+  },
+  {
+    path: 'manual-payment',
+    loadChildren: () => import('./modules/modals/manual-payment/manual-payment.module').then( m => m.ManualPaymentPageModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./modules/admin/admin.module').then( m => m.AdminPageModule)
+  },
+  {
+    path: 'schools',
+    loadChildren: () => import('./modules/schools/schools.module').then( m => m.SchoolsPageModule)
+  },
+  {
+    path: 'school_permission',
+    loadChildren: () => import('./modules/school-permission/school-permission.module').then( m => m.SchoolPermissionPageModule)
+  },
+  {
+    path: 'generateinvoice',
+    loadChildren: () => import('./modules/generateinvoice/generateinvoice.module').then( m => m.GenerateinvoicePageModule)
+  },
+  {
+    path: 'admin-master',
+    loadChildren: () => import('./modules/modals/admin-master/admin-master.module').then( m => m.AdminMasterPageModule)
+  },
+  {
+    path: 'school-master',
+    loadChildren: () => import('./modules/modals/school-master/school-master.module').then( m => m.SchoolMasterPageModule)
+  },
+  {
+    path: 'add-plan-master',
+    loadChildren: () => import('./modules/modals/add-plan-master/add-plan-master.module').then( m => m.AddPlanMasterPageModule)
+  },
+  {
+    path: 'plan_settings',
+    loadChildren: () => import('./modules/plan-settings/plan-settings.module').then( m => m.PlanSettingsPageModule)
+  },
+  {
+    path: 'smtp_settings',
+    loadChildren: () => import('./modules/smtp-settings/smtp-settings.module').then( m => m.SmtpSettingsPageModule)
+  },
+  {
+    path: 'system_settings',
+    loadChildren: () => import('./modules/system-settings/system-settings.module').then( m => m.SystemSettingsPageModule)
+  },
+  {
+    path: 'create-invoice',
+    loadChildren: () => import('./modules/modals/create-invoice/create-invoice.module').then( m => m.CreateInvoicePageModule)
+  },
+  {
+    path: 'invoice-detail',
+    loadChildren: () => import('./modules/modals/invoice-detail/invoice-detail.module').then( m => m.InvoiceDetailPageModule)
+  },
+  {
+    path: 'create-client',
+    loadChildren: () => import('./modules/modals/create-client/create-client.module').then( m => m.CreateClientPageModule)
+  },
+  {
+    path: 'invoice-print',
+    loadChildren: () => import('./modules/modals/invoice-print/invoice-print.module').then( m => m.InvoicePrintPageModule)
+  },
+  {
+    path: 'website_settings',
+    loadChildren: () => import('./modules/website-settings/website-settings.module').then( m => m.WebsiteSettingsPageModule)
+  },
+  {
+    path: 'about_us',
+    loadChildren: () => import('./modules/web-settings/about-us/about-us.module').then( m => m.AboutUsPageModule)
+  },
+  {
+    path: 'privacy_policy',
+    loadChildren: () => import('./modules/web-settings/privacy-policy/privacy-policy.module').then( m => m.PrivacyPolicyPageModule)
+  },
+  {
+    path: 'terms',
+    loadChildren: () => import('./modules/web-settings/terms/terms.module').then( m => m.TermsPageModule)
+  },
+  {
+    path: 'general_settings',
+    loadChildren: () => import('./modules/web-settings/general-settings/general-settings.module').then( m => m.GeneralSettingsPageModule)
+  },
+  {
+    path: 'others',
+    loadChildren: () => import('./modules/web-settings/others/others.module').then( m => m.OthersPageModule)
+  },
+  {
+    path: 'sub-invoices',
+    loadChildren: () => import('./modules/modals/sub-invoices/sub-invoices.module').then( m => m.SubInvoicesPageModule)
+  },
+  {
+    path: 'print-report',
+    loadChildren: () => import('./modules/modals/print-report/print-report.module').then( m => m.PrintReportPageModule)
+  },
+  {
+    path: 'online-payment',
+    loadChildren: () => import('./modules/modals/online-payment/online-payment.module').then( m => m.OnlinePaymentPageModule)
+  },
+  {
+    path: 'student-excel',
+    loadChildren: () => import('./modules/modals/student-excel/student-excel.module').then( m => m.StudentExcelPageModule)
+  },
+  {
+    path: 'image-preview',
+    loadChildren: () => import('./modules/modals/image-preview/image-preview.module').then( m => m.ImagePreviewPageModule)
+  },
+  {
+    path: 'upload-csv-master',
+    loadChildren: () => import('./modules/modals/upload-csv-master/upload-csv-master.module').then( m => m.UploadCsvMasterPageModule)
+  },
+  {
+    path: 'invoice-chart',
+    loadChildren: () => import('./modules/modals/invoice-chart/invoice-chart.module').then( m => m.InvoiceChartPageModule)
+  },
 
 ];
 

@@ -1,6 +1,7 @@
 <app-header></app-header>
 <ion-content>
   <ion-content>
+    <div class="text-center"><ion-button class="btn" (click)="openAddModal()">Upload excel</ion-button></div>
     <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
       <app-class-filter (filterChange)="onFilterChange($event)"></app-class-filter>
       <div formArrayName="students">
@@ -64,5 +65,6 @@
         <ion-button type="submit">Submit</ion-button>
       </div>
     </form>
+      
   </ion-content>
 </ion-content>

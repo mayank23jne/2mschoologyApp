@@ -1,0 +1,39 @@
+<app-header></app-header>
+<ion-content [fullscreen]="true">
+  
+  <div *ngIf="plansList">
+    <ion-row>
+      <ion-col size="10">
+        <ion-searchbar  show-clear-button="always" [(ngModel)]="search" (ionClear)="searchCancel()"></ion-searchbar>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button class="search-btn" (click)="searchRes()"><ion-icon name="search"></ion-icon></ion-button>
+      </ion-col>
+    </ion-row>
+ <ion-card class="list-card" *ngFor="let item of plansList" >
+  <ion-row>
+      <ion-col size="9">
+        <p class="capitalize"><b>{{ item.plan_name }}</b></p>
+        <p *ngIf="item.plan_type"><b>Plan type:</b> {{ item.plan_type }}</p>
+        <p *ngIf="item.amount"><b>Amount:</b> {{ item.amount}}</p>
+        <p *ngIf="item.detail"><b>Detail:</b> {{ item.detail }}</p>
+      </ion-col>
+      <ion-col size="3" class="icons">
+        <ion-icon  class="pencil" name="pencil" (click)="openEditModal(item)"></ion-icon>
+        <ion-icon class="trash" name="trash-outline"  (click)="delete(item.id)"></ion-icon> 
+      </ion-col>
+  </ion-row>
+  </ion-card>
+  </div>
+
+  <div *ngIf="!plansList" class="empty_box">
+      <img class="empty_box_img" src="../../../assets/icon/empty_box.png">
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+    <ion-fab-button (click)="openAddModal()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+</ion-content>
+

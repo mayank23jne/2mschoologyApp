@@ -5,6 +5,7 @@ import { SchoolDataService } from 'src/app/core/services/school-data.service';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { AddTeacherPage } from '../../modals/add-teacher/add-teacher.page';
 import { ModalController } from '@ionic/angular';
+import { UploadCsvMasterPage } from '../../modals/upload-csv-master/upload-csv-master.page';
 
 @Component({
   selector: 'app-teacher',
@@ -106,4 +107,22 @@ async openAddModal() {
 
   return await modal.present();
 }
+
+async openExcelModal() {
+  const modal = await this.modalController.create({
+    component: UploadCsvMasterPage,
+    cssClass: '',
+    componentProps: {
+      title: "Add teacher by CSV",
+      module:'teacher'
+    }
+  });
+
+  modal.onDidDismiss().then(() => {
+    
+  });
+
+  return await modal.present();
+}
+
 }

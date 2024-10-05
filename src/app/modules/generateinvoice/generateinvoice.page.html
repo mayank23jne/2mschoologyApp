@@ -1,0 +1,48 @@
+<app-header></app-header>
+<ion-content>
+  <div *ngIf="invoiceList">
+    <ion-row>
+      <ion-col size="10">
+        <ion-searchbar placeholder="Search invoice no."  show-clear-button="always" [(ngModel)]="search" (ionClear)="searchCancel()"></ion-searchbar>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button class="search-btn" (click)="searchRes()"><ion-icon name="search"></ion-icon></ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-item>
+      <ion-label>Select All</ion-label>
+      <ion-checkbox [(ngModel)]="selectAllChecked" (ionChange)="toggleSelectAll()"></ion-checkbox>
+      <ion-button *ngIf="ShowDelete" color="danger" (click)="deleteSelected()">Delete Selected</ion-button>
+    </ion-item>
+ <ion-card class="list-card" *ngFor="let item of invoiceList" >
+  <ion-row>
+      <ion-col size="9" (click)="openDetailModal(item)">
+        <ion-row>
+          <p class="capitalize">Invoice no : {{ item.invoice_id }}</p>
+        </ion-row>
+          <ion-row>
+            <p class="capitalize">Title : {{ item.invoice_title[0] }}</p>
+          </ion-row>
+      </ion-col>
+      <ion-col size="3" class="icons">
+        <ion-icon class="pencil" name="pencil" (click)="openEditModal(item)"></ion-icon>
+        <ion-icon class="trash" name="trash-outline" (click)="delete(item.invoice_id)"></ion-icon>
+        <ion-checkbox class="checkDelete" [checked]="isSelected(item.invoice_id)" (ionChange)="onCheckChange(item.invoice_id, $event)"></ion-checkbox>
+      </ion-col>
+  </ion-row>
+  </ion-card>
+  </div>
+
+  <div *ngIf="!invoiceList" class="empty_box">
+      <img class="empty_box_img" src="../../../assets/icon/empty_box.png">
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+    <ion-fab-button (click)="openAddModal()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+</ion-content>
+
+

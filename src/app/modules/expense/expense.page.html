@@ -1,0 +1,71 @@
+<app-header></app-header>
+<ion-content [fullscreen]="true">
+  <div style="margin-top: 20px;">
+  <app-date-range-picker
+    (pickedDate)="selectedDate($event)"
+  ></app-date-range-picker>
+</div>
+  <ion-item>
+    <ion-select
+      label="Category"
+      label-placement="floating"
+      [(ngModel)]="selectedCategory"
+    >
+      <ion-select-option
+        *ngFor="let category of categoryListData"
+        [value]="category.id"
+      >
+        {{ category.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <div class="text-center mt10">
+    <ion-button class="filter-btn" (click)="filterExpenses()">Filter</ion-button>
+  </div>
+
+  <div *ngIf="expenseList">
+    <ion-card class="list-card" *ngFor="let item of expenseList">
+      <ion-row>
+        <ion-col size="9">
+          <ion-row>
+            <p class="capitalize">Title : {{ item.expense_category }}</p>
+          </ion-row>
+          <ion-row>
+            <p class="capitalize">Amount : {{ item.amount }}</p>
+          </ion-row>
+          <ion-row>
+            <p class="capitalize">Date : {{ item.date }}</p>
+          </ion-row>
+        </ion-col>
+        <ion-col size="3" class="icons">
+          <ion-icon
+            *ngIf="role == 'admin' || role == 'superadmin'"
+            class="pencil"
+            name="pencil"
+            (click)="openEditModal(item)"
+          ></ion-icon>
+          <ion-icon
+            class="trash"
+            name="trash-outline"
+            *ngIf="role == 'admin' || role == 'superadmin'"
+            (click)="deleteExpense(item.id)"
+          ></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+
+  <div *ngIf="!expenseList" class="empty_box">
+    <img class="empty_box_img" src="../../../assets/icon/empty_box.png" />
+  </div>
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    *ngIf="role == 'admin' || role == 'superadmin'"
+  >
+    <ion-fab-button (click)="openAddModal()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

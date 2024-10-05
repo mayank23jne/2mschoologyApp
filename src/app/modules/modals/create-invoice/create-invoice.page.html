@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <form [formGroup]="invoiceForm">
+
+    <ion-label>Client from </ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="from_client_id" label-placement="floating">
+        <ion-select-option *ngFor="let item of client_from_list" [value]="item.id">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-buttons class="al-right">
+      <ion-button *ngIf="!editData" (click)="createFromInvoice()">Add from</ion-button>
+    </ion-buttons>
+
+    <ion-label class="mt10">Client to </ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="to_client_id" label-placement="floating">
+        <ion-select-option *ngFor="let item of client_to_list" [value]="item.id">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-buttons class="al-right">
+      <ion-button *ngIf="!editData" (click)="createToInvoice()">Add to</ion-button>
+    </ion-buttons>
+
+    <ion-label class="label mt10">Invoice note <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="note" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="invoiceForm.get('note')?.invalid && invoiceForm.get('note')?.hasError('required') && invoiceForm.get('note')?.touched">
+      <ion-text color="danger">This field is required</ion-text>
+    </ion-row>
+
+    <ion-list>
+      <ion-label>Invoice Date <span class="req">*</span> </ion-label>
+      <ion-input id="sdate" formControlName="invoice_date" class="ion-text-start pl-10 mt10" name="invoice_date"
+        [value]="invoiceForm.get('invoice_date')?.value | date: 'dd-MM-yyyy'">
+        <ion-icon aria-hidden="true" name="calendar-clear-outline" class="date-icon"></ion-icon>
+      </ion-input>
+
+      <ion-popover trigger="sdate" size="cover">
+        <ng-template>
+          <ion-datetime [value]="setDefaultDate" presentation="sdate" locale="en-US" (ionChange)="setStartDate()"
+            formControlName="invoice_date">
+          </ion-datetime>
+          <ion-row>
+            <ion-col><ion-button class="reset-date-btn" (click)="resetStartDate()" expand="block"
+                color="primary">Reset</ion-button></ion-col>
+            <ion-col><ion-button class="reset-date-btn" (click)="savedate()" expand="block"
+                color="primary">OK</ion-button></ion-col>
+          </ion-row>
+        </ng-template>
+      </ion-popover>
+    </ion-list>
+
+    <ion-list>
+      <div formArrayName="invoices">
+        <div class="invoice-form-block" *ngFor="let invoice of invoices.controls; let i = index" [formGroupName]="i">
+
+          <ion-label>Invoice Title</ion-label>
+          <ion-list>
+            <ion-input type="text" formControlName="title"></ion-input>
+          </ion-list>
+
+          <ion-label>Invoice Amount</ion-label>
+          <ion-list>
+            <ion-input type="number" formControlName="invoice_amount"
+              (ionChange)="updateDueAmount(invoice)"></ion-input>
+          </ion-list>
+
+          <ion-label>Quantity</ion-label>
+          <ion-list>
+            <ion-input type="number" formControlName="quantity" (ionChange)="updateDueAmount(invoice)"></ion-input>
+          </ion-list>
+
+          <ion-label>Paid Amount</ion-label>
+          <ion-list>
+            <ion-input type="number" formControlName="paid_amount" (ionChange)="updateDueAmount(invoice)"></ion-input>
+          </ion-list>
+
+          <ion-label>Due Amount</ion-label>
+          <ion-list>
+            <ion-input type="number" formControlName="due_amount"></ion-input>
+          </ion-list>
+
+
+          <ion-button expand="block" color="danger" (click)="removeInvoice(i)" *ngIf="invoices.length > 1 && i > 0">
+            Remove Invoice
+          </ion-button>
+        </div>
+      </div>
+
+      <ion-button expand="block" color="primary" (click)="addInvoice()">
+        Add More Invoices
+      </ion-button>
+    </ion-list>
+
+    <ion-label>Status </ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="status" label-placement="floating">
+        <ion-select-option value="paid">Paid</ion-select-option>
+        <ion-select-option value="unpaid">Unpaid</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button *ngIf="invoiceForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+
+  </form>
+</ion-content>

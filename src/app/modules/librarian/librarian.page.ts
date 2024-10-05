@@ -51,7 +51,7 @@ list(data:any){
 }
 
 searchRes() {
-  this.formData = new FormData();
+
   this.librarianList = this.librarianList.filter((item: { name: string }) => item.name.toLowerCase().includes(this.search.toLowerCase()));
 }
 
@@ -67,10 +67,12 @@ delete(id: any) {
     if (res == true) {
       const formData = new FormData();
       formData.append('id', id);
+      formData.append('user_type', 'librarian');
       this.fetch.userDelete(formData).subscribe({
         next: (res: any) => {
           if (res.code == 200) {
             this.toastService.presentToast(res.response);
+            this.ngOnInit();
           } else {
             this.toastService.presentErrorToast(res.response);
           }
@@ -88,6 +90,7 @@ async openEditModal(item:any) {
     cssClass: '',
     componentProps: {
       title: "Edit Librarian",
+      addUserType:'librarian',
       editUserData:item
     }
   });
@@ -103,10 +106,12 @@ async openAddModal() {
     component: AddUserMasterPage,
     cssClass: '',
     componentProps: {
-      title: "Add Librarian"
+      title: "Add Librarian",
+      addUserType:'librarian',
     }
   });
   modal.onDidDismiss().then((dataReturned) => {
+    this.ngOnInit();
   });
   return await modal.present();
 }

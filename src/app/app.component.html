@@ -26,7 +26,7 @@
             <ion-list *ngFor="let p of appPages; let i = index" class="p-0">
               <ion-item (click)="toggleAccordion(i)" routerDirection="root" [routerLink]="[]" lines="none" detail="false" [class.selected]="selectedIndex === i">
                 <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon"></ion-icon>
-                <ion-label class="capitalize">{{ p.title }}</ion-label>
+                <ion-label class="capitalize" (click)="gotoPage(p)">{{ p.title }}</ion-label>
                 <ion-icon slot="end" name="chevron-down" *ngIf="selectedIndex !== i && p.children"></ion-icon>
                 <ion-icon slot="end" name="chevron-up" *ngIf="selectedIndex === i && p.children"></ion-icon>
               </ion-item>

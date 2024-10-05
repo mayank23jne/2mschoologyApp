@@ -23,6 +23,13 @@ export class StudentInfoPage implements OnInit {
   ngOnInit() {
    
   }
+  ionViewWillEnter(){
+    this.heading_title = this.navParams.get('title');
+    this.studentData = this.navParams.get('studentData');
+    this.student_id =  this.studentData.student_id;
+    
+    this.list();
+  }
   async openEditModal(){
     const modal = await this.modalController.create({
       component: StudentEditPage,
@@ -34,6 +41,7 @@ export class StudentInfoPage implements OnInit {
       }
       });
       modal.onDidDismiss().then((dataReturned) => {
+
         this.modalController.dismiss();
       });
   
@@ -43,7 +51,7 @@ export class StudentInfoPage implements OnInit {
     this.data.presentAlertConfirm().then((res: any) => {
       if(res == true){
         const formData = new FormData();
-        formData.append('syllabus_id', id);
+        formData.append('student_id', id);
         this.fetch.studentDelete(formData).subscribe({
           next:(res:any) => {
             if(res.code == 200){
@@ -63,12 +71,7 @@ export class StudentInfoPage implements OnInit {
   closeModal() {
     this.modalController.dismiss();
   }
-  ionViewWillEnter(){
-    this.heading_title = this.navParams.get('title');
-    this.student_id = this.navParams.get('id');
-    this.studentData = this.navParams.get('studentData');
-    this.list();
-  }
+ 
 list(){
     const formData = new FormData();
     formData.append('student_id', this.student_id);
@@ -77,7 +80,6 @@ list(){
       if(res.code == 200){
         this.loader.dismiss();
         this.detail = res.data;
-     
         }
         else{
           this.detail = [];

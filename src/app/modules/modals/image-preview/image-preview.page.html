@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="heading_title">{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="image-container">
+    <img [src]="imageUrl" alt="Image preview" />
+  </div>
+</ion-content>

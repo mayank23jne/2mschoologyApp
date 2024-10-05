@@ -1,0 +1,9 @@
+<app-header></app-header>
+<ion-content>
+  <form [formGroup]="otherForm">
+    <ion-label class="label banner">Login page banner</ion-label>
+    <img class="mt20" *ngIf="imagepath" [src]="imagepath" alt="Profile Picture">
+    <input class="mt20" type="file" (change)="loadProfileFromDevice($event)" id="pfile-input" accept="image/png, image/jpeg, image/jpg">
+    <ion-button class="mt20" (click)="submit()">Submit</ion-button>
+  </form>
+</ion-content>

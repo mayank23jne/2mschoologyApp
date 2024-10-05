@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<form [formGroup]="massInvoiceForm" >
+
+  <ion-label>Class <span class="req">*</span></ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="class_id" label-placement="floating" (ionChange)="onClassChange()">
+        <ion-select-option *ngFor="let item of classes" [value]="item.id">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row class="err"
+      *ngIf="massInvoiceForm.get('class_id')?.invalid && massInvoiceForm.get('class_id')?.hasError('required') && massInvoiceForm.get('class_id')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <ion-label>Section <span class="req">*</span></ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="section_id" label-placement="floating" >
+        <ion-select-option *ngFor="let item of sections" [value]="item.id">{{ item.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row class="err"
+      *ngIf="massInvoiceForm.get('section_id')?.invalid && massInvoiceForm.get('section_id')?.hasError('required') && massInvoiceForm.get('section_id')?.touched">
+      <ion-text color="danger">Section is required.</ion-text>
+    </ion-row>
+
+    <ion-label class="label">Invoice Title <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="title" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="massInvoiceForm.get('title')?.invalid && massInvoiceForm.get('title')?.hasError('required') && massInvoiceForm.get('title')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <ion-label class="label">Invoice Amount <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="invoice_amount" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="massInvoiceForm.get('invoice_amount')?.invalid && massInvoiceForm.get('invoice_amount')?.hasError('required') && massInvoiceForm.get('invoice_amount')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <ion-label class="label">Paid Amount <span class="req">*</span></ion-label>
+    <ion-list>
+      <ion-input type="text" formControlName="paid_amount" required></ion-input>
+    </ion-list>
+    <ion-row class="err"
+      *ngIf="massInvoiceForm.get('paid_amount')?.invalid && massInvoiceForm.get('paid_amount')?.hasError('required') && massInvoiceForm.get('paid_amount')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+ 
+    <ion-label>Status <span class="req">*</span></ion-label>
+    <ion-item class="dropdown-s">
+      <ion-select formControlName="status" label-placement="floating">
+        <ion-select-option value="partial">Partial paid</ion-select-option>
+        <ion-select-option value="paid">Paid</ion-select-option>
+        <ion-select-option value="unpaid">Unpaid</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row class="err"
+      *ngIf="massInvoiceForm.get('status')?.invalid && massInvoiceForm.get('status')?.hasError('required') && massInvoiceForm.get('status')?.touched">
+      <ion-text color="danger">This field is required.</ion-text>
+    </ion-row>
+
+    <!-- <ion-item lines="none">
+        <ion-label>Recurring</ion-label>
+        <ion-checkbox slot="start" formControlName="recurring" (ionChange)="toggleRecurring($event)"></ion-checkbox>
+      </ion-item>
+      <ion-label *ngIf="showDuration">Duration </ion-label>
+      <ion-list *ngIf="showDuration">
+        <ion-input type="text" formControlName="duration"></ion-input>
+      </ion-list> 
+    -->
+   
+    <ion-button expand="full" type="submit" (click)="submit()" *ngIf="massInvoiceForm.valid">
+      Submit
+    </ion-button>
+</form>
+
+</ion-content>
+

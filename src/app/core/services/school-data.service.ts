@@ -14,13 +14,13 @@ export class SchoolDataService {
 
   private makeApiCall(endpoint: string, method: string, data: any): Observable<any> {
     let payload: any;
-    
-      if (data instanceof FormData) {
-        payload = this.formDataToJson(data);
-      } else {
-        payload = data;
-      }
-    
+
+    if (data instanceof FormData) {
+      payload = this.formDataToJson(data);
+    } else {
+      payload = data;
+    }
+
     const options: HttpOptions = this.authInterceptor.interceptRequest({
       url: `${environment.apiUrl}/` + endpoint,
       method: method,
@@ -35,7 +35,7 @@ export class SchoolDataService {
           console.error('No internet connection or server unreachable');
           return of({ error: true, message: 'No internet connection or server unreachable' });
         }
-  
+
         // Handle other types of errors
         console.error('An error occurred:', error);
         return of({ error: true, message: error.message || 'An unexpected error occurred' });
@@ -73,7 +73,7 @@ export class SchoolDataService {
     const endpoint = `getClassSectionParentsData`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  studentData(data: any=""): Observable<any> {
+  studentData(data: any = ""): Observable<any> {
     const endpoint = `studentData`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
@@ -101,7 +101,7 @@ export class SchoolDataService {
     const endpoint = `eventCalendar`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  getAllSyllabusData(data : any): Observable<any> {
+  getAllSyllabusData(data: any): Observable<any> {
     const endpoint = `syllabusData`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
@@ -109,16 +109,12 @@ export class SchoolDataService {
     const endpoint = `syllabusDelete`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  // syllabusCreate(data: any): Observable<any> {
-  //   const endpoint = `syllabuscreatedata`;
-  //   return this.makeApiCall(endpoint, 'POST', data);
-  // }
-  syllabusCreate(data : any = ""): Observable<any> {
+  syllabusCreate(data: any = ""): Observable<any> {
     let token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-    return this.http.post<any>(`${environment.apiUrl}/syllabuscreatedata`,data,{ headers });
+    return this.http.post<any>(`${environment.apiUrl}/syllabuscreatedata`, data, { headers });
   }
-  examData(data: any=""): Observable<any> {
+  examData(data: any = ""): Observable<any> {
     const endpoint = `exam`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
@@ -218,77 +214,82 @@ export class SchoolDataService {
     const endpoint = `createtakeattendance`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  studentFeeInvoice(data : any): Observable<any> {
+  studentFeeInvoice(data: any): Observable<any> {
     const endpoint = `studentFeeInvoice`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  studentFeeManagerData(data : any = ""): Observable<any> {
+  studentFeeManagerData(data: any = ""): Observable<any> {
     const endpoint = `studentFeeManager`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  updateStudentGrade(data : any = ""): Observable<any> {
+  updateStudentGrade(data: any = ""): Observable<any> {
     const endpoint = `updateSubmittedFileStatus`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  payment_stripe(data : any = ""): Observable<any> {
+  payment_stripe(data: any = ""): Observable<any> {
     const endpoint = `payment_stripe`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  payment_success(data : any = ""): Observable<any> {
+  payment_success(data: any = ""): Observable<any> {
     const endpoint = `payment_process_success`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  parentsData(data : any = ""): Observable<any> {
+  parentsData(data: any = ""): Observable<any> {
     const endpoint = `parentsData`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
   // Admins api
 
   // User Masters
-  viewUserMaster(data : any = ""): Observable<any> {
+  viewUserMaster(data: any = ""): Observable<any> {
     const endpoint = `viewUserMaster`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  addUserMaster(data : any = ""): Observable<any> {
+  addUserMaster(data: any = ""): Observable<any> {
     const endpoint = `addUserMaster`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  userDelete(data : any = ""): Observable<any> {
+  userDelete(data: any = ""): Observable<any> {
     const endpoint = `deleteUserMaster`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
 
-  bulkStudentAdmission(data : any = ""): Observable<any> {
+  bulkStudentAdmission(data: any = ""): Observable<any> {
     const endpoint = `bulkStudentAdmission`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
 
   // student
-  deleteAllStudent(data : any = ""): Observable<any> {
+  deleteAllStudent(data: any = ""): Observable<any> {
     const endpoint = `deleteAllStudent`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
+
+  getStudentExcel(data: any = ""): Observable<any> {
+    const endpoint = `getStudentExcelPreview`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
   // Teacher Master
-  addTeacherMaster(data : any = ""): Observable<any> {
+  addTeacherMaster(data: any = ""): Observable<any> {
     const endpoint = `addTeacher`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  deleteTeacherMaster(data : any = ""): Observable<any> {
+  deleteTeacherMaster(data: any = ""): Observable<any> {
     const endpoint = `deleteTeacher`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
   // Teacher Permissions
-  permissionsList(data : any = ""): Observable<any> {
+  permissionsList(data: any = ""): Observable<any> {
     const endpoint = `viewPermission`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  updateTeacherPermission(data : any = ""): Observable<any> {
+  updateTeacherPermission(data: any = ""): Observable<any> {
     const endpoint = `modifyPermission`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  
+
   //Academic master
-  addAdmissionSingleStudent(data : any = ""): Observable<any> {
+  addAdmissionSingleStudent(data: any = ""): Observable<any> {
     const endpoint = `addAdmissionSingleStudent`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
@@ -298,143 +299,406 @@ export class SchoolDataService {
     return this.makeApiCall(endpoint, 'POST', data);
   }
   // Class class room
-  addClass(data : any = ""): Observable<any> {
+  addClass(data: any = ""): Observable<any> {
     const endpoint = `addClass`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  viewClass(data : any = ""): Observable<any> {
+  viewClass(data: any = ""): Observable<any> {
     const endpoint = `viewClass`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  deleteClass(data : any = ""): Observable<any> {
+  deleteClass(data: any = ""): Observable<any> {
     const endpoint = `deleteClass`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
 
-  addClassRoom(data : any = ""): Observable<any> {
+  addClassRoom(data: any = ""): Observable<any> {
     const endpoint = `addClassRoom`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  deleteClassRoom(data : any = ""): Observable<any> {
+  deleteClassRoom(data: any = ""): Observable<any> {
     const endpoint = `deleteClassRoom`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  viewClassRoom(data : any = ""): Observable<any> {
+  viewClassRoom(data: any = ""): Observable<any> {
     const endpoint = `viewClassRoom`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
- 
+
   //Subject
-  addSubject(data : any = ""): Observable<any> {
+  addSubject(data: any = ""): Observable<any> {
     const endpoint = `addSubject`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  deleteSubject(data : any = ""): Observable<any> {
+  deleteSubject(data: any = ""): Observable<any> {
     const endpoint = `deleteSubject`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  viewSubject(data : any = ""): Observable<any> {
+  viewSubject(data: any = ""): Observable<any> {
     const endpoint = `viewSubject`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
 
   // Department
-  addDepartment(data : any = ""): Observable<any> {
+  addDepartment(data: any = ""): Observable<any> {
     const endpoint = `addDepartment`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  viewDepartment(data : any = ""): Observable<any> {
+  viewDepartment(data: any = ""): Observable<any> {
     const endpoint = `viewDepartment`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  deleteDepartment(data : any = ""): Observable<any> {
+  deleteDepartment(data: any = ""): Observable<any> {
     const endpoint = `deleteDepartment`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
   // Events calendar
-  addEventCalendar(data : any = ""): Observable<any> {
+  addEventCalendar(data: any = ""): Observable<any> {
     const endpoint = `addEventCalendar`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  deleteEventCalendarMaster(data : any = ""): Observable<any> {
+  deleteEventCalendarMaster(data: any = ""): Observable<any> {
     const endpoint = `deleteEventCalendarMaster`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
 
   // Exam master
 
-  addExam(data : any = ""): Observable<any> {
+  addExam(data: any = ""): Observable<any> {
     const endpoint = `addExam`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  deleteExamMaster(data : any = ""): Observable<any> {
+  deleteExamMaster(data: any = ""): Observable<any> {
     const endpoint = `deleteExamMaster`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-
-  addGrade(data : any = ""): Observable<any> {
+  addGrade(data: any = ""): Observable<any> {
     const endpoint = `addGrade`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-
-  deleteGrade(data : any = ""): Observable<any> {
+  deleteGrade(data: any = ""): Observable<any> {
     const endpoint = `deleteGrade`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-
-  viewPromotion(data : any = ""): Observable<any> {
+  viewPromotion(data: any = ""): Observable<any> {
     const endpoint = `viewPromotion`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  updatePromotion(data : any = ""): Observable<any> {
+  updatePromotion(data: any = ""): Observable<any> {
     const endpoint = `updatePromotionStatus`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
   // SETTINGS 
   // School setting
-  schoolSettings(data : any = ""): Observable<any> {
+  schoolSettings(data: any = ""): Observable<any> {
     const endpoint = `schoolSettings`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  updateSchoolSettings(data : any = ""): Observable<any> {
+  updateSchoolSettings(data: any = ""): Observable<any> {
     const endpoint = `updateSchoolSettings`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
   // Payment setting 
-  getPaymentSettings(data : any = ""): Observable<any> {
+  getPaymentSettings(data: any = ""): Observable<any> {
     const endpoint = `getPaymentSettings`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  updatePaymentSettings(data : any = ""): Observable<any> {
+  updatePaymentSettings(data: any = ""): Observable<any> {
     const endpoint = `updatePaymentSettings`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
   // Plan Update
-  updatePlan(data : any = ""): Observable<any> {
+  updatePlan(data: any = ""): Observable<any> {
     const endpoint = `updatePlan`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
 
   // Class routine
 
-  deleteClassRoutine(data : any = ""): Observable<any> {
+  deleteClassRoutine(data: any = ""): Observable<any> {
     const endpoint = `deleteClassRoutine`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  addClassRoutine(data : any = ""): Observable<any> {
+  addClassRoutine(data: any = ""): Observable<any> {
     const endpoint = `addClassRoutine`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
 
-  dropdownClassRoutine(data : any = ""): Observable<any> {
+  dropdownClassRoutine(data: any = ""): Observable<any> {
     const endpoint = `dropdownClassRoutine`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  routineSingleRowData(data : any = ""): Observable<any> {
+  routineSingleRowData(data: any = ""): Observable<any> {
     const endpoint = `routineSingleRowData`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
+
+  // Accounting
+  addExpenseCategory(data: any = ""): Observable<any> {
+    const endpoint = `addExpenseCategory`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  deleteExpenseCategory(data: any = ""): Observable<any> {
+    const endpoint = `deleteExpenseCategory`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  expenseCategory(data: any = ""): Observable<any> {
+    const endpoint = `viewExpenseCategory`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  updateTwillioSetting(data: any = ""): Observable<any> {
+    const endpoint = `updateTwillioSetting`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getTwillioSetting(data: any = ""): Observable<any> {
+    const endpoint = `getTwillioSetting`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
+  deleteExpense(data : any = ""): Observable<any> {
+    const endpoint = `deleteExpense`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  expense(data : any = ""): Observable<any> {
+    const endpoint = `viewExpense`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  addExpense(data : any = ""): Observable<any> {
+    const endpoint = `addExpense`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
+  // SMS
+  smsList(data: any = ""): Observable<any> {
+    const endpoint = `smsList`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  sendMessage(data: any = ""): Observable<any> {
+    const endpoint = `sendMessage`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  // Invoice 
+
+  studentSingleInvoice(data: any = ""): Observable<any> {
+    const endpoint = `studentSingleInvoice`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  studentJointInvoice(data: any = ""): Observable<any> {
+    const endpoint = `studentJointInvoice`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  massInvoice(data: any = ""): Observable<any> {
+    const endpoint = `massInvoice`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  jointMassInvoice(data: any = ""): Observable<any> {
+    const endpoint = `jointMassInvoice`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+ 
+  // Payment Report && Fee Manager
   
+  adminStudentFeeManager(data: any = ""): Observable<any> {
+    const endpoint = `adminStudentFeeManager`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  deleteSingleStudentFeeManager(data: any = ""): Observable<any> {
+    const endpoint = `deleteSingleStudentFeeManager`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  deleteAllStudentFeeManager(data: any = ""): Observable<any> {
+    const endpoint = `deleteAllStudentFeeManager`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getParentByClass(data: any = ""): Observable<any> {
+    const endpoint = `getParentByClass`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getStudentsByParent(data: any = ""): Observable<any> {
+    const endpoint = `getStudentsByParent`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  subInvoiceData(data: any = ""): Observable<any> {
+    const endpoint = `subInvoiceData`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  manualPayment(data: any = ""): Observable<any> {
+    const endpoint = `manualPayment`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  invoicePrint(data: any = ""): Observable<any> {
+    const endpoint = `invoicePrint`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
+  activeSession(data: any = ""): Observable<any> {
+    const endpoint = `activeSession`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
+  exportRport(data: any = ""): Observable<any> {
+    const endpoint = `exportRport`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
+  // Super admin section
+
+  viewSchool(data: any = ""): Observable<any> {
+    const endpoint = `viewSchool`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  createSchool(data: any = ""): Observable<any> {
+    const endpoint = `createSchool`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  schoolDelete(data: any = ""): Observable<any> {
+    const endpoint = `schoolDelete`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  adminList(data: any = ""): Observable<any> {
+    const endpoint = `adminList`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  createAdmin(data: any = ""): Observable<any> {
+    const endpoint = `createAdmin`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  adminDelete(data: any = ""): Observable<any> {
+    const endpoint = `adminDelete`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  assignedPermissionSchool(data: any = ""): Observable<any> {
+    const endpoint = `assignedPermissionSchool`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  updateAssignedPermission(data: any = ""): Observable<any> {
+    const endpoint = `updateAssignedPermission`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+ 
+  // Super admin settings
+
+  viewPlan(data: any = ""): Observable<any> {
+    const endpoint = `viewPlan`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  createPlanSettings(data: any = ""): Observable<any> {
+    const endpoint = `createPlanSettings`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  deletePlanSetting(data: any = ""): Observable<any> {
+    const endpoint = `deletePlanSetting`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  updateSmtpSettings(data: any = ""): Observable<any> {
+    const endpoint = `updateSmtpSettings`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
+  getSmtpData(data: any = ""): Observable<any> {
+    const endpoint = `getSmtpData`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  updateSystemSettings(data: any = ""): Observable<any> {
+    const endpoint = `updateSmtpSettings`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getSystemSettings(data: any = ""): Observable<any> {
+    const endpoint = `getSystemSettings`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getDateTimeZone(data: any = ""): Observable<any> {
+    const endpoint = `getDateTimeZone`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getSystemLogo(data: any = ""): Observable<any> {
+    const endpoint = `getSystemLogo`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  
+  // Invoice list
+
+  deleteSingleGenerateInvoice(data: any = ""): Observable<any> {
+    const endpoint = `deleteSingleGenerateInvoice`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  deleteAllGenerateInvoice(data: any = ""): Observable<any> {
+    const endpoint = `deleteAllGenerateInvoice`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  createInvoice(data: any = ""): Observable<any> {
+    const endpoint = `createInvoice`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  addclientFrom(data: any = ""): Observable<any> {
+    const endpoint = `addclientFrom`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  dropdownclientData(data: any = ""): Observable<any> {
+    const endpoint = `dropdownclientData`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  generateInvoiceList(data: any = ""): Observable<any> {
+    const endpoint = `viewGenerateInvoice`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getGenerateInvoice(data: any = ""): Observable<any> {
+    const endpoint = `getGenerateInvoice`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
+  // Website setting
+
+  getAboutUs(data: any = ""): Observable<any> {
+    const endpoint = `getAboutUs`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  updateAboutus(data: any = ""): Observable<any> {
+    const endpoint = `updateAboutus`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+
+  getTermsAndConditions(data: any = ""): Observable<any> {
+    const endpoint = `getTermsAndConditions`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  updateTermsAndConditions(data: any = ""): Observable<any> {
+    const endpoint = `updateTermsAndConditions`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getOthersSettings(data: any = ""): Observable<any> {
+    const endpoint = `getOthersSettings`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getPrivacyPolicy(data: any = ""): Observable<any> {
+    const endpoint = `getPrivacyPolicy`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  updatePrivacyPolicy(data: any = ""): Observable<any> {
+    const endpoint = `updatePrivacyPolicy`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  updateGeneralSettings(data: any = ""): Observable<any> {
+    const endpoint = `updateGeneralSettings`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getGeneralSettings(data: any = ""): Observable<any> {
+    const endpoint = `getGeneralSettings`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  studentExcel(data: any = ""): Observable<any> {
+    const endpoint = `studentExcel`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getExcelData(data: any = ""): Observable<any> {
+    const endpoint = `getExcelData`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  addExcelData(data: any = ""): Observable<any> {
+    let token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http.post<any>(`${environment.apiUrl}/addExcelData`, data, { headers });
+  }
 
  
 }

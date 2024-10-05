@@ -1,0 +1,39 @@
+ion-textarea{
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #e1e8f1;
+}
+
+ion-select {
+    max-width: 100%;
+}
+
+ion-select-option {
+    padding: 10px;
+}
+.select-popup {
+    --max-height: 80%; // Adjust this value based on your needs
+    --width: 90%; // Adjust this value to increase the width if necessary
+}
+.table-header {
+    // background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.table-row {
+    border-bottom: 1px solid #ccc;
+}
+
+.table-cell {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+ion-item {
+    --inner-border-width: 0;
+    --border-width: 0;
+    --padding-start: 0;
+}

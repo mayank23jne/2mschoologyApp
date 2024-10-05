@@ -1,0 +1,12 @@
+<app-header></app-header>
+<ion-content>
+  <ion-content>
+    <form [formGroup]="termsForm">
+      <ion-label class="label">Terms and condition</ion-label>
+      <div class="ck">
+        <ckeditor [editor]="editor" [data]="termsData" formControlName="terms_and_conditions"></ckeditor>
+      </div>
+      <ion-button class="mt20" (click)="submit()">Submit</ion-button>
+    </form>
+  </ion-content>
+</ion-content>

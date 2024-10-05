@@ -1,4 +1,53 @@
 <app-header></app-header>
 <ion-content>
+    <ion-item>
+        <ion-select label="Current session" label-placement="floating" [(ngModel)]="selectedCurrentSession" >
+          <ion-select-option *ngFor="let item of sessionData" [value]="item">{{ item.name }}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-select label="Next session" label-placement="floating" [(ngModel)]="selectedNextSession">
+          <ion-select-option *ngFor="let item of sessionData" [value]="item">{{ item.name }}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-select label="Promoting from" label-placement="floating" [(ngModel)]="selectedFromClass" >
+          <ion-select-option *ngFor="let class of classList" [value]="class.id">{{ class.class }}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-select label="Promoting to" label-placement="floating" [(ngModel)]="selectedToClass" >
+          <ion-select-option *ngFor="let class of classList" [value]="class.id">{{ class.class }}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <div class="text-center mt10">
+        <ion-button class="submit-btn" (click)="manage_promotion()">Manage Promotion</ion-button> 
+    </div>
 
+    <div *ngIf="promotionList.length > 0">
+      <ion-card class="detail-card">
+        <h5>Promote student</h5>
+       
+        <div>Class from : <br><span>{{ promotionList[0]?.class_from_details?.name }}</span><br>to <br><span>{{ promotionList[0]?.class_to_details?.name }}</span></div>
+        <div class="mt20">Session from : <span> {{ selectedCurrentSession.name }} </span> to <span> {{ selectedNextSession.name }} </span></div>
+      </ion-card>
+      <ion-card class="list-card" *ngFor="let item of promotionList">
+        <ion-row>
+          Student name : {{ item.student_name }} 
+        </ion-row>
+        <ion-row>
+          Student code : {{ item.student_code }}
+        </ion-row>
+        <ion-row>
+          Section: {{ item.section_name }} 
+        </ion-row>
+        <ion-row>
+          Status : {{ item.status }} 
+        </ion-row>
+        <ion-row>
+         <ion-col><ion-button class="btn-scs" (click)="promote(item,item?.class_from_details?.id)">Enroll to {{ item?.class_from_details?.name }}</ion-button></ion-col>
+         <ion-col><ion-button class="btn-second" (click)="promote(item,item?.class_to_details?.id)">Enroll to {{ item?.class_to_details?.name }}</ion-button></ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
 </ion-content>

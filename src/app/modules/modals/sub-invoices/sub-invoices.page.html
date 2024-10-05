@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ heading_title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="invoiceList">
+    <ion-row>
+      <ion-col size="10">
+        <ion-searchbar  show-clear-button="always" [(ngModel)]="search" (ionClear)="searchCancel()"></ion-searchbar>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button class="search-btn" (click)="searchRes()"><ion-icon name="search"></ion-icon></ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-card class="list-card" *ngFor="let item of invoiceList; let i = index"  [ngClass]="{'active-accordion': item.isOpen}">
+      <ion-item lines="none" (click)="toggleAccordion(i)">
+        <ion-label>
+          <h2>Invoice No: {{ item.invoice_id }}</h2>
+          <p>Invoice Title: : {{ item.title }}</p>
+          <p>Student: {{ item.student_name }}</p>
+        </ion-label>
+        <ion-icon slot="end" [name]="item.isOpen ? 'chevron-up' : 'chevron-down'"></ion-icon>
+      </ion-item>
+    
+      <div class="acrd" *ngIf="item.isOpen">
+        <ion-row>
+          <ion-col size="12">
+            <ion-list>
+              <p>Type: {{ item.invoice_type }}</p>
+              <p>{{ item.invoice_types }}</p>
+            </ion-list>
+            <ion-list>
+              <b>Student</b>
+              <p>Name: {{ item.student_name  }}</p>
+              <p>Parent: {{ item.parent_name }}</p>
+              <p>Class: {{ item.class_name }}</p>
+            </ion-list>
+            <ion-list>
+              <b>Amount</b>
+              <p>Invoice amount: <b *ngIf="item.invoice_amount">${{ item.invoice_amount}}</b></p>
+              <p>Remaining amount: <b *ngIf="item.remaining_amount">${{ item.remaining_amount }}</b></p>
+              <p>Paid amount: <b *ngIf="item.paid_amount">${{ item.paid_amount }}</b></p>
+            </ion-list>
+            <ion-list>
+              <p>Created at : {{ item.created_at}}</p>
+              <p>Payment date: {{ item.updated_at }}</p>
+            </ion-list>
+            <ion-list>
+            <b>Status :</b><span class="capitalize" [ngClass]="{ 
+              'success': item?.status == 'paid', 
+              'warning': item?.status == 'unpaid', 
+              'partial': item?.status == 'partial' 
+            }"> {{ item.status  }}</span>
+          </ion-list>
+            <!-- Add more details here if needed -->
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-card>
+  </div>
+
+  
+</ion-content>
+
+
+
