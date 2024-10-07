@@ -7,11 +7,6 @@ export const environment = {
   apiUrl: '',
   Url: '/login',
   fileUrl: '',
-  stripe:{
-    publishableKey:'',
-    secretKey:''
-  },
-  api:""
 };
 
 /*
