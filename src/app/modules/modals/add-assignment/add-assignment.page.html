@@ -59,10 +59,6 @@
       *ngIf="form.get('section_id')?.invalid && form.get('section_id')?.hasError('required') && form.get('section_id')?.touched">
       <ion-text color="danger">Section is required.</ion-text>
     </ion-row>
-    
-    <div *ngIf="syllabus_file" class="view_syllabus">
-      <ion-row (click)="open(syllabus_file)">View Syllabus</ion-row>
-    </div>
 
     <ion-label>Subject <span class="req">*</span></ion-label>
     <ion-item class="dropdown-s">
@@ -70,13 +66,15 @@
         <ion-select-option *ngFor="let item of subjects" [value]="item.id">{{ item.name }}</ion-select-option>
       </ion-select>
     </ion-item>
-    
     <ion-row class="err"
       *ngIf="form.get('subject_id')?.invalid && form.get('subject_id')?.hasError('required') && form.get('subject_id')?.touched">
       <ion-text color="danger">Subject is required.</ion-text>
     </ion-row>
 
-  
+    <div *ngIf="syllabus_file" class="view_syllabus">
+      <ion-row (click)="open(syllabus_file)">View Syllabus</ion-row>
+    </div>
+    
     <ion-label class="label">Page number </ion-label>
     <ion-list>
       <ion-input type="text" formControlName="page_number" required></ion-input>
@@ -95,7 +93,7 @@
       </ion-item>
     </div>
 
-    <ion-button expand="block" (click)="add()" class="submit-btn mt-20">Add</ion-button>
+    <ion-button  expand="block" (click)="add()" class="submit-btn mt-20">Add</ion-button>
    
   </form>
 

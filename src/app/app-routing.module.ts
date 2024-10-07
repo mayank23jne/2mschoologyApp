@@ -198,7 +198,7 @@ const routes: Routes = [
     loadChildren: () => import('./modules/admission/admission.module').then( m => m.AdmissionPageModule)
   },
   {
-    path: 'school_settings',
+    path: 'tabs/school_settings',
     loadChildren: () => import('./modules/school-settings/school-settings.module').then( m => m.SchoolSettingsPageModule)
   },
   {

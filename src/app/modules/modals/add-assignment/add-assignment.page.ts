@@ -43,8 +43,8 @@ export class AddAssignmentPage implements OnInit {
       last_date: [""],
       class_id: ["", Validators.required],
       section_id: ["", Validators.required],
-      line_number: [""],
-      page_number: [""],
+      line_number: ["", Validators.required],
+      page_number: ["", Validators.required],
       subject_id: ["", Validators.required]
     });
     const today = new Date();
@@ -106,37 +106,42 @@ export class AddAssignmentPage implements OnInit {
   add() {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      this.loader.present();
-      let selectedStudentIdsArray: any = Array.from(this.selectedStudentIds);
-      const formData = new FormData();
-      formData.append('selected_students', selectedStudentIdsArray.join(','));
-      formData.append('subject_id', this.form.get('subject_id')?.value);
-      this.form.value.last_date = this.form.value.last_date;
-      for (const key in this.form.value) {
-        if (this.form.value.hasOwnProperty(key)) {
-          formData.append(key, this.form.value[key]);
-        }
-      }
-      this.fetch.createStudentsHomework(formData).subscribe({
-        next: (res: any) => {
-          if (res.code == 200) {
-            this.loader.dismiss();
-            this.toastService.presentToast(res.response);
-            this.modalController.dismiss();
-
-          } else {
-            this.toastService.presentErrorToast(res.response);
-            this.loader.dismiss();
+      if (this.syllabus_file) {
+          this.loader.present();
+          let selectedStudentIdsArray: any = Array.from(this.selectedStudentIds);
+          const formData = new FormData();
+          formData.append('selected_students', selectedStudentIdsArray.join(','));
+          formData.append('subject_id', this.form.get('subject_id')?.value);
+          this.form.value.last_date = this.form.value.last_date;
+          for (const key in this.form.value) {
+            if (this.form.value.hasOwnProperty(key)) {
+              formData.append(key, this.form.value[key]);
+            }
           }
+          this.fetch.createStudentsHomework(formData).subscribe({
+            next: (res: any) => {
+              if (res.code == 200) {
+                this.loader.dismiss();
+                this.toastService.presentToast(res.response);
+                this.modalController.dismiss();
 
-          this.loader.dismiss();
-        },
-        error: (error: any) => {
-          this.loader.dismiss();
-          this.toastService.presentErrorToast("Error");
-          this.modalController.dismiss();
+              } else {
+                this.toastService.presentErrorToast(res.response);
+                this.loader.dismiss();
+              }
+
+              this.loader.dismiss();
+            },
+            error: (error: any) => {
+              this.loader.dismiss();
+              this.toastService.presentErrorToast("Error");
+              this.modalController.dismiss();
+            }
+          });
+        }else{
+          this.toastService.presentErrorToast("Syllabus not found for selected class section");
         }
-      });
+       
     } else {
       this.toastService.presentErrorToast("Fields Required");
     }
@@ -168,6 +173,9 @@ export class AddAssignmentPage implements OnInit {
     this.filterStudents();
   }
   onSubjectChange() {
+    this.syllabus = [];
+    this.syllabus_file = "";
+    this.syllabus_file_name = "";
     const formData = new FormData();
     formData.append('class_id', this.form.get('class_id')?.value);
     formData.append('section_id', this.form.get('section_id')?.value);
@@ -175,14 +183,17 @@ export class AddAssignmentPage implements OnInit {
     this.fetch.getAllSyllabusData(formData).subscribe({
       next: (res: any) => {
         if (res) {
+          console.log(this.syllabus);
           this.syllabus = res.data[0];
-          this.syllabus_file = res.data[0].file;
-          this.syllabus_file_name = res.data[0].file_name;
+          this.syllabus_file = res.data[0]?.file;
+          this.syllabus_file_name = res.data[0]?.file_name;
 
         }
       },
       error: (error: any) => {
-
+        this.syllabus = [];
+        this.syllabus_file = "";
+        this.syllabus_file_name = "";
       }
     });
   }
