@@ -46,7 +46,7 @@ export class AboutUsPage implements OnInit {
           this.imagepath = this.aboutData.image;
           this.aboutData = this.decodeHtml(this.aboutData.about_us);
           
-          console.log(this.imagepath);
+          // console.log(this.imagepath);
         }
         else {
           this.aboutData = [];
@@ -78,7 +78,7 @@ export class AboutUsPage implements OnInit {
   };
 
   submit(){
-    console.log(this.aboutForm.value);
+    // console.log(this.aboutForm.value);
     let formData = this.aboutForm.value;
     // this.fetch.updateAboutus(formData).subscribe({
     //   next: (res: any) => {

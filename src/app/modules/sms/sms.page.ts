@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { SchoolDataService } from 'src/app/core/services/school-data.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-sms',
@@ -24,6 +25,7 @@ export class SmsPage implements OnInit {
   constructor(
     private api: SchoolDataService,
     private loader: LoaderService,
+    private toastService: ToastService,
   ) {
     this.receiver = [
       { key: "bulk", value: "ALL STAFF MEMBERS" },
@@ -34,8 +36,6 @@ export class SmsPage implements OnInit {
       { key: "teacher", value: "Teacher" },
       { key: "allteacher", value: "All Teacher" }
     ];
-
-   
   }
   ngOnInit() {
     this.getClass();
@@ -109,9 +109,9 @@ export class SmsPage implements OnInit {
    this.api.sendMessage(data).subscribe({
     next: (res: any) => {
       if (res && res.code === 200) {    
-        console.error(res.response);
+       this.toastService.presentToast(res.response);
       } else {
-       
+        this.toastService.presentErrorToast(res.response);
       }
       this.loader.dismiss();
     },

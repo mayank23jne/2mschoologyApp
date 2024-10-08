@@ -72,7 +72,7 @@
       <ion-textarea formControlName="detail" type="text" ></ion-textarea>
     </ion-list>
 
-    <ion-button *ngIf="planForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!planForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
 
   </form>
 </ion-content>

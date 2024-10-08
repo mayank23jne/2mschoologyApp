@@ -127,7 +127,9 @@ export class Tab1Page implements OnInit {
           this.teachersCount = res.data.total_number_of_teachers || 0;
           this.studentsCount = res.data.total_number_of_student || 0;
           this.parents = res.data.total_number_of_parent || 0;
-          this.total_attendance = res.data.students_are_attending_today || 0;
+          this.total_attendance = this.role == 'admin' 
+          ? res.data.todays_attendance || 0 
+          : res.data.students_are_attending_today || 0;
           this.event_list = res.data.event_list || [];
   
           // Format dates in event list
@@ -172,7 +174,7 @@ export class Tab1Page implements OnInit {
   }
   selectedDate(newValue: any) {
     this.dateRange = newValue;
-    console.log(this.dateRange);
+    // console.log(this.dateRange);
   }
   filter_by_date(){
     const formData = new FormData();
@@ -202,8 +204,8 @@ export class Tab1Page implements OnInit {
   }
 
   createBarChart() {
-    console.log(this.dashboardData?.invoice_chart_date?.date);
-    console.log(this.dashboardData?.invoice_chart_amount?.amount);
+    // console.log(this.dashboardData?.invoice_chart_date?.date);
+    // console.log(this.dashboardData?.invoice_chart_amount?.amount);
     this.barChart = new Chart(this.barChartCanvas.nativeElement, {
       type: 'bar',
       data: {

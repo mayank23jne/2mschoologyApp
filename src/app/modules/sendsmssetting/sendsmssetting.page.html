@@ -52,7 +52,9 @@
         *ngIf="twilioForm.get('twillio_from')?.invalid && twilioForm.get('twillio_from')?.hasError('required') && twilioForm.get('twillio_from')?.touched">
         <ion-text color="danger">This field is required.</ion-text>
       </ion-row>
-      <ion-button *ngIf="twilioForm.valid" expand="block" (click)="submitSetting()" class="submit-btn mt-20">Submit</ion-button>
+      <ion-button [disabled]="!twilioForm.valid" expand="block" (click)="submitSetting()" class="submit-btn mt-20">
+        Submit
+      </ion-button>
     </form>
   </div>
 </ion-content>

@@ -49,7 +49,7 @@
     </ion-list>
     
 
-    <ion-button *ngIf="userForm.valid"  expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!userForm.valid"  expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
     
    
   </form>

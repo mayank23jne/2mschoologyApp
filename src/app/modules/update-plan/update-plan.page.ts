@@ -33,8 +33,8 @@ export class UpdatePlanPage implements OnInit {
         if(res.code == 200){
         this.monthlyList = res.data.Monthly;
         this.yearlyList = res.data.Yearly;
-        console.log(this.monthlyList);
-        console.log(this.yearlyList);
+        // console.log(this.monthlyList);
+        // console.log(this.yearlyList);
         }
         else{
           

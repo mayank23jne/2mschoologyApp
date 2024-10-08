@@ -81,7 +81,7 @@
       <ion-input type="text" formControlName="duration"></ion-input>
     </ion-list> -->
    
-    <ion-button expand="full" type="submit" (click)="submit()" *ngIf="singleInvoiceForm.valid">
+    <ion-button expand="full" type="submit" (click)="submit()" [disabled]="!singleInvoiceForm.valid">
       Submit
     </ion-button>
 </form>

@@ -75,7 +75,7 @@ export class SchoolPermissionPage implements OnInit {
             });
           });
           this.getKeys(this.permissions);
-          console.log(this.permissions);
+          // console.log(this.permissions);
         }
         else{
           this.permissions = [];

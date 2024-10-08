@@ -48,7 +48,7 @@ export class SystemSettingsPage implements OnInit {
       next: (res: any) => {
         if (res.code == 200) {
           let dataSystem = res.data;
-          console.log(dataSystem);
+          // console.log(dataSystem);
           this.systemForm.patchValue({
             system_name: dataSystem.system_name,
             system_email: dataSystem.system_email,
@@ -90,7 +90,7 @@ export class SystemSettingsPage implements OnInit {
       next: (res: any) => {
         if (res.code == 200) {
           let dataLogo = res.data;
-          console.log(dataLogo);
+          // console.log(dataLogo);
           this.regularLogo = dataLogo.regular_logo;
           this.lightLogo = dataLogo.light_logo;
           this.smallLogo = dataLogo.small_logo;

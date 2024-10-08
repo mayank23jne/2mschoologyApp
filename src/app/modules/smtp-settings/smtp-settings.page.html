@@ -76,7 +76,7 @@
       </ion-row>
       </ion-list>
 
-      <ion-button *ngIf="smtpForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+      <ion-button [disabled]="!smtpForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
 
   </form>
 </ion-content>

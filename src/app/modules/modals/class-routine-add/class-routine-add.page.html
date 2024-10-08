@@ -51,7 +51,7 @@
       <ion-label>Teacher <span class="req">*</span> </ion-label>
       <ion-item class="dropdown-s">
         <ion-select formControlName="teacher_id" label-placement="floating">
-          <ion-select-option *ngFor="let item of teachers" [value]="item.id">{{ item.uname }}</ion-select-option>
+          <ion-select-option *ngFor="let item of teachers" [value]="item.id">{{ item.name }}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-row class="err"
@@ -134,7 +134,7 @@
       </ion-row>
     </ion-list>
 
-    <ion-button *ngIf="form.valid" expand="block" (click)="add()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!form.valid" expand="block" (click)="add()" class="submit-btn mt-20">Submit</ion-button>
 
   </form>
 </ion-content>

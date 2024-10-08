@@ -60,6 +60,7 @@ export class InvoiceInfoPage implements OnInit {
       next: (res: any) => {
         if (res.code == 200) {
           this.invoiceData = res.data;
+          console.log(this.invoiceData);
         }
         else {
           this.invoiceData = [];

@@ -43,11 +43,11 @@ export class AddTeacherPage implements OnInit {
       this.userForm.patchValue({
         name: this.editTeacherData.name,
         email: this.editTeacherData.email,
-        password: this.editTeacherData.decr_password,
+        password: this.editTeacherData.password,
         designation: this.editTeacherData.designation,
-        department: this.editTeacherData.department,
+        department: this.editTeacherData.department_id,
         gender: this.editTeacherData.gender,
-        phone_number: this.editTeacherData.phone_number,
+        phone_number: this.editTeacherData.phone,
         address: this.editTeacherData.address,
       });
 
@@ -82,7 +82,7 @@ export class AddTeacherPage implements OnInit {
     formData.append('designation',this.userForm.get('designation')?.value);
     formData.append('department',this.userForm.get('department')?.value);
     formData.append('password',this.userForm.get('password')?.value);
-    formData.append('phone_number',this.userForm.get('phone')?.value);
+    formData.append('phone_number',this.userForm.get('phone_number')?.value);
     formData.append('gender',this.userForm.get('gender')?.value);
     formData.append('address',this.userForm.get('address')?.value);
     

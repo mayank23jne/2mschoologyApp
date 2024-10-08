@@ -18,7 +18,7 @@
       *ngIf="classForm.get('class_name')?.invalid && classForm.get('class_name')?.hasError('required') && classForm.get('class_name')?.touched">
       <ion-text color="danger">Name is required.</ion-text>
     </ion-row>
-    <ion-button *ngIf="classForm.valid"  expand="block" (click)="submit_class()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!classForm.valid"  expand="block" (click)="submit_class()" class="submit-btn mt-20">Submit</ion-button>
   </form>
 
   <!-- Class room form-->
@@ -31,7 +31,7 @@
       *ngIf="classRoomForm.get('class_room_name')?.invalid && classRoomForm.get('class_room_name')?.hasError('required') && classRoomForm.get('class_room_name')?.touched">
       <ion-text color="danger">Name is required.</ion-text>
     </ion-row>
-    <ion-button *ngIf="classRoomForm.valid"  expand="block" (click)="submit_classRoom()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!classRoomForm.valid"  expand="block" (click)="submit_classRoom()" class="submit-btn mt-20">Submit</ion-button>
   </form>
 
   <!-- Department form-->
@@ -44,7 +44,7 @@
       *ngIf="deptForm.get('dept_name')?.invalid && deptForm.get('dept_name')?.hasError('required') && deptForm.get('dept_name')?.touched">
       <ion-text color="danger">Name is required.</ion-text>
     </ion-row>
-    <ion-button *ngIf="deptForm.valid"  expand="block" (click)="submit_department()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!deptForm.valid"  expand="block" (click)="submit_department()" class="submit-btn mt-20">Submit</ion-button>
   </form>
 
    <!-- Subject form -->
@@ -70,7 +70,7 @@
       *ngIf="subjectForm.get('subject_name')?.invalid && subjectForm.get('subject_name')?.hasError('required') && subjectForm.get('subject_name')?.touched">
       <ion-text color="danger">Name is required.</ion-text>
     </ion-row>
-    <ion-button *ngIf="subjectForm.valid"  expand="block" (click)="submit_subject()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!subjectForm.valid"  expand="block" (click)="submit_subject()" class="submit-btn mt-20">Submit</ion-button>
   </form>
 
   <!-- Event Calendar form -->
@@ -126,6 +126,6 @@
         </ng-template>
       </ion-popover>
     </ion-list>
-    <ion-button *ngIf="eventCalendarForm.valid"  expand="block" (click)="submit_event()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!eventCalendarForm.valid"  expand="block" (click)="submit_event()" class="submit-btn mt-20">Submit</ion-button>
   </form>
 </ion-content>

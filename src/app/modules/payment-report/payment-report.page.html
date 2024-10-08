@@ -54,7 +54,8 @@
     <ion-card class="list-card" *ngFor="let item of reportData">
         <ion-row>
             <ion-col size="9">
-                <b>{{ item.invoice_title }}</b>
+                <h5>{{ item.invoice_title }}</h5>
+                <p>Invoice No. {{ item.invoice_id }}</p>
                 <p>Invoice type : {{ item.invoice_type}}</p>
                 <p>Invoice amount : <span *ngIf="item.invoice_amount">${{ item.invoice_amount }}</span></p>
             </ion-col>

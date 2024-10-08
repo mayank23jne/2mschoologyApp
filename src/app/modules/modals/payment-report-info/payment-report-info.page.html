@@ -48,6 +48,22 @@
       <ion-col><b>Status :</b> </ion-col>
       <ion-col class="capitalize">{{ paymentReportData.status }}</ion-col>
     </ion-row>
+
+    <ion-row>
+      <ion-col><b>Status :</b> </ion-col>
+      <ion-col class="capitalize">{{ paymentReportData.status }}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><b>Paid amount :</b> </ion-col>
+      <ion-col class="capitalize" *ngIf="paymentReportData.paid_amount">${{ paymentReportData.paid_amount }}</ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><b>Remaining amount :</b> </ion-col>
+      <ion-col class="capitalize" *ngIf="paymentReportData.remaining_amount">${{ paymentReportData.remaining_amount }}</ion-col>
+    </ion-row>
+    
   </ion-card>
 
   <ion-fab class="fab1" vertical="bottom" horizontal="end" slot="fixed">

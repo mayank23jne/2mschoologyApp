@@ -14,7 +14,7 @@
       </ion-select>
     </ion-item>
     <div class="p25">
-      <ion-button *ngIf="currencyForm.valid"  expand="block" (click)="updatePaymentSetting('system_currency')" class="submit-btn mt-20">Update System Currency</ion-button>
+      <ion-button [disabled]="!currencyForm.valid"  expand="block" (click)="updatePaymentSetting('system_currency')" class="submit-btn mt-20">Update System Currency</ion-button>
     </div>
   </form>
 
@@ -50,7 +50,7 @@
             ></ion-textarea>
       </ion-list>
     <div class="p25">
-      <ion-button *ngIf="paypalForm.valid" expand="block" (click)="updatePaymentSetting('payment_setting')" class="submit-btn mt-20">Update paypal setting</ion-button>
+      <ion-button [disabled]="!paypalForm.valid" expand="block" (click)="updatePaymentSetting('payment_setting')" class="submit-btn mt-20">Update paypal setting</ion-button>
     </div>
   </form>
 
@@ -96,7 +96,7 @@
               ></ion-textarea>
         </ion-list>
     <div class="p25">
-      <ion-button *ngIf="stripeForm.valid" expand="block" (click)="updatePaymentSetting('stripe_settings')" class="submit-btn mt-20">Update stripe setting</ion-button>
+      <ion-button [disabled]="!stripeForm.valid" expand="block" (click)="updatePaymentSetting('stripe_settings')" class="submit-btn mt-20">Update stripe setting</ion-button>
     </div>
   </form>
 </ion-content>

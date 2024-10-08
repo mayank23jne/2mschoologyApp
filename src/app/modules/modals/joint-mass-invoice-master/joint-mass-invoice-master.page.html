@@ -82,7 +82,7 @@
       <ion-input type="text" formControlName="duration"></ion-input>
     </ion-list>
     -->
-    <ion-button expand="full" type="submit" (click)="submit()" *ngIf="jointMassInvoiceForm.valid">
+    <ion-button expand="full" type="submit" (click)="submit()" [disabled]="!jointMassInvoiceForm.valid">
       Submit
     </ion-button>
 </form>

@@ -81,7 +81,7 @@
       </ion-list> 
     -->
    
-    <ion-button expand="full" type="submit" (click)="submit()" *ngIf="massInvoiceForm.valid">
+    <ion-button expand="full" type="submit" (click)="submit()" [disabled]="!massInvoiceForm.valid">
       Submit
     </ion-button>
 </form>

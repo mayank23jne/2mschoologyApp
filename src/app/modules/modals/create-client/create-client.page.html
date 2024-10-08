@@ -34,7 +34,7 @@
       <ion-textarea formControlName="address" type="text" ></ion-textarea>
     </ion-list>
 
-    <ion-button *ngIf="clientForm.valid"  expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!clientForm.valid"  expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
   
   </form>
 </ion-content>

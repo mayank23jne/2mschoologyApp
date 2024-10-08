@@ -64,7 +64,7 @@
       *ngIf="categoryForm.get('category_name')?.invalid && categoryForm.get('category_name')?.hasError('required') && categoryForm.get('category_name')?.touched">
       <ion-text color="danger">Name is required.</ion-text>
     </ion-row>
-    <ion-button *ngIf="categoryForm.valid"  expand="block" (click)="submit_category()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!categoryForm.valid"  expand="block" (click)="submit_category()" class="submit-btn mt-20">Submit</ion-button>
   </form>
 </ion-content>
 

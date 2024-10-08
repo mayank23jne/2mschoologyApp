@@ -95,7 +95,7 @@
         </ion-list> 
 
         -->
-        <ion-button expand="full" type="submit" (click)="submit()" *ngIf="jointInvoiceForm.valid">
+        <ion-button expand="full" type="submit" (click)="submit()" [disabled]="!jointInvoiceForm.valid">
             Submit
           </ion-button>
       </form>

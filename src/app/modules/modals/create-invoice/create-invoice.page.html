@@ -113,7 +113,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-button *ngIf="invoiceForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!invoiceForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
 
   </form>
 </ion-content>

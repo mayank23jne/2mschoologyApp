@@ -133,7 +133,7 @@
         required></ion-textarea>
     </ion-list>
 
-    <ion-button expand="block" (click)="update()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!form.valid" expand="block" (click)="update()" class="submit-btn mt-20">Submit</ion-button>
 
   </form>
 </ion-content>

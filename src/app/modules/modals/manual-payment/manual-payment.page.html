@@ -79,7 +79,7 @@
       <ion-input type="text" formControlName="duration"></ion-input>
     </ion-list> -->
    
-    <ion-button expand="full" type="submit" (click)="submit()" *ngIf="manualPaymentForm.valid">
+    <ion-button expand="full" type="submit" (click)="submit()" [disabled]="!manualPaymentForm.valid">
       Submit
     </ion-button>
 </form>

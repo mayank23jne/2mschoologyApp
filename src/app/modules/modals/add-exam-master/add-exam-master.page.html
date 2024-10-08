@@ -58,7 +58,7 @@
       </ion-popover>
     </ion-list>
 
-    <ion-button *ngIf="examForm.valid"  expand="block" (click)="submit_exam()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!examForm.valid"  expand="block" (click)="submit_exam()" class="submit-btn mt-20">Submit</ion-button>
   </form>
   <form [formGroup]="gradeForm" *ngIf="module_name == 'grade'">
     <ion-label class="label">Grade <span class="req">*</span></ion-label>
@@ -93,6 +93,6 @@
       *ngIf="gradeForm.get('mark_upto')?.invalid && gradeForm.get('mark_upto')?.hasError('required') && gradeForm.get('mark_upto')?.touched">
       <ion-text color="danger">Mark upto is required.</ion-text>
     </ion-row>
-    <ion-button *ngIf="gradeForm.valid"  expand="block" (click)="submit_grade()" class="submit-btn mt-20">Submit</ion-button>
+    <ion-button [disabled]="!gradeForm.valid"  expand="block" (click)="submit_grade()" class="submit-btn mt-20">Submit</ion-button>
   </form>
 </ion-content>

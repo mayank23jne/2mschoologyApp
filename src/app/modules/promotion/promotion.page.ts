@@ -69,10 +69,10 @@ export class PromotionPage implements OnInit {
 
 manage_promotion(){
 
-  console.log(this.selectedCurrentSession);
-  console.log(this.selectedNextSession);
-  console.log(this.selectedFromClass);
-  console.log(this.selectedToClass);
+  // console.log(this.selectedCurrentSession);
+  // console.log(this.selectedNextSession);
+  // console.log(this.selectedFromClass);
+  // console.log(this.selectedToClass);
   let formdata = { 
     "session_from": this.selectedCurrentSession.id,
     "session_to": this.selectedNextSession.id,

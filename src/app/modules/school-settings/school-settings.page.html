@@ -14,6 +14,6 @@
       <ion-input type="text" formControlName="address"></ion-input>
     </ion-list>
     
-    <ion-button *ngIf="schoolSettingForm.valid"  expand="block" (click)="update()" class="submit-btn mt-20">Update</ion-button>
+    <ion-button [disabled]="!schoolSettingForm.valid"  expand="block" (click)="update()" class="submit-btn mt-20">Update</ion-button>
   </form>
 </ion-content>

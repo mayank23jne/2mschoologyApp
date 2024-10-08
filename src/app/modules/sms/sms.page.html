@@ -72,11 +72,11 @@
             rows="6"
             [(ngModel)]="selectedData.message"
         ></ion-textarea>
-        <ion-text class="remaining-char">Remaining characters: {{160 - message.length}}</ion-text>
+        <ion-text class="remaining-char">Remaining characters: {{160 - selectedData?.message?.length}}</ion-text>
     </ion-item>
     </ion-list>
 
-      <ion-button expand="block" >Send SMS</ion-button>
+      <ion-button expand="block" (click)="sendSMS()">Send SMS</ion-button>
 
   </div>
 </ion-content>

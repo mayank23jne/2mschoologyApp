@@ -23,7 +23,7 @@ export class StudentPage implements OnInit {
   studentDetail:any;
   search:any = "";
   ShowDelete:any = false;
-  selectedStudentIds: Set<number> = new Set(); // Holds the IDs of selected students
+  selectedStudentIds: Set<number> = new Set();
   selectAllChecked = false;
   class_id:any;
   section_id:any;
@@ -36,18 +36,14 @@ export class StudentPage implements OnInit {
     this.user_id = localStorage.getItem("userId");
   }
   onFilterChange(event: any) {
-    this.class_id = event?.class;
-    this.section_id = event?.section;
-    
-    this.studentData = this.studentData.filter((item: { class_id: any, section_id: any }) => 
-      (!this.class_id || item.class_id === this.class_id) && 
-      (!this.section_id || item.section_id === this.section_id)
-    );
-    console.log(this.studentData);
+    this.class_id = parseInt(event?.class);
+    this.section_id = parseInt(event?.section);
+    let formData = {'class_id':this.class_id,'section_id':this.section_id}
+    this.list(formData);
   }
   ionViewDidEnter(){
     this.loader.present();
-    this.list();
+    this.list('');
     this.search = "";
   }
   
@@ -62,20 +58,20 @@ export class StudentPage implements OnInit {
     });
     modal.onDidDismiss().then((dataReturned) => {
       const formData = new FormData();
-      this.list();
+      this.list('');
     });
     return await modal.present();
   }
   }
-  list(){
-    this.fetch.studentData().subscribe({
+  list(formData:any){
+    this.fetch.studentData(formData).subscribe({
       next:(res:any) => {
       if(res.code == 200){
         this.loader.dismiss();
          this.studentData = res.data;
         }
         else{
-          this.studentData = "";
+          this.studentData = [];
         }
         this.loader.dismiss();
       },
@@ -87,12 +83,12 @@ export class StudentPage implements OnInit {
   searchRes() {
     this.formData = new FormData();
     this.studentData = this.studentData.filter((item: { name: string }) => item.name.toLowerCase().includes(this.search.toLowerCase()));
-    console.log(this.studentData);
+    // console.log(this.studentData);
   }
 
   searchCancel(){
     this.search = "";
-    this.list();
+    this.list('');
   }
 
   async openAddModal() {
@@ -100,11 +96,11 @@ export class StudentPage implements OnInit {
       component: StudentEditPage,
       cssClass: '',
       componentProps: {
-        title: "Add Student"
+        title: "Single student admission"
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-      this.list();
+      this.list('');
     });
 
     return await modal.present();
@@ -156,7 +152,7 @@ export class StudentPage implements OnInit {
 
     const selectedStudentIdsString = `{${selectedStudentIdsArray.join(',')}}`;
  
-    console.log('Selected Student IDs:', selectedStudentIdsString);
+    // console.log('Selected Student IDs:', selectedStudentIdsString);
 
     this.delete(selectedStudentIdsString);
      
@@ -165,22 +161,22 @@ export class StudentPage implements OnInit {
     this.data.presentAlertConfirm().then((res) => {
       if (res == true) {
         console.log(ids);
-        // const formData = new FormData();
-        // formData.append('student_ids', ids);
-        // this.fetch.deleteDepartment(formData).subscribe({
-        //   next: (res: any) => {
-        //     if (res.code == 200) {
-        //       this.toastService.presentToast(res.response);
-        //       this.studentData = this.studentData.filter((item: { student_id: number; }) => !this.selectedStudentIds.has(item.student_id));
-        //       this.selectedStudentIds.clear(); 
-        //       this.selectAllChecked = false; 
-        //     } else {
-        //       this.toastService.presentErrorToast(res.response);
-        //     }
-        //   },
-        //   error: (error: any) => {
-        //   }
-        // });
+        const formData = new FormData();
+        formData.append('student_ids', ids);
+        this.fetch.deleteAllStudent(formData).subscribe({
+          next: (res: any) => {
+            if (res.code == 200) {
+              this.toastService.presentToast(res.response);
+              this.studentData = this.studentData.filter((item: { student_id: number; }) => !this.selectedStudentIds.has(item.student_id));
+              this.selectedStudentIds.clear(); 
+              this.selectAllChecked = false; 
+            } else {
+              this.toastService.presentErrorToast(res.response);
+            }
+          },
+          error: (error: any) => {
+          }
+        });
       }
     });
   }

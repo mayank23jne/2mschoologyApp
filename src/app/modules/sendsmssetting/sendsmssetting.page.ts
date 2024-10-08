@@ -32,7 +32,7 @@ export class SendsmssettingPage implements OnInit {
     });
     this.settingsForm.get('communicationProvider')?.valueChanges.subscribe(value => {
       this.selectedProvider = value;
-        console.log(this.selectedProvider);
+        // console.log(this.selectedProvider);
         const formData = new FormData();
         formData.append('activSmsGateway',this.selectedProvider);
         formData.append('userType', 'activSmsGateway');

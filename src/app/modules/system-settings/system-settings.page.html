@@ -61,7 +61,7 @@
         <ion-list>
             <ion-input type="text" formControlName="footer_link"></ion-input>
         </ion-list>
-        <ion-button *ngIf="systemForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
+        <ion-button [disabled]="!systemForm.valid" expand="block" (click)="submit()" class="submit-btn mt-20">Submit</ion-button>
 
     </form>
 

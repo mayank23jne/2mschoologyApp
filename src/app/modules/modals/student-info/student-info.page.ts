@@ -51,7 +51,7 @@ export class StudentInfoPage implements OnInit {
     this.data.presentAlertConfirm().then((res: any) => {
       if(res == true){
         const formData = new FormData();
-        formData.append('student_id', id);
+        formData.append('student_id', this.student_id);
         this.fetch.studentDelete(formData).subscribe({
           next:(res:any) => {
             if(res.code == 200){
@@ -72,24 +72,27 @@ export class StudentInfoPage implements OnInit {
     this.modalController.dismiss();
   }
  
-list(){
-    const formData = new FormData();
-    formData.append('student_id', this.student_id);
-    this.fetch.getStudentDetail(formData).subscribe({
-      next:(res:any) => {
-      if(res.code == 200){
-        this.loader.dismiss();
-        this.detail = res.data;
+  list(){
+      const formData = new FormData();
+      formData.append('student_id', this.student_id);
+      this.fetch.getStudentDetail(formData).subscribe({
+        next:(res:any) => {
+        if(res.code == 200){
+          this.loader.dismiss();
+          this.detail = res.data;
+
+            console.log(this.detail);
+
+          }
+          else{
+            this.detail = [];
+          }
+          this.loader.dismiss();
+        },
+        error: (error:any) => {
+          this.loader.dismiss();
         }
-        else{
-          this.detail = [];
-        }
-        this.loader.dismiss();
-      },
-      error: (error:any) => {
-        this.loader.dismiss();
-      }
-    });
-  }
+      });
+    }
 }
 
