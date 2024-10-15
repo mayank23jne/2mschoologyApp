@@ -110,6 +110,7 @@ export class SmsPage implements OnInit {
     next: (res: any) => {
       if (res && res.code === 200) {    
        this.toastService.presentToast(res.response);
+       this.clearForm();
       } else {
         this.toastService.presentErrorToast(res.response);
       }
@@ -117,6 +118,7 @@ export class SmsPage implements OnInit {
     },
     error: (error: any) => {
       console.error('API call failed:', error);
+      this.clearForm();
       this.loader.dismiss();
     }
   });
@@ -139,6 +141,25 @@ export class SmsPage implements OnInit {
     console.log('Selected Values (parent_phone):', selectedValues);
     
     return selectedItems; 
+  }
+
+  clearForm() {
+    // Reset the selectedData object
+    this.selectedData = {
+      receiver: null,
+      class: null,
+      section_id: null,
+      message: ''
+    };
+
+    // Clear other flags and items if necessary
+    this.allChecked = false;
+    this.items.forEach((item: { checked: boolean; }) => item.checked = false);
+    this.items = [];
+    this.disableDropdown = true;
+
+    // Optionally, reset other UI states if needed
+    this.signalCol = false;
   }
 
 }

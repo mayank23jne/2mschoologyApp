@@ -27,6 +27,7 @@ export class StudentInfoPage implements OnInit {
     this.heading_title = this.navParams.get('title');
     this.studentData = this.navParams.get('studentData');
     this.student_id =  this.studentData.student_id;
+    console.log(this.student_id);
     
     this.list();
   }
@@ -48,6 +49,7 @@ export class StudentInfoPage implements OnInit {
     return await modal.present();
   }
   delete(id:any) {
+
     this.data.presentAlertConfirm().then((res: any) => {
       if(res == true){
         const formData = new FormData();

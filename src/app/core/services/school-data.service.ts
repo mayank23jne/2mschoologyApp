@@ -455,15 +455,15 @@ export class SchoolDataService {
     return this.makeApiCall(endpoint, 'POST', data);
   }
 
-  deleteExpense(data : any = ""): Observable<any> {
+  deleteExpense(data: any = ""): Observable<any> {
     const endpoint = `deleteExpense`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  expense(data : any = ""): Observable<any> {
+  expense(data: any = ""): Observable<any> {
     const endpoint = `viewExpense`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  addExpense(data : any = ""): Observable<any> {
+  addExpense(data: any = ""): Observable<any> {
     const endpoint = `addExpense`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
@@ -495,9 +495,9 @@ export class SchoolDataService {
     const endpoint = `jointMassInvoice`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
- 
+
   // Payment Report && Fee Manager
-  
+
   adminStudentFeeManager(data: any = ""): Observable<any> {
     const endpoint = `adminStudentFeeManager`;
     return this.makeApiCall(endpoint, 'POST', data);
@@ -575,7 +575,7 @@ export class SchoolDataService {
     const endpoint = `updateAssignedPermission`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
- 
+
   // Super admin settings
 
   viewPlan(data: any = ""): Observable<any> {
@@ -615,7 +615,7 @@ export class SchoolDataService {
     const endpoint = `getSystemLogo`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-  
+
   // Invoice list
 
   deleteSingleGenerateInvoice(data: any = ""): Observable<any> {
@@ -657,7 +657,6 @@ export class SchoolDataService {
     const endpoint = `updateAboutus`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-
   getTermsAndConditions(data: any = ""): Observable<any> {
     const endpoint = `getTermsAndConditions`;
     return this.makeApiCall(endpoint, 'POST', data);
@@ -699,6 +698,29 @@ export class SchoolDataService {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     return this.http.post<any>(`${environment.apiUrl}/addExcelData`, data, { headers });
   }
+  plan_payment_stripe(data: any = ""): Observable<any> {
+    const endpoint = `plan_payment_stripe`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getPaypalPlanID(data: any = ""): Observable<any> {
+    const endpoint = `get_paypal_planid`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  plan_payment_success(data: any = ""): Observable<any> {
+    const endpoint = `plan_payment_success`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  paypal_payment_success(data: any = ""): Observable<any> {
+    const endpoint = `paypal_payment_success`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getSubscriptionStatus(data: any = ""): Observable<any> {
+    const endpoint = `plan_status`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
+  getAdminPaymentDetail(data: any = ""): Observable<any> {
+    const endpoint = `getAdminPaymentDetail`;
+    return this.makeApiCall(endpoint, 'POST', data);
+  }
 
- 
 }

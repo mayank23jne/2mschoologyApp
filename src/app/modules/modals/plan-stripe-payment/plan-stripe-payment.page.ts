@@ -1,10 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { PaymentFlowEventsEnum, PaymentSheetEventsEnum, Stripe ,PaymentSheetResultInterface} from '@capacitor-community/stripe';
+import { Stripe } from '@capacitor-community/stripe';
 import { ModalController, NavParams } from '@ionic/angular';
-import { firstValueFrom } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { CapacitorHttp, HttpOptions } from '@capacitor/core';
 import { SchoolDataService } from 'src/app/core/services/school-data.service';
 import { DataService } from 'src/app/core/services/data.service';
 import { ToastService } from 'src/app/core/services/toast.service';
@@ -13,37 +10,26 @@ import { Router } from '@angular/router';
 import { PaymentServiceService } from 'src/app/core/services/payment-service.service';
 
 @Component({
-  selector: 'app-stripe-payment',
-  templateUrl: './stripe-payment.page.html',
-  styleUrls: ['./stripe-payment.page.scss'],
+  selector: 'app-plan-stripe-payment',
+  templateUrl: './plan-stripe-payment.page.html',
+  styleUrls: ['./plan-stripe-payment.page.scss'],
 })
-export class StripePaymentPage implements OnInit {
+export class PlanStripePaymentPage implements OnInit {
 
   data:any = {};
   amount:any;
-  invoice_id:any;
+  plan_id:any;
   clientSecret:any;
   cardElement:any;
-  isProcessing: boolean = false; // Track payment processing state
-  student_name:any;
+  isProcessing: boolean = false; 
+  plan_name:any;
   PaymentDetail:any;
   
   constructor(private payservice:PaymentServiceService,private router: Router,private loader: LoaderService,private toastService:ToastService,private dataService:DataService,private fetch: SchoolDataService,private navParams: NavParams,private http:HttpClient,private modalController : ModalController) {
     this.loadStripePaymentDetails();
-   }
- 
-   ngOnInit() {
-    this.loader.present();
-    setTimeout(() => {
-      this.loader.dismiss();
-    }, 3000);
-    this.amount = this.navParams?.get('amount');
-    this.invoice_id = this.navParams?.get('invoiceId'); 
-    this.student_name = this.navParams?.get('student_name'); 
-    this.loadStripePaymentDetails();
-      
-   }
-   async loadStripePaymentDetails() {
+  }
+
+  async loadStripePaymentDetails() {
     try {
       this.PaymentDetail = await this.payservice.getAdminPaymentCreds();
       if (this.PaymentDetail) {
@@ -58,6 +44,16 @@ export class StripePaymentPage implements OnInit {
       console.log('Error retrieving payment data:', error);
     }
   }
+   ngOnInit() {
+    this.loader.present();
+    setTimeout(() => {
+      this.loader.dismiss();
+    }, 3000);
+    this.amount = this.navParams?.get('amount');
+    this.plan_id = this.navParams?.get('planId'); 
+    this.plan_name = this.navParams?.get('plan_name'); 
+      
+   }
    async ngAfterViewInit() {
     const stripe = await this.dataService.getStripe();
     if (!stripe) {
@@ -69,12 +65,12 @@ export class StripePaymentPage implements OnInit {
     this.cardElement.mount('#card-element');
   }
 
-  async pay(pi:any) {
+  async pay(pi:any,subscription:any) {
     if (this.isProcessing) {
-      return; // Prevent multiple submissions
+      return; 
     }
 
-    this.isProcessing = true; // Set processing state
+    this.isProcessing = true; 
     try {
       
       const stripe = await this.dataService.getStripe();
@@ -89,14 +85,15 @@ export class StripePaymentPage implements OnInit {
         console.error('Payment failed:', error.message);
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
         
-      let data = {'payment_method': 'stripe','amount_to_pay': this.amount, 'invoice_id': this.invoice_id,'response':paymentIntent};
-      this.fetch.payment_success(data).subscribe({
+      let data = {'subscription':subscription};
+      console.log(data);
+      this.fetch.plan_payment_success(data).subscribe({
         next: async (res: any) => {
           console.log(res);
           this.isProcessing = false;
           this.toastService.presentToast('Payment Succeeded');
           this.closeModal();
-          this.router.navigate(['invoice']);
+          this.router.navigate(['update_plan']);
         },
         error: (error: any) => {
           this.isProcessing = false;
@@ -113,15 +110,17 @@ export class StripePaymentPage implements OnInit {
     getPaymentIntent() {
     try {
       // Prepare data to send to backend
-      let data = { 'amount_to_pay': this.amount, 'invoice_id': this.invoice_id };
-      this.fetch.payment_stripe(data).subscribe({
+      let data = {'payment_method': 'Stripe','amount_to_pay': this.amount, 'plan_id': this.plan_id };
+      this.fetch.plan_payment_stripe(data).subscribe({
         next: async (res: any) => {
           console.log(res);
           if (res && res.data) {
             this.clientSecret = res.data.paymentIntent;
-            this.pay(this.clientSecret);
+            
+            this.pay(this.clientSecret,res.data?.subscription);
             // const ephemeralKey = res.data.paymentIntent;
-            // const customer = res.data.customer;
+            //const customer = res.data.customer;
+            console.log(res.data);
           } else {
             console.error('Invalid response from payment_stripe:', res);
           }
@@ -140,5 +139,6 @@ export class StripePaymentPage implements OnInit {
   closeModal() {
     this.modalController.dismiss();
   }
+
 
 }

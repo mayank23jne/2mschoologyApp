@@ -23,7 +23,7 @@
 
     <ion-label>Parent <span class="req">*</span></ion-label>
           <ion-item class="dropdown-s">
-            <ion-select multiple="true" formControlName="parent_id" label-placement="floating" >
+            <ion-select multiple="true" formControlName="parent_id" label-placement="floating"  (ionChange)="onParentChange()" >
               <ion-select-option *ngFor="let item of parentList" [value]="item.parent_id">{{ item.name }}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -71,17 +71,7 @@
       <ion-text color="danger">This field is required.</ion-text>
     </ion-row>
 
-    <!-- <ion-item lines="none">
-      <ion-label>Recurring</ion-label>
-      <ion-checkbox slot="start" formControlName="recurring" (ionChange)="toggleRecurring($event)"></ion-checkbox>
-    </ion-item>
-    
-     Conditionally show the duration input if 'showDuration' is true
-    <ion-label *ngIf="showDuration">Duration </ion-label>
-    <ion-list *ngIf="showDuration">
-      <ion-input type="text" formControlName="duration"></ion-input>
-    </ion-list>
-    -->
+   
     <ion-button expand="full" type="submit" (click)="submit()" [disabled]="!jointMassInvoiceForm.valid">
       Submit
     </ion-button>

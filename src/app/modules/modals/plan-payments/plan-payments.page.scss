@@ -1,0 +1,30 @@
+.payment-button {
+    background: #f1f1f1;
+    border-radius: 15px;
+    box-shadow:#727cf5 0 10px 20px -10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: Inter, Helvetica, "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif;
+    outline: 0 solid transparent;
+    padding: 8px 18px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    touch-action: manipulation;
+    border: 2px solid transparent;
+}
+.paypal-button {
+    width: 85%;
+}
+.payment-button.selected {
+    border: 2px solid #727cf5;
+    // transform: scale(1.05);
+}
+
+.stripe-button {
+    width: 65%;
+}
+.hide{
+    display: none;
+}

@@ -39,9 +39,10 @@ export class AddExamMasterPage implements OnInit {
 
     this.editExamData = this.navParams.get('editExamData');
     this.editExamID = this.editExamData?.id;
+    console.log(this.editExamID);
 
     this.editGradeData = this.navParams.get('editGradeData');
-    this.editGradeID = this.editGradeData?.id;
+    this.editGradeID = parseInt(this.editGradeData?.id);
     
     this.initializeForms();
   }
@@ -127,14 +128,14 @@ submit_grade(){
   });
 }
 async resetStartDate() {
-  this.examForm.get('starting_date')?.reset(""); // Reset to current date
+  this.examForm.get('starting_date')?.reset(""); 
   const popover = await this.popoverController.getTop();
   if (popover) {
     popover.dismiss();
   }
 }
 async resetEndDate() {
-  this.examForm.get('ending_date')?.reset(""); // Reset to current date
+  this.examForm.get('ending_date')?.reset(""); 
   const popover = await this.popoverController.getTop();
   if (popover) {
     popover.dismiss();

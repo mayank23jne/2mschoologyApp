@@ -22,7 +22,7 @@
     <ion-item>
       <ion-select label="Student" label-placement="floating" [(ngModel)]="selectedStudentData"
         (ionChange)="onFilterStudentChange()">
-        <ion-select-option *ngFor="let item of studentData" [value]="item.user_id">{{ item.name }}</ion-select-option>
+        <ion-select-option *ngFor="let item of studentData" [value]="item.student_id">{{ item.name }}</ion-select-option>
       </ion-select>
     </ion-item>
   </div>

@@ -1,5 +1,6 @@
 <app-header></app-header>
-  <ion-segment [(ngModel)]="billingCycle" (ionChange)="toggleBillingCycle()">
+<ion-content *ngIf="subscription_status != 'Active' && monthlyList">
+  <ion-segment  [(ngModel)]="billingCycle" (ionChange)="toggleBillingCycle()">
     <ion-segment-button value="monthly">
       Monthly
     </ion-segment-button>
@@ -7,7 +8,6 @@
       Yearly
     </ion-segment-button>
   </ion-segment>
-<ion-content>
   <div *ngIf="billingCycle === 'monthly'">
     <ion-card *ngFor="let item of monthlyList" class="list-card">
       <ion-card-header>
@@ -15,10 +15,13 @@
         <ion-card-subtitle class="text-center">${{ item.amount }} / month</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content class="p0">
-       <ul >
+       <ul>
         <li *ngFor="let itm of item.feature">{{ itm }}</li>
        </ul>
       </ion-card-content>
+      <div class="text-center">
+        <ion-button class="btn p10" (click)="update(item)">Update plan</ion-button>
+      </div>
     </ion-card>
   </div>
   <div *ngIf="billingCycle === 'yearly'">
@@ -32,6 +35,66 @@
             <li *ngFor="let itm of item.feature">{{ itm }}</li>
           </ul>
       </ion-card-content>
+      <div class="text-center">
+        <ion-button class="btn p10" (click)="update(item)">Update plan</ion-button>
+      </div>
     </ion-card>
   </div>
+</ion-content>
+<ion-content *ngIf="subscription_status == 'Active'">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Subscription Details</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      
+      <ion-item>
+        <ion-label>Plan Name:</ion-label>
+        <ion-text>{{ planData.plan_name | titlecase }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Plan Status:</ion-label>
+        <ion-text>{{ planData.status | titlecase }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>School Name:</ion-label>
+        <p><ion-text>{{ planData.school_name }}</ion-text></p>
+      </ion-item>
+      <ion-item>
+        <ion-label>Payment Method:</ion-label>
+        <ion-text>{{ planData.payment_method | titlecase }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Plan Amount:</ion-label>
+        <ion-text>{{ planData.plan_amount }} {{ planData.plan_amount_currency }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Plan Type:</ion-label>
+        <ion-text>{{ planData.plan_interval | titlecase }}</ion-text>
+      </ion-item>
+      <ion-item *ngIf="planData.plan_interval_count">
+        <ion-label>Plan Interval Count:</ion-label>
+        <ion-text>{{ planData.plan_interval_count }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Payer Email:</ion-label>
+        <ion-text>{{ planData.payer_email }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Created At:</ion-label>
+        <ion-text>{{ planData.created | date: 'short' }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Plan Start:</ion-label>
+        <ion-text>{{ planData.plan_period_start | date: 'short' }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Plan End:</ion-label>
+        <ion-text>{{ planData.plan_period_end | date: 'short' }}</ion-text>
+      </ion-item>
+     
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

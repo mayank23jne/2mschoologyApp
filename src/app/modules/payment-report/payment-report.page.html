@@ -42,11 +42,26 @@
     </ion-select>
   </ion-item>
   <div class="text-center mt10">
-    <ion-button class="filter-btn" (click)="filter()">Filter</ion-button>
+    <ion-button  (click)="filter('list')">Filter</ion-button>
   </div>
-
+      <ion-row>
+        <ion-col size="3">
+          <ion-label class="export-as">Export as</ion-label>
+        </ion-col>
+        <ion-col size="5">
+          <ion-select placeholder="Select an option"  [(ngModel)]="exportType">
+            <ion-select-option value="csv">CSV</ion-select-option>
+            <ion-select-option value="pdf">PDF</ion-select-option>
+            <ion-select-option value="print">Print</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button *ngIf="exportType" (click)="filter('export')">Export</ion-button>
+        </ion-col>
+      </ion-row>
+ 
   <div *ngIf="reportData?.length">
-    <ion-item>
+    <ion-item class="delete">
         <ion-label>Select All</ion-label>
         <ion-checkbox [(ngModel)]="selectAllChecked" (ionChange)="toggleSelectAll()"></ion-checkbox>
         <ion-button *ngIf="ShowDelete" color="danger" (click)="deleteSelected()">Delete Selected</ion-button>

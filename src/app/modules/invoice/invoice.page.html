@@ -62,18 +62,22 @@
     </ion-item>
     <div class="text-center mt10">
       <ion-button  (click)="filter('list')">Filter</ion-button>
-      <ion-row>
-        <ion-col size="8"><ion-item>
-          <ion-label>Export as</ion-label>
-          <ion-select placeholder="Select an option"  [(ngModel)]="exportType">
-            <ion-select-option value="csv">CSV</ion-select-option>
-            <ion-select-option value="pdf">PDF</ion-select-option>
-            <ion-select-option value="print">Print</ion-select-option>
-          </ion-select>
-        </ion-item></ion-col>
-        <ion-col size="4"><ion-button *ngIf="exportType"  (click)="filter('export')">Export</ion-button></ion-col>
-      </ion-row>
     </div>
+        <ion-row>
+          <ion-col size="3">
+            <ion-label class="export-as">Export as</ion-label>
+          </ion-col>
+          <ion-col size="5">
+            <ion-select placeholder="Select an option"  [(ngModel)]="exportType">
+              <ion-select-option value="csv">CSV</ion-select-option>
+              <ion-select-option value="pdf">PDF</ion-select-option>
+              <ion-select-option value="print">Print</ion-select-option>
+            </ion-select>
+          </ion-col>
+          <ion-col size="4">
+            <ion-button *ngIf="exportType" (click)="filter('export')">Export</ion-button>
+          </ion-col>
+        </ion-row>
   
     <div *ngIf="reportData?.length">
       <ion-item>
@@ -84,7 +88,8 @@
       <ion-card class="list-card" *ngFor="let item of reportData">
           <ion-row>
               <ion-col size="9">
-                  <b>{{ item.invoice_title }}</b>
+                  <h5>{{ item.invoice_title }}</h5>
+                  <p>Invoice No. {{ item.invoice_id }}</p>
                   <p>Invoice type : {{ item.invoice_type}}</p>
                   <p>Invoice amount : <span *ngIf="item.invoice_amount">${{ item.invoice_amount }}</span></p>
               </ion-col>

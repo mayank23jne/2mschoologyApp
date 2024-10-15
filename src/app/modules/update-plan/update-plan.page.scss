@@ -10,3 +10,13 @@ text-transform: capitalize;
 .list-card{
     background-color: #f4f6f9;
 }
+.btn{
+    text-align: center;
+}
+
+ion-item {
+--min-height: 40px;
+}
+ion-card-content{
+    padding: 0px;
+}

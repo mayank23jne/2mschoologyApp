@@ -57,8 +57,8 @@ ngOnInit() {
     this.fetch.getStudentsByParent(formData).subscribe({
       next: (res: any) => {
         if (res) {
+          
           this.studentsList = res.data;
-         
           const defaultSelectedStudents = this.studentsList.map(student => student.id);
           this.jointInvoiceForm.get('student_id')?.setValue(defaultSelectedStudents);
         

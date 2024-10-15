@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { SchoolDataService } from 'src/app/core/services/school-data.service';
 import { ToastService } from 'src/app/core/services/toast.service';
@@ -11,6 +11,8 @@ import { InvoiceMasterPage } from '../modals/invoice-master/invoice-master.page'
 import { JointInvoiceMasterPage } from '../modals/joint-invoice-master/joint-invoice-master.page';
 import { MassInvoiceMasterPage } from '../modals/mass-invoice-master/mass-invoice-master.page';
 import { JointMassInvoiceMasterPage } from '../modals/joint-mass-invoice-master/joint-mass-invoice-master.page';
+import { Router } from '@angular/router';
+import { Directory, Encoding, Filesystem } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-payment-report',
@@ -30,7 +32,8 @@ export class PaymentReportPage implements OnInit {
   selectedInvoiceIds: Set<number> = new Set(); 
   ShowDelete:any = false;
   selectAllChecked = false;
-  constructor(private data: DataService,private datePipe: DatePipe,private toastService: ToastService, private loader: LoaderService, private fetch: SchoolDataService,  private modalController: ModalController) { }
+  exportType:any;
+  constructor(private platform: Platform,private router: Router,private data: DataService,private datePipe: DatePipe,private toastService: ToastService, private loader: LoaderService, private fetch: SchoolDataService,  private modalController: ModalController) { }
 
   ngOnInit() {
 
@@ -47,9 +50,9 @@ export class PaymentReportPage implements OnInit {
     this.formData = new FormData();
     this.formData.append('user_type', "parent");
     this.adminParentList( this.formData);
-    this.filter();
+    this.filter('list');
   }
-  filter(){
+  filter(type:any){
     const formData = new FormData();
     const currentDate = new Date();
     const defaultStartDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
@@ -59,8 +62,11 @@ export class PaymentReportPage implements OnInit {
     formData.append('selectedParent',this.selectedParent);
     formData.append('startDate', this.dateRange?.startDate ? this.formatDate(this.dateRange.startDate) : this.formatDate(defaultStartDate));
     formData.append('endDate', this.dateRange?.endDate ? this.formatDate(this.dateRange.endDate) : this.formatDate(defaultEndDate));
-    
-    this.list(formData);
+    if(type == 'export'){
+      this.export(formData);
+    }else{
+      this.feeManagerlist(formData);
+    }
   }
   formatDate(date: Date | any): any | null {
     return this.datePipe.transform(date, 'MMMM dd, yyyy');
@@ -192,26 +198,116 @@ export class PaymentReportPage implements OnInit {
     this.data.presentAlertConfirm().then((res) => {
       if (res == true) {
         console.log(ids);
-        // const formData = new FormData();
-        // formData.append('student_ids', ids);
-        // this.fetch.deleteDepartment(formData).subscribe({
-        //   next: (res: any) => {
-        //     if (res.code == 200) {
-        //       this.toastService.presentToast(res.response);
-        //       this.studentData = this.studentData.filter((item: { student_id: number; }) => !this.selectedStudentIds.has(item.student_id));
-        //       this.selectedStudentIds.clear(); 
-        //       this.selectAllChecked = false; 
-        //     } else {
-        //       this.toastService.presentErrorToast(res.response);
-        //     }
-        //   },
-        //   error: (error: any) => {
-        //   }
-        // });
+        const formData = new FormData();
+        formData.append('student_ids', ids);
+        this.fetch.deleteAllStudentFeeManager(formData).subscribe({
+          next: (res: any) => {
+            if (res.code == 200) {
+              this.toastService.presentToast(res.response);
+              this.selectedInvoiceIds.clear(); 
+              this.selectAllChecked = false; 
+            } else {
+              this.toastService.presentErrorToast(res.response);
+            }
+          },
+          error: (error: any) => {
+          }
+        });
       }
     });
   }
+  export(formData:any){
+    formData.append('type',this.exportType);
+    this.fetch.exportRport(formData).subscribe({
+      next:(res:any) => {
+      if(res){
+            if(this.exportType == 'csv'){
+              this.downloadCSV(res);
+            }else{
+              this.downloadPdf(res);
+            }
+        }
+      },
+      error: (error:any) => {
+       
+      }
+    });
+  }
+  async downloadCSV(data: any) {
+    console.log(data);
+    const csvRows = data; 
+    const blob = new Blob([csvRows], { type: 'text/csv' });
+    const base64Data = await this.convertBlobToBase64(blob);
+    
+    let fileName = `Report_${new Date().toISOString().slice(0, 10)}.csv`;  // e.g., "Report_2023-10-01.csv"
+    
+    await this.saveCsvToDevice(base64Data, fileName);
+  }
 
+
+  async convertBlobToBase64(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  async saveCsvToDevice(base64Data: string, fileName: string) {
+    await this.platform.ready();
+    
+    const fileData = base64Data.split(',')[1]; 
+
+    Filesystem.writeFile({
+      path: fileName,
+      data: fileData,
+      directory: Directory.Documents,
+      encoding: Encoding.UTF8, 
+      recursive: true
+    }).then(() => {
+      this.toastService.presentToast("File saved successfully");
+    }).catch((error) => {
+      this.toastService.presentErrorToast("Error in saving");
+    });
+  }
+  async downloadPdf(blob: any) {
+    let fileName = `Report_${new Date().toISOString().slice(0, 10)}.pdf`;
+    await this.savePDFToDevice(blob, fileName);
+  }
+  async savePDFToDevice(fileData: any, fileName: string) {
+    await this.platform.ready();
+    
+    Filesystem.writeFile({
+      path: fileName,
+      data: fileData,
+      directory: Directory.Documents,
+      encoding: Encoding.UTF8, 
+      recursive: true
+    }).then(() => {
+      this.toastService.presentToast("File saved successfully");
+    }).catch((error) => {
+      this.toastService.presentErrorToast("Error in saving");
+    });
+  }
+  feeManagerlist(formData:any){
+    this.fetch.adminStudentFeeManager(formData).subscribe({
+      next:(res:any) => {
+      if(res.code == 200){
+        
+        this.reportData = res.data;
+          
+        }
+        else{
+          this.reportData = [];
+        }
+       
+      },
+      error: (error:any) => {
+        
+      }
+    });
+  }
 }
   
 

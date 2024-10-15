@@ -5,6 +5,7 @@ import { StripePaymentPage } from '../stripe-payment/stripe-payment.page';
 import { SchoolDataService } from 'src/app/core/services/school-data.service';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { PaymentServiceService } from 'src/app/core/services/payment-service.service';
 
 @Component({
   selector: 'app-make-payment',
@@ -18,16 +19,32 @@ export class MakePaymentPage implements OnInit {
   invoice_title: string = '';
   total_amount: any;
   invoiceData: any;
-  constructor(private toastService:ToastService,private router: Router,private fetch: SchoolDataService,private navParams: NavParams, private modalController: ModalController) {
+  PaypalPaymentDetail:any;
+
+  constructor(private payservice:PaymentServiceService,private toastService:ToastService,private router: Router,private fetch: SchoolDataService,private navParams: NavParams, private modalController: ModalController) {
   }
+
   ngOnInit() {
     this.heading_title = this.navParams.get('title');
     this.invoiceData = this.navParams.get("invoiceData");
     this.invoiceId = this.invoiceData.id;
     this.invoice_title = this.invoiceData.title;
     this.total_amount = this.invoiceData.total_amount;
+    this.loadPaypalPaymentDetails();
   }
 
+  async loadPaypalPaymentDetails() {
+    try {
+      this.PaypalPaymentDetail = await this.payservice.getAdminPaymentCreds();
+      if (this.PaypalPaymentDetail) {
+        console.log('Payment data:', this.PaypalPaymentDetail);
+      } else {
+        console.log('Failed to retrieve payment data');
+      }
+    } catch (error) {
+      console.log('Error retrieving payment data:', error);
+    }
+  }
   selectPayment(method: string) {
     this.selectedPayment = method;
     if (this.selectedPayment == 'paypal') {
@@ -84,7 +101,7 @@ export class MakePaymentPage implements OnInit {
     }
    
     const scriptOptions = {
-      'client-id': 'AUb_LYqvgnYigLRbAJae3kMtlAkpJkwg3A-aUMghjRu4lpTwrLcc_pU_vxP2PXI30M71atWmDz6Rq2o8',  // Replace with your actual client ID
+      'client-id': this.PaypalPaymentDetail?.paypal_client_id_sandbox,  
       currency: 'USD',
     };
   

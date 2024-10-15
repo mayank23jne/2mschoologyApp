@@ -20,7 +20,7 @@ export class MarksPage implements OnInit {
   section_id: any;
   role: any;
   subjects: any;
-  mark_data: any;
+  mark_data: any = [];
   access_msg: any;
   access_msg_title: any;
   code: any;
@@ -99,8 +99,8 @@ export class MarksPage implements OnInit {
         }
         else if (res.code == 401) {
           this.code = res.code;
-          this.access_msg_title = res.response.first_msg;
-          this.access_msg = res.response.second_msg;
+          this.access_msg_title = res.response;
+          this.mark_data = [];
 
         }
         else {
@@ -112,6 +112,7 @@ export class MarksPage implements OnInit {
       },
       error: (error: any) => {
         this.mark_data = [];
+        this.loader.dismiss();
       }
     });
   }

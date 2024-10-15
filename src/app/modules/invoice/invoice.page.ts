@@ -5,7 +5,6 @@ import { ModalController } from '@ionic/angular';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { SchoolDataService } from 'src/app/core/services/school-data.service';
 import { ToastService } from 'src/app/core/services/toast.service';
-import { InvoiceInfoPage } from '../invoice-info/invoice-info.page';
 import { PaymentReportInfoPage } from '../modals/payment-report-info/payment-report-info.page';
 import { DataService } from 'src/app/core/services/data.service';
 import { InvoiceMasterPage } from '../modals/invoice-master/invoice-master.page';
@@ -260,22 +259,21 @@ export class InvoicePage implements OnInit {
     this.data.presentAlertConfirm().then((res) => {
       if (res == true) {
         console.log(ids);
-        // const formData = new FormData();
-        // formData.append('student_ids', ids);
-        // this.fetch.deleteDepartment(formData).subscribe({
-        //   next: (res: any) => {
-        //     if (res.code == 200) {
-        //       this.toastService.presentToast(res.response);
-        //       this.studentData = this.studentData.filter((item: { student_id: number; }) => !this.selectedStudentIds.has(item.student_id));
-        //       this.selectedStudentIds.clear(); 
-        //       this.selectAllChecked = false; 
-        //     } else {
-        //       this.toastService.presentErrorToast(res.response);
-        //     }
-        //   },
-        //   error: (error: any) => {
-        //   }
-        // });
+        const formData = new FormData();
+        formData.append('student_ids', ids);
+        this.fetch.deleteAllStudentFeeManager(formData).subscribe({
+          next: (res: any) => {
+            if (res.code == 200) {
+              this.toastService.presentToast(res.response);
+              this.selectedInvoiceIds.clear(); 
+              this.selectAllChecked = false; 
+            } else {
+              this.toastService.presentErrorToast(res.response);
+            }
+          },
+          error: (error: any) => {
+          }
+        });
       }
     });
   }

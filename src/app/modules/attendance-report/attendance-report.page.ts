@@ -130,6 +130,7 @@ export class AttendanceReportPage implements OnInit {
 
   onFilterStudentChange(){
     this.student_id = this.selectedStudentData;
+    console.log(this.student_id);
   }
   filter() {
     this.loader.present();

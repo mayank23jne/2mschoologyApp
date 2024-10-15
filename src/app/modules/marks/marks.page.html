@@ -17,10 +17,11 @@
     <ion-row *ngIf="code == '401'">
         <ion-card class="access_den">
            <ion-card-header class="access-title">{{ access_msg_title }}</ion-card-header> 
-           <ion-card-content>{{ access_msg }}</ion-card-content> 
+          
         </ion-card>
     </ion-row>
-    <div *ngIf="role == 'teacher' && mark_data">
+    <div *ngIf="role == 'teacher' || role == 'admin' && mark_data">
+        <div *ngIf="mark_data.length > 0">
         <ion-card class="manage_marks">
             <ion-card-header><span>Manage Marks</span></ion-card-header>
             <ion-card-content>
@@ -33,8 +34,9 @@
          {{item.student_name}}
         </ion-card>
     </div>
-    <div *ngIf="role != 'teacher' && mark_data">
-        <div *ngIf="mark_data">
+    </div>
+    <div *ngIf="role != 'teacher' && mark_data && role != 'admin'">
+        <div *ngIf="mark_data.length > 0">
         <ion-card  class="manage_marks">
             <ion-card-header><span>Manage Marks</span></ion-card-header>
             <ion-card-content>

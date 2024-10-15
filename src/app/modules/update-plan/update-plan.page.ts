@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { DataService } from 'src/app/core/services/data.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { SchoolDataService } from 'src/app/core/services/school-data.service';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { PlanPaymentsPage } from '../modals/plan-payments/plan-payments.page';
+import { PaymentServiceService } from 'src/app/core/services/payment-service.service';
 
 @Component({
   selector: 'app-update-plan',
@@ -14,15 +17,36 @@ export class UpdatePlanPage implements OnInit {
   billingCycle: string = 'monthly';  // default to 'monthly'
   monthlyList:any;
   yearlyList:any;
-  constructor(private toastService:ToastService,private loader: LoaderService,private fetch: SchoolDataService) { }
+  userSubscriptionStatus:any;
+  subscription_status:any = 'Inactive';
+  planData:any;
+  constructor(private payService: PaymentServiceService,private modalController: ModalController,private toastService:ToastService,private loader: LoaderService,private fetch: SchoolDataService) { }
 
   ngOnInit() {
-    const formData = new FormData();
-    this.list();
+    this.loader.present();
+    this.loadSubscriptionDetails(); 
+  }
+
+  async loadSubscriptionDetails() {
+    try {
+      this.userSubscriptionStatus  = await this.payService.getStatusSubscription();
+      if (this.userSubscriptionStatus) {
+        this.loader.dismiss();
+        this.subscription_status =  this.userSubscriptionStatus?.plan_status;
+        this.planData =  this.userSubscriptionStatus?.data;
+        console.log(this.subscription_status);
+      } else {
+        this.list();
+        this.loader.dismiss();
+        this.subscription_status = 'Inactive';
+      }
+    } catch (error) {
+      this.loader.dismiss();
+      console.log('Error retrieving payment data:', error);
+    }
   }
 
   toggleBillingCycle() {
-    
     console.log('Billing cycle changed to:', this.billingCycle);
   }
   list(){
@@ -45,6 +69,19 @@ export class UpdatePlanPage implements OnInit {
       }
     });
   }
-  
+  async update(item:any){
+    console.log(item);
+    const paymnetModal = await this.modalController.create({
+      component: PlanPaymentsPage,
+      cssClass: '',
+      componentProps: {
+        title: "Make Payment",
+        plan_data: item
+      }
+    });
+    paymnetModal.onDidDismiss().then((dataReturned) => { });
+
+    return await paymnetModal.present();
+  }
 
 }

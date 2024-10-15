@@ -377,6 +377,14 @@ const routes: Routes = [
     path: 'invoice-chart',
     loadChildren: () => import('./modules/modals/invoice-chart/invoice-chart.module').then( m => m.InvoiceChartPageModule)
   },
+  {
+    path: 'plan-payments',
+    loadChildren: () => import('./modules/modals/plan-payments/plan-payments.module').then( m => m.PlanPaymentsPageModule)
+  },
+  {
+    path: 'plan-stripe-payment',
+    loadChildren: () => import('./modules/modals/plan-stripe-payment/plan-stripe-payment.module').then( m => m.PlanStripePaymentPageModule)
+  },
 
 ];
 

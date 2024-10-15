@@ -11,8 +11,12 @@ ion-card{
 .icons{
     text-align: end;
 }
-
 .add-btns ion-button{
     font-size: 12px;
     width: 100%;
+}
+.export-as{
+    position: relative;
+    top: 13px;
+    left: 12px;
 }

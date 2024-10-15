@@ -21,7 +21,7 @@ export class JointMassInvoiceMasterPage implements OnInit {
   studentsList:any[] = []; 
   classes:any;
   showDuration: boolean = false;
-
+  selectedParents:any;
 constructor(private toastService: ToastService, private loader: LoaderService, private fetch: SchoolDataService, private fb: FormBuilder, private navParams: NavParams, private modalController: ModalController) { }
 
 ngOnInit() 
@@ -35,8 +35,6 @@ ngOnInit()
     title: ['', [Validators.required, Validators.maxLength(50)]],
     invoice_amount: ['', [Validators.required, Validators.pattern('^[0-9]*$')]], 
     paid_amount: ['', [Validators.required, Validators.pattern('^[0-9]*$')]], 
-    recurring :[false],
-    duration :[''],
     status: ['', Validators.required]
   });
 
@@ -61,22 +59,28 @@ onClassChange() {
     next: (res: any) => {
       if (res) {
         this.parentList = res.data;
-        // const defaultSelecteds = this.parentList.map(parent => parent.parent_id);
-        // this.jointMassInvoiceForm.get('parent_id')?.setValue(defaultSelecteds);
       }
     },
     error: (error: any) => {
 
     }
   });
-  
+  console.log(this.jointMassInvoiceForm.value);
+}
+onParentChange(){
+  this.selectedParents = this.jointMassInvoiceForm.get('parent_id')?.value;
 }
 closeModal() {
   this.modalController.dismiss();
 }
 submit(){
   console.log(this.jointMassInvoiceForm.value);
+  
   let formData = this.jointMassInvoiceForm.value;
+  this.selectedParents = this.selectedParents?.join(",");
+  this.jointMassInvoiceForm.patchValue({
+    parent_id: this.selectedParents
+  });
   this.fetch.jointMassInvoice(formData).subscribe({
     next: (res: any) => {
       if (res.code == 200) {
@@ -97,8 +101,7 @@ submit(){
 
 toggleRecurring(event: any) {
   this.showDuration = event.detail.checked;
-  
-  // Optionally, you can clear or set the duration value based on the checkbox state
+
   if (!this.showDuration) {
     this.jointMassInvoiceForm.get('duration')?.setValue('');
   }

@@ -37,7 +37,9 @@ export class PaymentReportInfoPage implements OnInit {
           next:(res:any) => {
             if(res.code == 200){
               this.toastService.presentToast(res.response);
-              this.loader.dismiss();  
+              this.loader.dismiss();
+              this.modalController.dismiss();
+
             }else{
               this.toastService.presentErrorToast(res.response);
             }
