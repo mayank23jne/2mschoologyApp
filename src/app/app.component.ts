@@ -52,16 +52,16 @@ export class AppComponent {
       this.loadSubscriptionDetails();
       setTimeout(() => {
       if (this.user_data) {
-        console.log(this.user_data);
+      
         if(this.planStatus == 'Active'){
             this.sidebar();
         }else{
-          console.log(this.user_data.role);
+         
           if(this.user_data.role == 'superadmin'){
             this.sidebar();
             this.router.navigateByUrl('/tabs/tab1');
           }else{
-            console.log(this.user_data.role);
+           
             this.router.navigateByUrl('/update_plan');
           }
         }
@@ -220,9 +220,15 @@ export class AppComponent {
   dashboard() {
     if(this.planStatus == 'Active'){
       this.selectedIndex = -1;
+      this.sidebar();
       this.router.navigate(['/tabs/tab1']);
     }else{
-      this.router.navigate(['/update_plan']);
+      if(this.user_data.role == 'superadmin'){
+        this.sidebar();
+        this.router.navigateByUrl('/tabs/tab1');
+      }else{
+        this.router.navigateByUrl('/update_plan');
+      }
     }
   }
   gotoPage(p:any){

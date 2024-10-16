@@ -13,8 +13,8 @@
           <ion-menu-toggle *ngIf="user_data != ''">
             <ion-item>
               <ion-icon name="person"></ion-icon>
-              <ion-label class="uname capitalize">{{ user_data.name }}</ion-label>
-              <br><span class="capitalize role_badge">{{user_data.role}}</span>
+              <ion-label class="uname capitalize">{{ user_data?.name }}</ion-label>
+              <br><span class="capitalize role_badge">{{user_data?.role}}</span>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle>
