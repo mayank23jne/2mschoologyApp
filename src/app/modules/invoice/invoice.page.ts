@@ -67,9 +67,10 @@ export class InvoicePage implements OnInit {
     this.list();
   }
   list() {
-   
+   this.loader.present();
     this.fetch.studentFeeManagerData().subscribe({
       next: (res: any) => {
+        this.loader.dismiss();
         this.isloading = false;
         if (res.code == 200) {
          
@@ -81,7 +82,7 @@ export class InvoicePage implements OnInit {
         
       },
       error: (error: any) => {
-       
+        this.loader.dismiss();
         this.isloading = false;
       }
       

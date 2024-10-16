@@ -21,7 +21,7 @@ export class Tab3Page implements OnInit {
   constructor(private cdr: ChangeDetectorRef, private toastService: ToastService, private loader: LoaderService, private menu: MenuController, private fb: FormBuilder, private fetch: SchoolDataService) {
   }
   checkImage(): void {
-
+    this.loader.present();
     this.fetch.checkProfileExists().subscribe({
       next: (res: any) => {
         this.loader.dismiss();
@@ -41,7 +41,7 @@ export class Tab3Page implements OnInit {
     });
   }
   ngOnInit() {
-    this.loader.present();
+    
     this.imagepath = "../../assets/profile_img.png" + `?timestamp=${this.timestamp}`;
     this.checkImage();
     this.user_id = localStorage.getItem("userId");

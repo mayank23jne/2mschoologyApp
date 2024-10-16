@@ -10,7 +10,7 @@
       </ion-col>
     </ion-row>
     <app-class-filter *ngIf="role == 'admin'" (filterChange)="onFilterChange($event)"></app-class-filter>
-    <ion-item>
+    <ion-item *ngIf="studentData.length > 0">
       <ion-label>Select All</ion-label>
       <ion-checkbox [(ngModel)]="selectAllChecked" (ionChange)="toggleSelectAll()"></ion-checkbox>
       <ion-button *ngIf="ShowDelete" color="danger" (click)="deleteSelectedStudents()">Delete Selected</ion-button>

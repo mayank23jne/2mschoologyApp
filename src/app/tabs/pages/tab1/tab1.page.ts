@@ -56,7 +56,7 @@ export class Tab1Page implements OnInit {
   }
   
   ionViewDidEnter() {
-    this.loader.present();
+    
     this.data.role$.subscribe(role => {
       this.role = role;
       this.cdr.detectChanges(); // Trigger change detection
@@ -106,6 +106,7 @@ export class Tab1Page implements OnInit {
     await alert.present();
   }
   list(formData: any = "") {
+    this.loader.present();
     this.fetch.getDashboardData(formData).subscribe({
       next: (res: any) => {
         this.loader.dismiss();
@@ -139,6 +140,7 @@ export class Tab1Page implements OnInit {
           });
   
         } else {
+          this.loader.dismiss();
           // Handle non-successful response code
           this.resetDataState();
           this.showErrorMessage('Failed to load dashboard data.');

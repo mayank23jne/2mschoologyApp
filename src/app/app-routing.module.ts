@@ -270,7 +270,7 @@ const routes: Routes = [
     loadChildren: () => import('./modules/modals/manual-payment/manual-payment.module').then( m => m.ManualPaymentPageModule)
   },
   {
-    path: 'admin',
+    path: 'tabs/admin',
     loadChildren: () => import('./modules/admin/admin.module').then( m => m.AdminPageModule)
   },
   {

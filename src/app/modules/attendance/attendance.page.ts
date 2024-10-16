@@ -116,7 +116,7 @@ export class AttendancePage implements OnInit {
   }
 
   filter() {
-    this.loader.present();
+    
     this.generateDaysInMonth();
     const arg_data = this.role === 'parent'
       ? { month: this.selected_month, year: this.selected_year, student_id: this.student_id }
@@ -133,7 +133,7 @@ export class AttendancePage implements OnInit {
   }
 
   loadEvents(arg_data: any) {
-
+    this.loader.present();
     this.fetch.getAttendanceData(arg_data).subscribe({
       next: (res: any) => {
         if (res.code === 200 && res.data) {

@@ -38,7 +38,7 @@ export class EventsCalenderPage implements OnInit {
     });
    }
   ionViewDidEnter() {
-    this.loader.present();
+   
     this.formData = new FormData();
     this.current_date = this.calendar.currentDate.toISOString().split('T')[0];
     this.user_id = localStorage.getItem("userId");
@@ -71,12 +71,14 @@ export class EventsCalenderPage implements OnInit {
     this.formData?.set("selected_date", formattedDate);
   }
   eventList(formData: any) {
+    this.loader.present();
     this.fetch.calendarEventData(formData).subscribe({
       next: (res: any) => {
+        this.loader.dismiss();
         if (res.code == 200) {
-          this.loader.dismiss();
+          
           this.events_data = res.data;
-          this.loader.dismiss();
+          
           this.events = res.data.map((event: { title: any; starting_date: string | number | Date; ending_date: string | number | Date; }) => ({
             title: event.title,
             startTime: new Date(event.starting_date),
@@ -91,7 +93,7 @@ export class EventsCalenderPage implements OnInit {
 
       },
       error: (error: any) => {
-
+        this.loader.dismiss();
       }
     });
   }

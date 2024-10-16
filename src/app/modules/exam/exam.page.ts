@@ -30,12 +30,11 @@ export class ExamPage implements OnInit {
     this.user_id = localStorage.getItem("userId");
     this.formData = new FormData();
     this.formData.append('user_id', this.user_id);
-    this.loader.present();
     this.list();
-
   }
 
   list(formData: any = "") {
+    this.loader.present();
     this.fetch.examData(formData = "").subscribe({
       next: (res: any) => {
         this.loader.dismiss();
@@ -48,7 +47,7 @@ export class ExamPage implements OnInit {
 
       },
       error: (error: any) => {
-
+        this.loader.dismiss();
       }
     });
   }

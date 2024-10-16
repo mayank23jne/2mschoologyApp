@@ -594,14 +594,19 @@ export class SchoolDataService {
     const endpoint = `updateSmtpSettings`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
-
+  
   getSmtpData(data: any = ""): Observable<any> {
     const endpoint = `getSmtpData`;
     return this.makeApiCall(endpoint, 'POST', data);
   }
   updateSystemSettings(data: any = ""): Observable<any> {
-    const endpoint = `updateSmtpSettings`;
+    const endpoint = `updateSystemSettings`;
     return this.makeApiCall(endpoint, 'POST', data);
+  }
+  uploadSystemLogo(data: any = ""): Observable<any> {
+    let token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http.post<any>(`${environment.apiUrl}/uploadSystemLogo`, data, { headers });
   }
   getSystemSettings(data: any = ""): Observable<any> {
     const endpoint = `getSystemSettings`;

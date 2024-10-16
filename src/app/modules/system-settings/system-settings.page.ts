@@ -17,10 +17,10 @@ export class SystemSettingsPage implements OnInit {
   systemLogo!:FormGroup;
   timezoneList: any;
 
-  regularLogo: string | ArrayBuffer | null = null;
-  lightLogo: string | ArrayBuffer | null = null;
-  smallLogo: string | ArrayBuffer | null = null;
-  favicon: string | ArrayBuffer | null = null;
+  regularLogo: any | ArrayBuffer | null = null;
+  lightLogo: any | ArrayBuffer | null = null;
+  smallLogo: any | ArrayBuffer | null = null;
+  favicon: any | ArrayBuffer | null = null;
 
   constructor(private toastService: ToastService, private loader: LoaderService, private fetch: SchoolDataService, private fb: FormBuilder, private modalController: ModalController) { }
 
@@ -126,6 +126,36 @@ export class SystemSettingsPage implements OnInit {
   }
   submit_logos(){
 
+    let formData = new FormData();
+    
+    if(this.regularLogo){
+    formData.append('dark_logo', this.regularLogo);
+    }
+    if(this.regularLogo){
+    formData.append('light_logo', this.lightLogo);
+    }
+    if(this.regularLogo){
+    formData.append('small_logo', this.smallLogo);
+    }
+      if(this.regularLogo){
+      formData.append('favicon', this.favicon);
+    }
+
+    this.fetch.uploadSystemLogo(formData).subscribe({
+      next: (res: any) => {
+        if (res.code == 200) {
+          this.toastService.presentToast(res.response);
+          this.modalController.dismiss();
+          this.loader.dismiss();
+        } else {
+          this.toastService.presentErrorToast(res.response);
+        }
+        this.loader.dismiss();
+      },
+      error: (error: any) => {
+        this.loader.dismiss();
+      }
+    });
   }
 
   loadProfileFromDevice(event: any, logoType: string) {

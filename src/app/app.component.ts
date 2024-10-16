@@ -8,6 +8,7 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 import { Network } from '@capacitor/network';
 import { ToastService } from './core/services/toast.service';
 import { App } from '@capacitor/app';
+import { PaymentServiceService } from './core/services/payment-service.service';
 
 interface AppPage {
   title: string;
@@ -30,41 +31,81 @@ export class AppComponent {
   selectedIndex: any = -1;
   selectedSubPage: string | null = null;
   appPages: AppPage[] = [];
-  constructor(private alertController: AlertController,private toastService:ToastService,private platform: Platform, private router: Router, private fetch: SchoolDataService, private menu: MenuController, private authservice: AuthService, private event: EventService) {
+  planStatus:any;
+
+  constructor(private payService:PaymentServiceService ,private alertController: AlertController,private toastService:ToastService,private platform: Platform, private router: Router, private fetch: SchoolDataService, private menu: MenuController, private authservice: AuthService, private event: EventService) {
     this.initializeNetworkListener();
     this.initializeApp();
     this.event.publish('user:refresh', {});
   }
+
   initializeApp() {
+    
     this.platform.ready().then(() => {
       if (this.platform.is('capacitor')) {
         this.setStatusBar();
       }
       this.checkNetworkStatus();
     });
-    let log = this.authservice.ifLoggedIn();
-    this.user_data = localStorage.getItem('loginUserData');
-    if (this.user_data) {
-      this.sidebar();
-      this.user_data = JSON.parse(this.user_data);
-    } else {
-      this.user_data = "";
-    }
+      let log = this.authservice.ifLoggedIn();
+      this.user_data = localStorage.getItem('loginUserData');
+      this.loadSubscriptionDetails();
+      setTimeout(() => {
+      if (this.user_data) {
+        console.log(this.user_data);
+        if(this.planStatus == 'Active'){
+            this.sidebar();
+        }else{
+          console.log(this.user_data.role);
+          if(this.user_data.role == 'superadmin'){
+            this.sidebar();
+            this.router.navigateByUrl('/tabs/tab1');
+          }else{
+            console.log(this.user_data.role);
+            this.router.navigateByUrl('/update_plan');
+          }
+        }
+        this.user_data = JSON.parse(this.user_data);
+      } else {
+        this.user_data = "";
+      }
+    }, 2000);
    
-
     this.event.subscribe('user:refresh', (data: any) => {
 
     this.user_data = localStorage.getItem('loginUserData');
+    this.loadSubscriptionDetails();
+    setTimeout(() => {
       if (this.user_data) {
-        this.sidebar();
-        this.user_data = JSON.parse(this.user_data);
+        console.log(this.user_data.role);
+        if(this.planStatus == 'Active'){
+            this.sidebar();
+        }else{
+          if(this.user_data.role == 'superadmin'){
+            this.sidebar();
+            this.router.navigateByUrl('/tabs/tab1');
+          }else{
+            this.router.navigateByUrl('/update_plan');
+          }
+        }
         this.menu.enable(true, 'start');
       } else {
         this.user_data = "";
       }
-     
+    }, 3000);
     });
   }
+
+  async loadSubscriptionDetails() {
+    try {
+      this.planStatus  = await this.payService.getSubscriptionStatus();
+      console.log(this.planStatus);
+    } catch (error) {
+      
+      console.log('Error retrieving payment data:', error);
+    }
+  }
+
   async checkNetworkStatus() {
     const status = await Network.getStatus();
     console.log('Network status:', status);
@@ -105,7 +146,6 @@ export class AppComponent {
   }
   transformDataWithCategories(data: any): AppPageWithChildren[] {
     const transformed: AppPageWithChildren[] = [];
-
     for (const category in data) {
       const parentCategory: AppPageWithChildren = {
         title: category.charAt(0).toUpperCase() + category.slice(1),
@@ -113,7 +153,6 @@ export class AppComponent {
         icon: data[category].icon_app,
         children: []
       };
-
       data[category].menus.forEach((item: any) => {
         parentCategory.children!.push({
           title: item.displayed_name,
@@ -121,7 +160,6 @@ export class AppComponent {
           icon: item.icon
         });
       });
-
       transformed.push(parentCategory);
     }
 
@@ -180,8 +218,12 @@ export class AppComponent {
     });
   }
   dashboard() {
-    this.selectedIndex = -1;
-    this.router.navigate(['/tabs/tab1']);
+    if(this.planStatus == 'Active'){
+      this.selectedIndex = -1;
+      this.router.navigate(['/tabs/tab1']);
+    }else{
+      this.router.navigate(['/update_plan']);
+    }
   }
   gotoPage(p:any){
     if(p.url == '/Generate Invoice'){

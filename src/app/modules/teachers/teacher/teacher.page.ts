@@ -26,7 +26,7 @@ export class TeacherPage implements OnInit {
       this.role = role;
     });
     this.user_id = localStorage.getItem("userId");
-    this.loader.present();
+    
     this.formData = new FormData();
     this.list(this.formData);
   }
@@ -40,6 +40,7 @@ export class TeacherPage implements OnInit {
     this.searchRes();
   }
   list(formData:any){
+    this.loader.present();
     this.fetch.getAllTeachersData(formData).subscribe({
       next:(res:any) => {
       if(res){

@@ -79,7 +79,6 @@ export class AttendanceReportPage implements OnInit {
   }
 
   yearlist() {
-    
     this.fetch.getYear().subscribe({
       next: (res: any) => {
         if (res.code === 200) {
@@ -96,7 +95,6 @@ export class AttendanceReportPage implements OnInit {
   }
 
   monthlist() {
-    
     this.fetch.getMonths().subscribe({
       next: (res: any) => {
         if (res.code === 200) {
@@ -133,7 +131,7 @@ export class AttendanceReportPage implements OnInit {
     console.log(this.student_id);
   }
   filter() {
-    this.loader.present();
+    
     this.generateDaysInMonth();
     const arg_data = { month: this.selected_month, year: this.selected_year, student_id: this.student_id };
     this.loadEvents(arg_data);
@@ -148,7 +146,7 @@ export class AttendanceReportPage implements OnInit {
   }
 
   loadEvents(arg_data: any) {
-
+    this.loader.present();
     this.fetch.getAttendanceReport(arg_data).subscribe({
       next: (res: any) => {
         if (res.code === 200 && res.data) {

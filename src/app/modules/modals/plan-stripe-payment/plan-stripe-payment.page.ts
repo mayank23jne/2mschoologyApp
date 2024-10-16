@@ -66,11 +66,11 @@ export class PlanStripePaymentPage implements OnInit {
   }
 
   async pay(pi:any,subscription:any) {
+   
     if (this.isProcessing) {
       return; 
     }
-
-    this.isProcessing = true; 
+    
     try {
       
       const stripe = await this.dataService.getStripe();
@@ -85,7 +85,7 @@ export class PlanStripePaymentPage implements OnInit {
         console.error('Payment failed:', error.message);
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
         
-      let data = {'subscription':subscription};
+      let data = {'subscription':subscription,'payment_plan_id':this.plan_id};
       console.log(data);
       this.fetch.plan_payment_success(data).subscribe({
         next: async (res: any) => {
@@ -93,7 +93,7 @@ export class PlanStripePaymentPage implements OnInit {
           this.isProcessing = false;
           this.toastService.presentToast('Payment Succeeded');
           this.closeModal();
-          this.router.navigate(['update_plan']);
+          this.router.navigate(['tabs/tab1']);
         },
         error: (error: any) => {
           this.isProcessing = false;
@@ -108,6 +108,7 @@ export class PlanStripePaymentPage implements OnInit {
     }
   }
     getPaymentIntent() {
+      this.isProcessing = true;
     try {
       // Prepare data to send to backend
       let data = {'payment_method': 'Stripe','amount_to_pay': this.amount, 'plan_id': this.plan_id };

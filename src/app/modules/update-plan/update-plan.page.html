@@ -73,10 +73,6 @@
         <ion-label>Plan Type:</ion-label>
         <ion-text>{{ planData.plan_interval | titlecase }}</ion-text>
       </ion-item>
-      <ion-item *ngIf="planData.plan_interval_count">
-        <ion-label>Plan Interval Count:</ion-label>
-        <ion-text>{{ planData.plan_interval_count }}</ion-text>
-      </ion-item>
       <ion-item>
         <ion-label>Payer Email:</ion-label>
         <ion-text>{{ planData.payer_email }}</ion-text>

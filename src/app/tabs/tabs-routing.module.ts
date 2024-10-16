@@ -24,6 +24,10 @@ const routes: Routes = [
     path: 'school_settings',
     loadChildren: () => import('../modules/school-settings/school-settings.module').then( m => m.SchoolSettingsPageModule)
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('../modules/admin/admin.module').then( m => m.AdminPageModule)
+  },
 
 ]
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { DataService } from 'src/app/core/services/data.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { SchoolDataService } from 'src/app/core/services/school-data.service';
 import { ToastService } from 'src/app/core/services/toast.service';
@@ -23,19 +22,21 @@ export class UpdatePlanPage implements OnInit {
   constructor(private payService: PaymentServiceService,private modalController: ModalController,private toastService:ToastService,private loader: LoaderService,private fetch: SchoolDataService) { }
 
   ngOnInit() {
-    this.loader.present();
-    this.loadSubscriptionDetails(); 
+    
+    this.loadSubscriptionDetails();
+    this.list(); 
   }
 
   async loadSubscriptionDetails() {
     try {
-      this.userSubscriptionStatus  = await this.payService.getStatusSubscription();
+      this.userSubscriptionStatus  = await this.payService.getStatusSubscriptionData();
       if (this.userSubscriptionStatus) {
         this.loader.dismiss();
         this.subscription_status =  this.userSubscriptionStatus?.plan_status;
         this.planData =  this.userSubscriptionStatus?.data;
         console.log(this.subscription_status);
       } else {
+       
         this.list();
         this.loader.dismiss();
         this.subscription_status = 'Inactive';
@@ -57,15 +58,14 @@ export class UpdatePlanPage implements OnInit {
         if(res.code == 200){
         this.monthlyList = res.data.Monthly;
         this.yearlyList = res.data.Yearly;
-        // console.log(this.monthlyList);
-        // console.log(this.yearlyList);
+       
         }
         else{
-          
+          this.loader.dismiss();
         }
       },
       error: (error:any) => {
-        
+        this.loader.dismiss();
       }
     });
   }

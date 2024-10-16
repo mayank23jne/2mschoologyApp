@@ -34,7 +34,7 @@ export class Tab2Page implements OnInit {
     });
     this.formData = new FormData();
     this.user_id = localStorage.getItem("userId");
-    this.loader.present();
+    
     this.list();
   }
   async openAddModal() {
@@ -119,7 +119,7 @@ export class Tab2Page implements OnInit {
     });
   }
   list(formData: any = "") {
-
+    this.loader.present();
     this.fetch.getHomeworkData(formData).subscribe({
       next: (res: any) => {
         this.loader.dismiss();
@@ -150,7 +150,7 @@ export class Tab2Page implements OnInit {
     });
   }
   searchRes() {
-    this.loader.present();
+  
     this.formData.append('search_title', this.search);
     this.list(this.formData);
   }

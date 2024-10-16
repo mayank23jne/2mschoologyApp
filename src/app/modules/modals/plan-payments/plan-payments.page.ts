@@ -33,7 +33,7 @@ export class PlanPaymentsPage implements OnInit {
     this.planData = this.navParams.get("plan_data");
     this.paypalPlanDataResponse =  JSON.parse(this.planData?.paypal_plan_details);
     this.paypalPlanId =  this.paypalPlanDataResponse?.id;
-    this.stripePlanId =  this.planData?.stripe_plan_id;
+    this.stripePlanId =  this.planData?.id;
     this.plan_name = this.planData.plan_name;
     this.total_amount = this.planData.amount;
     console.log(this.total_amount);
@@ -155,7 +155,7 @@ export class PlanPaymentsPage implements OnInit {
         
         this.toastService.presentToast('Payment Succeeded');
         this.closeModal();
-        this.router.navigate(['update_plan']);
+        this.router.navigate(['tabs/tab1']);
       },
       error: (error: any) => {
         console.error('Error', error);
