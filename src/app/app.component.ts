@@ -36,7 +36,7 @@ export class AppComponent {
   constructor(private payService:PaymentServiceService ,private alertController: AlertController,private toastService:ToastService,private platform: Platform, private router: Router, private fetch: SchoolDataService, private menu: MenuController, private authservice: AuthService, private event: EventService) {
     this.initializeNetworkListener();
     this.initializeApp();
-    this.event.publish('user:refresh', {});
+    //this.event.publish('user:refresh', {});
   }
 
   initializeApp() {
@@ -69,7 +69,7 @@ export class AppComponent {
       } else {
         this.user_data = "";
       }
-    }, 2000);
+    }, 3000);
    
     this.event.subscribe('user:refresh', (data: any) => {
 
@@ -92,7 +92,7 @@ export class AppComponent {
       } else {
         this.user_data = "";
       }
-    }, 3000);
+    }, 1000);
     });
   }
 
@@ -223,7 +223,7 @@ export class AppComponent {
       this.sidebar();
       this.router.navigate(['/tabs/tab1']);
     }else{
-      if(this.user_data.role == 'superadmin'){
+      if(this.user_data.role == 'superadmin' ){
         this.sidebar();
         this.router.navigateByUrl('/tabs/tab1');
       }else{

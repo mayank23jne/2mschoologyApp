@@ -45,16 +45,17 @@ export class Tab1Page implements OnInit {
     this.data.role$.subscribe(role => {
       this.role = role;
     });
+    
   }
-  ngAfterViewInit() {
-    if(this.role == 'admin'){
-    setTimeout(() => {
-      this.createBarChart();
-    }, 5000);
-  }
+    ngAfterViewInit() {
+      if(this.role == 'admin'){
+      setTimeout(() => {
+        this.createBarChart();
+      }, 5000);
+    }
    
   }
-  
+
   ionViewDidEnter() {
     
     this.data.role$.subscribe(role => {
@@ -106,12 +107,11 @@ export class Tab1Page implements OnInit {
     await alert.present();
   }
   list(formData: any = "") {
-    this.loader.present();
+  
     this.fetch.getDashboardData(formData).subscribe({
       next: (res: any) => {
-        this.loader.dismiss();
-        
         if (res.code == 200) {
+          
           this.dashboardData = res.data;
           this.school_name = res.data.school_name;
           this.childrens = res.student;

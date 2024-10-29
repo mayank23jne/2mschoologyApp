@@ -41,10 +41,10 @@ export class CreateProgressReportPage implements OnInit {
 
   onFilterChange(event: { class: string; section: string }) {
     this.formData = new FormData();
-    this.class_id = event.class;
-    this.section_id = event.section;
-    this.formData.append('class_id', event.class);
-    this.formData.append('section_id', event.section);
+    this.class_id = event?.class;
+    this.section_id = event?.section;
+    this.formData.append('class_id', event?.class);
+    this.formData.append('section_id', event?.section);
     this.filterStudents();
   }
 

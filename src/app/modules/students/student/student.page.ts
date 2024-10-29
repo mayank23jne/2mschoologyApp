@@ -14,20 +14,20 @@ import { ToastService } from 'src/app/core/services/toast.service';
 })
 export class StudentPage implements OnInit {
 
-  user_id:any;
-  formData:any;
-  role:any;
-  imgPath:any;
-  demoimgPath:any = "../../assets/profile_img.png";
-  studentData:any;
-  studentDetail:any;
-  search:any = "";
-  ShowDelete:any = false;
+  user_id: any;
+  formData: any;
+  role: any;
+  imgPath: any;
+  demoimgPath: any = "../../assets/profile_img.png";
+  studentData: any;
+  studentDetail: any;
+  search: any = "";
+  ShowDelete: any = false;
   selectedStudentIds: Set<number> = new Set();
   selectAllChecked = false;
-  class_id:any;
-  section_id:any;
-  constructor(private toastService: ToastService,private data: DataService,private fetch: SchoolDataService,private loader: LoaderService,private modalController: ModalController) { }
+  class_id: any;
+  section_id: any;
+  constructor(private toastService: ToastService, private data: DataService, private fetch: SchoolDataService, private loader: LoaderService, private modalController: ModalController) { }
 
   ngOnInit() {
     this.data.role$.subscribe(role => {
@@ -38,44 +38,44 @@ export class StudentPage implements OnInit {
   onFilterChange(event: any) {
     this.class_id = parseInt(event?.class);
     this.section_id = parseInt(event?.section);
-    let formData = {'class_id':this.class_id,'section_id':this.section_id}
+    let formData = { 'class_id': this.class_id, 'section_id': this.section_id }
     this.list(formData);
   }
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.loader.present();
     this.list('');
     this.search = "";
   }
-  
+
   async openDetailModal(item: any) {
-    if(this.studentData){
-    const modal = await this.modalController.create({
-      component: StudentInfoPage,
-      componentProps: {
-        title: 'Student Info',
-        studentData:item,
-      }
-    });
-    modal.onDidDismiss().then((dataReturned) => {
-      const formData = new FormData();
-      this.list('');
-    });
-    return await modal.present();
-  }
-  }
-  list(formData:any){
-    this.fetch.studentData(formData).subscribe({
-      next:(res:any) => {
-      if(res.code == 200){
-        this.loader.dismiss();
-         this.studentData = res.data;
+    if (this.studentData) {
+      const modal = await this.modalController.create({
+        component: StudentInfoPage,
+        componentProps: {
+          title: 'Student Info',
+          studentData: item,
         }
-        else{
+      });
+      modal.onDidDismiss().then((dataReturned) => {
+        const formData = new FormData();
+        this.list('');
+      });
+      return await modal.present();
+    }
+  }
+  list(formData: any) {
+    this.fetch.studentData(formData).subscribe({
+      next: (res: any) => {
+        if (res.code == 200) {
+          this.loader.dismiss();
+          this.studentData = res.data;
+        }
+        else {
           this.studentData = [];
         }
         this.loader.dismiss();
       },
-      error: (error:any) => {
+      error: (error: any) => {
         this.loader.dismiss();
       }
     });
@@ -83,10 +83,9 @@ export class StudentPage implements OnInit {
   searchRes() {
     this.formData = new FormData();
     this.studentData = this.studentData.filter((item: { name: string }) => item.name.toLowerCase().includes(this.search.toLowerCase()));
-    // console.log(this.studentData);
   }
 
-  searchCancel(){
+  searchCancel() {
     this.search = "";
     this.list('');
   }
@@ -119,9 +118,9 @@ export class StudentPage implements OnInit {
       this.selectedStudentIds.delete(student_id);
     }
     this.updateSelectAllState();
-    if(this.selectedStudentIds.size > 0){
+    if (this.selectedStudentIds.size > 0) {
       this.ShowDelete = true;
-    }else{
+    } else {
       this.ShowDelete = false;
     }
   }
@@ -133,9 +132,9 @@ export class StudentPage implements OnInit {
     } else {
       this.selectedStudentIds.clear();
     }
-    if(this.selectedStudentIds.size > 0){
+    if (this.selectedStudentIds.size > 0) {
       this.ShowDelete = true;
-    }else{
+    } else {
       this.ShowDelete = false;
     }
   }
@@ -151,11 +150,11 @@ export class StudentPage implements OnInit {
     const selectedStudentIdsArray = Array.from(this.selectedStudentIds);
 
     const selectedStudentIdsString = `{${selectedStudentIdsArray.join(',')}}`;
- 
+
     // console.log('Selected Student IDs:', selectedStudentIdsString);
 
     this.delete(selectedStudentIdsString);
-     
+
   }
   delete(ids: any) {
     this.data.presentAlertConfirm().then((res) => {
@@ -168,8 +167,8 @@ export class StudentPage implements OnInit {
             if (res.code == 200) {
               this.toastService.presentToast(res.response);
               this.studentData = this.studentData.filter((item: { student_id: number; }) => !this.selectedStudentIds.has(item.student_id));
-              this.selectedStudentIds.clear(); 
-              this.selectAllChecked = false; 
+              this.selectedStudentIds.clear();
+              this.selectAllChecked = false;
             } else {
               this.toastService.presentErrorToast(res.response);
             }
@@ -180,5 +179,5 @@ export class StudentPage implements OnInit {
       }
     });
   }
-  
+
 }

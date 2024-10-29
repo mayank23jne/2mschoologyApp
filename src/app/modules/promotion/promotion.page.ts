@@ -84,6 +84,7 @@ manage_promotion(){
       }
       else{
         this.promotionList = [];
+        this.toastService.presentErrorToast("Data not found");
       }
       this.loader.dismiss();
     },
@@ -114,6 +115,7 @@ this.fetch.updatePromotion(formdata).subscribe({
   },
   error: (error:any) => {
     this.loader.dismiss();
+    
   }
 });
 }

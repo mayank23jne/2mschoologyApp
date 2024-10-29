@@ -51,7 +51,7 @@
     </ion-row>
     <ion-label>Section <span class="req">*</span></ion-label>
     <ion-item class="dropdown-s">
-      <ion-select formControlName="section_id" label-placement="floating" (click)="onSectionChange($event)">
+      <ion-select formControlName="section_id" label-placement="floating" (ionChange)="onSectionChange($event)">
         <ion-select-option *ngFor="let item of sections" [value]="item.id">{{ item.name }}</ion-select-option>
       </ion-select>
     </ion-item>

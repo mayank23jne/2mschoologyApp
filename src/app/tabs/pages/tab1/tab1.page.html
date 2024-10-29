@@ -70,7 +70,7 @@
         </div>
     </ion-card>
     
-    <ion-card *ngIf="role != 'superadmin'" class="events" routerLink="/event_calendar">
+    <ion-card *ngIf="role != 'superadmin' && event_list?.length > 0" class="events" routerLink="/event_calendar">
       <b class="pl10">Recent Events</b>
       <div class="event-card" *ngFor="let item of event_list">
         <p>{{ item.title }}</p>

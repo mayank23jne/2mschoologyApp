@@ -31,12 +31,11 @@ export class SendsmssettingPage implements OnInit {
       user_type:['twilliosetting'],
     });
     this.settingsForm.get('communicationProvider')?.valueChanges.subscribe(value => {
-      this.selectedProvider = value;
-        // console.log(this.selectedProvider);
+        this.selectedProvider = value;
         const formData = new FormData();
         formData.append('activSmsGateway',this.selectedProvider);
         formData.append('userType', 'activSmsGateway');
-        this.submit(formData);
+        this.update(formData);
     });
     this.fetch.getTwillioSetting().subscribe({
       next: (res: any) => {
@@ -78,6 +77,19 @@ export class SendsmssettingPage implements OnInit {
           this.toastService.presentToast(res.response);
         } else {
           this.toastService.presentErrorToast(res.response);
+        }
+      },
+      error: (error: any) => {
+      }
+    });
+  }
+  update(formdata:any) {
+    this.fetch.updateTwillioSetting(formdata).subscribe({
+      next: (res: any) => {
+        if (res.code == 200) {
+
+        } else {
+          
         }
       },
       error: (error: any) => {

@@ -79,6 +79,7 @@ export class ExpensePage implements OnInit {
         this.expenseList = res.data;
       } else {
         this.expenseList = [];
+        this.toastService.presentErrorToast(res.response);
       }
     });
   }

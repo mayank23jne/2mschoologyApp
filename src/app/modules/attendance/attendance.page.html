@@ -19,17 +19,12 @@
 
 <app-class-filter  (filterChange)="onFilterChange($event)"></app-class-filter>
 
-
-
 <div class="text-center">
     <ion-button type="submit" class="submit-btn" (click)="filter()">Filter</ion-button>
 </div>
-
-<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="role == 'teacher'">
-    <ion-fab-button (click)="openAddModal()">
-      <ion-icon name="add-outline"></ion-icon>
-    </ion-fab-button>
-</ion-fab>
+<div class="text-center" *ngIf="role == 'teacher' || role == 'admin'">
+  <ion-button type="submit" class="submit-btn" (click)="openAddModal()">Take attendance</ion-button>
+</div>
 
 <div class="content-grid">
 
@@ -62,7 +57,5 @@
       </div>
     </div>
   </div>
- 
- 
 </div>
 </ion-content>

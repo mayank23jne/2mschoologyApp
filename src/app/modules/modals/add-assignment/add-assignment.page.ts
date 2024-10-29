@@ -150,7 +150,7 @@ export class AddAssignmentPage implements OnInit {
     this.modalController.dismiss();
   }
   onClassChange() {
-
+    
     this.selectedClass = this.form.get('class_id')?.value;
     const formData = new FormData();
     formData.append('user_id', this.user_id);
@@ -170,32 +170,31 @@ export class AddAssignmentPage implements OnInit {
 
       }
     });
+    this.onSubjectChange();
     this.filterStudents();
   }
   onSubjectChange() {
-    this.syllabus = [];
-    this.syllabus_file = "";
-    this.syllabus_file_name = "";
+    this.syllabus_reset();
     const formData = new FormData();
     formData.append('class_id', this.form.get('class_id')?.value);
     formData.append('section_id', this.form.get('section_id')?.value);
     formData.append('subject_id', this.form.get('subject_id')?.value);
-    this.fetch.getAllSyllabusData(formData).subscribe({
-      next: (res: any) => {
-        if (res) {
-          console.log(this.syllabus);
-          this.syllabus = res.data[0];
-          this.syllabus_file = res.data[0]?.file;
-          this.syllabus_file_name = res.data[0]?.file_name;
+    if(this.form.get('class_id')?.value && this.form.get('section_id')?.value && this.form.get('subject_id')?.value){
+      this.fetch.getAllSyllabusData(formData).subscribe({
+        next: (res: any) => {
+          if (res) {
+          
+            this.syllabus = res.data[0];
+            this.syllabus_file = res.data[0]?.file;
+            this.syllabus_file_name = res.data[0]?.file_name;
 
+          }
+        },
+        error: (error: any) => {
+          this.syllabus_reset();
         }
-      },
-      error: (error: any) => {
-        this.syllabus = [];
-        this.syllabus_file = "";
-        this.syllabus_file_name = "";
-      }
-    });
+      });
+    }
   }
   async resetDate() {
     this.form.get('last_date')?.reset("");
@@ -222,15 +221,18 @@ export class AddAssignmentPage implements OnInit {
   }
 
   onSectionChange(event: any) {
+    this.onSubjectChange();
     this.filterStudents();
   }
 
   filterStudents() {
+    
     const classId = this.form.get('class_id')?.value;
     const sectionId = this.form.get('section_id')?.value;
     const formData = new FormData();
     formData.append('user_id', this.user_id);
     formData.append('class_id', classId);
+    formData.append('section_id', sectionId);
     this.fetch.studentData(formData).subscribe({
       next: (res: any) => {
         if (res) {
@@ -276,5 +278,10 @@ export class AddAssignmentPage implements OnInit {
     fileUrl = `https://2mschoology.com/api/pdf/${fileName}/${pageno}`;
     const browser = this.iab.create(fileUrl, '_self', options);
     browser.show();
+  }
+  syllabus_reset(){
+    this.syllabus = [];
+    this.syllabus_file = "";
+    this.syllabus_file_name = "";
   }
 }

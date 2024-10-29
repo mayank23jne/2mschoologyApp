@@ -58,9 +58,9 @@ export class MarksPage implements OnInit {
     });
   }
   onFilterChange(event: any) {
-    this.class_id = event.class;
-    this.section_id = event.section;
-    this.student_id = event.student_id;
+    this.class_id = event?.class;
+    this.section_id = event?.section;
+    this.student_id = event?.student_id;
 
     let formData = {
       "class_id": this.class_id,
@@ -74,8 +74,8 @@ export class MarksPage implements OnInit {
     let formData = {
       "class_id": this.class_id,
       "section_id": this.section_id,
-      "subject": this.subject_id.id,
-      "exam": this.exam_id.id,
+      "subject": this.subject_id?.id,
+      "exam": this.exam_id?.id,
       "student_id": this.student_id
     }
     this.fetch.getMarksData(formData).subscribe({
@@ -85,13 +85,12 @@ export class MarksPage implements OnInit {
           this.exam_name = this.exam_id.name;
           this.subject_name = this.subject_id.name;
 
-          if (res.data && res?.data[0].class_id.name) {
-            this.class_name = res.data[0].class_id.name;
-            this.section_name = res.data[0].section_id.name;
+          if (res.data && res?.data[0]?.class_id.name) {
+            this.class_name = res.data[0]?.class_id.name;
+            this.section_name = res.data[0]?.section_id.name;
           }
 
-          this.mark_data = res.data;
-
+          this.mark_data = res?.data;
 
           this.code = "";
           this.access_msg = "";
@@ -99,7 +98,7 @@ export class MarksPage implements OnInit {
         }
         else if (res.code == 401) {
           this.code = res.code;
-          this.access_msg_title = res.response;
+          this.access_msg_title = res.response?.first_msg ? res.response?.first_msg : res.response;
           this.mark_data = [];
 
         }

@@ -1,5 +1,5 @@
 <app-header></app-header>
-<ion-content *ngIf="subscription_status != 'Active' && monthlyList">
+<ion-content *ngIf="subscription_status != 'Active' && monthlyList && role == 'admin'">
   <ion-segment  [(ngModel)]="billingCycle" (ionChange)="toggleBillingCycle()">
     <ion-segment-button value="monthly">
       Monthly
@@ -41,7 +41,7 @@
     </ion-card>
   </div>
 </ion-content>
-<ion-content *ngIf="subscription_status == 'Active'">
+<ion-content *ngIf="subscription_status == 'Active' && role == 'admin'">
   <ion-card>
     <ion-card-header>
       <ion-card-title>Subscription Details</ion-card-title>
@@ -92,5 +92,9 @@
      
     </ion-card-content>
   </ion-card>
-
+</ion-content>
+<ion-content *ngIf="subscription_status != 'Active' && role != 'admin'">
+  <div class="plan_warning">
+    <h5>Your school subscription plan is expired !</h5>
+  </div>
 </ion-content>

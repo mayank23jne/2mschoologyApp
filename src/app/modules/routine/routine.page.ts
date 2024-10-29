@@ -70,8 +70,8 @@ export class RoutinePage implements OnInit {
   }
 
   onFilterChange(event: { class: string, section: string, student_id: any }) {
-    this.class_id = event.class;
-    this.section_id = event.section;
+    this.class_id = event?.class;
+    this.section_id = event?.section;
     this.showWeekList = true;
   }
 

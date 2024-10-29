@@ -34,6 +34,18 @@
       <ion-input type="text" formControlName="phone"></ion-input>
     </ion-list>
     <ion-list>
+      <ion-label>Admin of <span class="req">*</span> </ion-label>
+      <ion-item class="dropdown-s">
+        <ion-select formControlName="school_id" required >
+          <ion-select-option *ngFor="let item of schoolList" [value]="item.school_id" >{{ item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-row class="err"
+        *ngIf="userForm.get('gender')?.invalid && userForm.get('gender')?.hasError('required') && userForm.get('gender')?.touched">
+        <ion-text color="danger">Gender is required.</ion-text>
+      </ion-row>
+    </ion-list>
+    <ion-list>
       <ion-label>Gender <span class="req">*</span> </ion-label>
       <ion-item class="dropdown-s">
         <ion-select formControlName="gender" value="Male" required >

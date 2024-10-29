@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons> 
-    <ion-buttons slot="end" *ngIf="currentURI != '/tabs/tab1'">
+    <ion-buttons slot="end" *ngIf="currentURI != '/tabs/tab1' && currentURI != '/update_plan'">
       <ion-back-button class="backBtn" defaultHref="" (click)="back()"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>

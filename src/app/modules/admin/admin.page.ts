@@ -37,9 +37,9 @@ export class AdminPage implements OnInit {
           this.adminsList = res.data;
         }
         else{
+          this.loader.dismiss();
           this.adminsList = "";
         }
-        this.loader.dismiss();
       },
       error: (error:any) => {
         this.loader.dismiss();
@@ -80,6 +80,7 @@ export class AdminPage implements OnInit {
   }
   
   async openEditModal(item:any) {
+    console.log(item);
     const modal = await this.modalController.create({
       component: AdminMasterPage,
       cssClass: '',

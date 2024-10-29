@@ -82,7 +82,7 @@ export class AddTeacherPage implements OnInit {
     formData.append('designation',this.userForm.get('designation')?.value);
     formData.append('department',this.userForm.get('department')?.value);
     formData.append('password',this.userForm.get('password')?.value);
-    formData.append('phone_number',this.userForm.get('phone_number')?.value);
+    formData.append('phone',this.userForm.get('phone_number')?.value);
     formData.append('gender',this.userForm.get('gender')?.value);
     formData.append('address',this.userForm.get('address')?.value);
     

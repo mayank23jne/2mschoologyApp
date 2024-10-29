@@ -63,6 +63,7 @@ export class ClassRoutineInfoPage implements OnInit {
             if (res.code == 200) {
               this.toastService.presentToast(res.response);
               this.modalController.dismiss();
+              this.ngOnInit();
             } else {
               this.toastService.presentErrorToast(res.response);
             }

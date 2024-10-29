@@ -23,7 +23,7 @@ export class SchoolMasterPage implements OnInit {
   ngOnInit() {
     this.heading_title = this.navParams.get('title');
     this.editUserData = this.navParams.get('dataSchool');
-    this.editUserID = this.editUserData?.id;
+    this.editUserID = this.editUserData?.school_id;
     this.schoolForm = this.fb.group({
       name: ['', Validators.required],
       email: [''],
@@ -32,12 +32,12 @@ export class SchoolMasterPage implements OnInit {
     });
 
     if (this.editUserData) {
-
+      console.log(this.editUserData);
       this.schoolForm.patchValue({
-        name: this.editUserData.user_name,
-        email: this.editUserData.user_email,
-        phone: this.editUserData.user_phone,
-        address: this.editUserData.user_address,
+        name: this.editUserData.name,
+        email: this.editUserData.email,
+        phone: this.editUserData.phone,
+        address: this.editUserData.address,
       });
 
     }

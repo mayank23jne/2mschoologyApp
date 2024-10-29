@@ -36,8 +36,8 @@ export class AdmissionPage implements OnInit {
   onFilterChange(event: { class: string, section: string, student_id: any }) {
     this.formData = new FormData();
     this.studentForm.patchValue({
-       class_id: event.class,
-       section_id: event.section
+       class_id: event?.class,
+       section_id: event?.section
       });
   }
   adminParentList(data:any){
@@ -114,7 +114,7 @@ export class AdmissionPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
-     
+      this.ngOnInit();
     });
     return await modal.present();
   }

@@ -17,7 +17,7 @@ export class AdminMasterPage implements OnInit {
   addUserType: string = "";
   editUserID: any;
   editUserData: any;
-
+  schoolList:any;
   constructor(private toastService: ToastService, private loader: LoaderService, private fetch: SchoolDataService, private fb: FormBuilder, private navParams: NavParams, private modalController: ModalController) { }
 
   ngOnInit() {
@@ -30,21 +30,24 @@ export class AdminMasterPage implements OnInit {
       phone: [''],
       password: ['', Validators.required],
       gender: ['Male', Validators.required],
+      school_id:['', Validators.required],
       address: [''],
     });
 
     if (this.editUserData) {
 
       this.userForm.patchValue({
-        name: this.editUserData.user_name,
-        email: this.editUserData.user_email,
-        password: this.editUserData.user_password,
-        gender: this.editUserData.user_gender,
-        phone: this.editUserData.user_phone,
-        address: this.editUserData.user_address,
+        name: this.editUserData?.name,
+        email: this.editUserData?.email,
+        password: this.editUserData?.password,
+        gender: this.editUserData?.gender,
+        school_id:this.editUserData?.school_id,
+        phone: this.editUserData?.phone,
+        address: this.editUserData?.address,
       });
 
     }
+    this.schoolData();
 
   }
   closeModal() {
@@ -57,6 +60,7 @@ export class AdminMasterPage implements OnInit {
     formData.append('email', this.userForm.get('email')?.value);
     formData.append('password', this.userForm.get('password')?.value);
     formData.append('phone', this.userForm.get('phone')?.value);
+    formData.append('school_id', this.userForm.get('school_id')?.value);
     formData.append('gender', this.userForm.get('gender')?.value);
     formData.append('address', this.userForm.get('address')?.value);
 
@@ -78,6 +82,20 @@ export class AdminMasterPage implements OnInit {
       },
       error: (error: any) => {
         this.loader.dismiss();
+      }
+    });
+  }
+  schoolData(){
+    this.fetch.viewSchool().subscribe({
+      next:(res:any) => {
+      if(res.code == 200){
+          this.schoolList = res?.data;
+        }
+        else{
+          this.schoolList = [];
+        }
+      },
+      error: (error:any) => {
       }
     });
   }

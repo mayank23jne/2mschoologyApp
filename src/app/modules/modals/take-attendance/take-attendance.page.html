@@ -46,6 +46,7 @@
       <ion-col><b>Name</b></ion-col>
       <ion-col><b>Status</b></ion-col>
     </ion-row>
+    <div class="scroll-container">
     <ion-row class="ats-row" formArrayName="attendances"
       *ngFor="let attendance of attendances?.controls; let i = index">
       <ion-col>
@@ -58,6 +59,7 @@
         </ion-radio-group>
       </ion-col>
     </ion-row>
+  </div>
     <ion-row>
       <ion-col class="text-center">
         <ion-button type="submit" class="submit-btn" (click)="add()">Submit</ion-button>

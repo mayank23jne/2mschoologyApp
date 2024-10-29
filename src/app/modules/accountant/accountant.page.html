@@ -23,11 +23,11 @@
       <ion-col size="4" class="icons">
         <ion-icon *ngIf="role == 'admin' || role == 'superadmin'" class="pencil" name="pencil" (click)="openEditModal(item)"></ion-icon>
         <ion-icon class="trash" name="trash-outline" *ngIf="role == 'admin' || role == 'superadmin'" (click)="delete(item.id)"></ion-icon>
-    </ion-col>
+      </ion-col>
   </ion-row>
   </ion-card>
   </div>
- <div *ngIf="!accountantsList" class="empty_box">
+  <div *ngIf="!accountantsList" class="empty_box">
       <img class="empty_box_img" src="../../../assets/icon/empty_box.png">
   </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="role == 'admin' || role == 'superadmin'">

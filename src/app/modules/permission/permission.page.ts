@@ -31,8 +31,8 @@ export class PermissionPage implements OnInit {
 
   onFilterChange(event: { class: string, section: string, student_id: any }) {
     this.formData = new FormData();
-    this.class_id = event.class;
-    this.section_id = event.section;
+    this.class_id = event?.class;
+    this.section_id = event?.section;
 
     this.formData.append('class_id', this.class_id);
     this.formData.append('section_id', this.section_id);

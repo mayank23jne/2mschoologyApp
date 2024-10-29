@@ -94,9 +94,9 @@ ngOnInit() {
 
   submit(){
     this.selectedStudentIds = this.jointInvoiceForm.get('student_id')?.value;
-    let selectedStudentIds = this.selectedStudentIds.join(',')
+    
     this.jointInvoiceForm.patchValue({
-      student_id:selectedStudentIds
+      student_id:this.selectedStudentIds
     })
     console.log(this.jointInvoiceForm.value);
     let formData = this.jointInvoiceForm.value;

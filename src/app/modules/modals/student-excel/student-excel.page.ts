@@ -49,8 +49,8 @@ export class StudentExcelPage implements OnInit {
     this.modalController.dismiss();
   }
   onFilterChange(event: { class: string, section: string, student_id: any }) {
-    this.class_id = event.class;
-    this.section_id = event.section;
+    this.class_id = event?.class;
+    this.section_id = event?.section;
   }
   loadProfileFromDevice(event: any) {
     const inputElement = event.target as HTMLInputElement;

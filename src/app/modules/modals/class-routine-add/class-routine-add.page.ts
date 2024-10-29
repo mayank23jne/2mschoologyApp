@@ -151,7 +151,7 @@ export class ClassRoutineAddPage implements OnInit {
   onClassChange() {
     this.selectedClass = this.form?.get('class_id')?.value;
     if (this.selectedClass) {
-      this.sections = this.sections_list.filter((item: { class_id: string; }) => item.class_id === this.selectedClass);
+      this.sections = this.sections_list?.filter((item: { class_id: string; }) => item.class_id === this.selectedClass);
     } else {
       this.sections = [];
     }

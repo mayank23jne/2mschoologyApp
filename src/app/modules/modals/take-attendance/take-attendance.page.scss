@@ -84,3 +84,13 @@ ion-button{
     margin-top: 10px;
     margin-bottom: 10px;
 }
+.scroll-container {
+    max-height: 300px; 
+    overflow-y: auto; 
+    margin-bottom: 10px; 
+}
+.ats-row {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}

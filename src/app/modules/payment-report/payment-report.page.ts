@@ -136,6 +136,7 @@ export class PaymentReportPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
+      this.ngOnInit();
     });
     return await modal.present();
   }
@@ -149,6 +150,7 @@ export class PaymentReportPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
+      this.ngOnInit();
     });
     return await modal.present();
   }
@@ -206,6 +208,7 @@ export class PaymentReportPage implements OnInit {
               this.toastService.presentToast(res.response);
               this.selectedInvoiceIds.clear(); 
               this.selectAllChecked = false; 
+              this.ngOnInit();
             } else {
               this.toastService.presentErrorToast(res.response);
             }

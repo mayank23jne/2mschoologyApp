@@ -69,6 +69,7 @@ delete(id: any) {
         next: (res: any) => {
           if (res.code == 200) {
             this.toastService.presentToast(res.response);
+            this.ngOnInit();
           } else {
             this.toastService.presentErrorToast(res.response);
           }
@@ -107,6 +108,7 @@ async openAddModal() {
     }
   });
   modal.onDidDismiss().then((dataReturned) => {
+    this.ngOnInit();
   });
   return await modal.present();
 }
@@ -121,7 +123,7 @@ async openExcelModal() {
   });
 
   modal.onDidDismiss().then(() => {
-    
+    this.ngOnInit();
   });
 
   return await modal.present();

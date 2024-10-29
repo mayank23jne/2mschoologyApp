@@ -69,6 +69,7 @@ export class ClassRoomPage implements OnInit {
           next: (res: any) => {
             if (res.code == 200) {
               this.toastService.presentToast(res.response);
+              this.ngOnInit();
             } else {
               this.toastService.presentErrorToast(res.response);
             }
@@ -107,6 +108,7 @@ export class ClassRoomPage implements OnInit {
       }
     });
     modal.onDidDismiss().then((dataReturned) => {
+      this.ngOnInit();
     });
     return await modal.present();
   }

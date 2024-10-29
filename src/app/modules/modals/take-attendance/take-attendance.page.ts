@@ -126,14 +126,14 @@ export class TakeAttendancePage implements OnInit {
     console.log(this.formAttendance.value);
   }
   onFilterChange(event: { class: string, section: string ,student_id:any }) {
-    this.class_id =  event.class;
-    this.section_id = event.section;
+    this.class_id =  event?.class;
+    this.section_id = event?.section;
     let formData = {"class_id":this.class_id,"section_id":this.section_id}
     this.fetch.studentData(formData).subscribe({
       next:(res:any) => {
       if(res.code == 200){
       
-         this.students = res.data.filter((student: any) => student.class_id === this.class_id && student.section_id === this.section_id);
+         this.students = res.data.filter((student: any) => student?.class_id === this.class_id && student?.section_id === this.section_id);
         
         }
         else{

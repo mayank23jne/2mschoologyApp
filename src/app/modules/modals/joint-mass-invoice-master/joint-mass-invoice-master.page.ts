@@ -22,6 +22,7 @@ export class JointMassInvoiceMasterPage implements OnInit {
   classes:any;
   showDuration: boolean = false;
   selectedParents:any;
+
 constructor(private toastService: ToastService, private loader: LoaderService, private fetch: SchoolDataService, private fb: FormBuilder, private navParams: NavParams, private modalController: ModalController) { }
 
 ngOnInit() 
@@ -52,7 +53,7 @@ ngOnInit()
 
 onClassChange() {
   this.selectedClass = this.jointMassInvoiceForm.get('class_id')?.value;
- 
+  
   const formData = new FormData();
   formData.append('class_id', this.selectedClass);
   this.fetch.getParentByClass(formData).subscribe({
@@ -65,7 +66,7 @@ onClassChange() {
 
     }
   });
-  console.log(this.jointMassInvoiceForm.value);
+  
 }
 onParentChange(){
   this.selectedParents = this.jointMassInvoiceForm.get('parent_id')?.value;
@@ -74,13 +75,13 @@ closeModal() {
   this.modalController.dismiss();
 }
 submit(){
-  console.log(this.jointMassInvoiceForm.value);
-  
-  let formData = this.jointMassInvoiceForm.value;
-  this.selectedParents = this.selectedParents?.join(",");
   this.jointMassInvoiceForm.patchValue({
     parent_id: this.selectedParents
   });
+  
+
+  let formData = this.jointMassInvoiceForm.value;
+ 
   this.fetch.jointMassInvoice(formData).subscribe({
     next: (res: any) => {
       if (res.code == 200) {

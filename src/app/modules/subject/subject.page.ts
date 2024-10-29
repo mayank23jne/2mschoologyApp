@@ -32,7 +32,7 @@ export class SubjectPage implements OnInit {
     this.user_id = localStorage.getItem("userId");
   }
   onFilterChange(event: { class: string }) {
-    this.class_id = event.class;
+    this.class_id = event?.class;
     this.formData = new FormData();
     this.formData.append('user_id', this.user_id);
     this.formData.append('class_id', this.class_id);
@@ -44,7 +44,7 @@ export class SubjectPage implements OnInit {
       next:(res:any) => {
       if(res.code == 200){
         this.loader.dismiss();
-          this.subjects = res.data;
+          this.subjects = res?.data;
           this.ionViewDidEnter();
         }
         else{

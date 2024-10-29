@@ -7,27 +7,49 @@
   </ion-toolbar>
 </ion-header>
 <ion-content *ngIf="detail">
-  <ion-row class="m-10">
+  <ion-row class="m-10" *ngIf="detail?.name">
     <ion-col size="12"><span class="label">Name : </span>{{ detail?.name }}</ion-col>
   </ion-row>
-  <ion-row class="m-10">
+  <ion-row class="m-10" *ngIf="detail?.student_code">
     <ion-col size="12"><span class="label">Code: </span>{{ detail?.student_code }}</ion-col>
   </ion-row>
-  <ion-row class="m-10">
+  <ion-row class="m-10" *ngIf="detail?.email">
+    <ion-col size="12"><span class="label">Email: </span>{{ detail?.email }}</ion-col>
+  </ion-row>
+  <ion-row class="m-10" *ngIf="detail?.password">
+    <ion-col size="12"><span class="label">Password: </span>{{ detail?.password }}</ion-col>
+  </ion-row>
+  <ion-row class="m-10" *ngIf="detail?.gender">
+    <ion-col size="12"><span class="label">Gender : </span>{{ detail?.gender }}</ion-col>
+  </ion-row>
+  <ion-row class="m-10" *ngIf="detail?.blood_group">
+    <ion-col size="12"><span class="label">Blood group : </span>{{ detail?.blood_group }}</ion-col>
+  </ion-row>
+  <ion-row class="m-10" *ngIf="detail?.class_id?.name">
     <ion-col size="12"><span class="label">Class : </span>{{ detail?.class_id?.name }}</ion-col>
   </ion-row>
-  <ion-row class="m-10">
+  <ion-row class="m-10" *ngIf="detail?.section_id?.name">
     <ion-col size="12"><span class="label">Section: </span>{{ detail?.section_id?.name }}</ion-col>
   </ion-row>
-  <ion-row class="m-10">
+  <ion-row class="m-10" *ngIf="detail?.parent_id?.name">
     <ion-col size="12"><span class="label">Parent Name : </span>{{ detail?.parent_id?.name }}</ion-col>
   </ion-row>
-  <ion-row class="m-10">
+  <ion-row class="m-10" *ngIf="detail?.parent_id?.email">
     <ion-col size="12"><span class="label">Parent Email : </span>{{ detail?.parent_id?.email }}</ion-col>
   </ion-row>
-  <ion-row class="m-10">
+  <ion-row class="m-10" *ngIf="detail?.parent_id?.phone">
     <ion-col size="12"><span class="label">Parent Phone No : </span>{{ detail?.parent_id?.phone }}</ion-col>
   </ion-row>
+  <ion-row class="m-10"  *ngIf="detail?.birthday">
+    <ion-col size="12"><span class="label">Birtday : </span>{{ detail?.birthday | date: "dd ,MMM YYYY"  }}</ion-col>
+  </ion-row>
+  <ion-row class="m-10"  *ngIf="detail?.phone">
+    <ion-col size="12"><span class="label">Phone No : </span>{{ detail?.phone }}</ion-col>
+  </ion-row>
+  <ion-row class="m-10"  *ngIf="detail?.address">
+    <ion-col size="12"><span class="label">Address : </span>{{ detail?.address }}</ion-col>
+  </ion-row>
+  
 
   <ion-fab class="edit-btn" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="openEditModal()">

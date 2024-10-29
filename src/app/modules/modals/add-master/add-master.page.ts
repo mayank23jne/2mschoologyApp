@@ -118,13 +118,14 @@ classData(){
       setTimeout(() => {
         this.showClass = true;
         console.log(this.classList);
+        this.loader.dismiss();
       }, 2000);
         
       }
       else{
         this.classList = "";
       }
-      this.loader.dismiss();
+      
     },
     error: (error:any) => {
       this.loader.dismiss();

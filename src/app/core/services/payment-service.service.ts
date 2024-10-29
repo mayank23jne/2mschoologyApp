@@ -36,6 +36,7 @@ export class PaymentServiceService {
         next: (res: any) => {
           if (res.code == 200) {
             this.subscriptionStatusData = res;
+            
             resolve(this.subscriptionStatusData);
           } else {
             resolve(false);
