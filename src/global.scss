@@ -255,9 +255,13 @@ ion-textarea{
 .link{
     color: #727cf5;
 }
+app-date-range-picker{
+    color: #000000 !important;
+}
 .daterangepicker {
     width: 100% !important;
     margin: auto !important;
+    color: #000000 !important;
 }
 .daterangepicker .ranges li.active {
     background-color: #727cf5 !important;
