@@ -80,21 +80,18 @@ export class AboutUsPage implements OnInit {
   submit(){
     // console.log(this.aboutForm.value);
     let formData = this.aboutForm.value;
-    // this.fetch.updateAboutus(formData).subscribe({
-    //   next: (res: any) => {
-    //     if (res.code == 200) {
-    //       this.loader.dismiss();
-    //        this.toastService.presentToast("Updated");
-    //     }
-    //     else {
-          
-    //     }
-    //     this.loader.dismiss();
-    //   },
-    //   error: (error: any) => {
-    //     this.loader.dismiss();
-    //   }
-    // });
+    this.fetch.updateAboutus(formData).subscribe({
+      next: (res: any) => {
+        if (res.code == 200) {
+          this.loader.dismiss();
+           this.toastService.presentToast("Updated");
+        }
+        this.loader.dismiss();
+      },
+      error: (error: any) => {
+        this.loader.dismiss();
+      }
+    });
   }
  
 }

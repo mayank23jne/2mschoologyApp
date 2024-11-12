@@ -9,6 +9,7 @@ import { Network } from '@capacitor/network';
 import { ToastService } from './core/services/toast.service';
 import { App } from '@capacitor/app';
 import { PaymentServiceService } from './core/services/payment-service.service';
+import { FilesTransferService } from './core/services/files-transfer.service';
 
 interface AppPage {
   title: string;
@@ -33,17 +34,21 @@ export class AppComponent {
   appPages: AppPage[] = [];
   planStatus:any;
 
-  constructor(private payService:PaymentServiceService ,private alertController: AlertController,private toastService:ToastService,private platform: Platform, private router: Router, private fetch: SchoolDataService, private menu: MenuController, private authservice: AuthService, private event: EventService) {
+  constructor(private fd: FilesTransferService,private payService:PaymentServiceService ,private alertController: AlertController,private toastService:ToastService,private platform: Platform, private router: Router, private fetch: SchoolDataService, private menu: MenuController, private authservice: AuthService, private event: EventService) {
     this.initializeNetworkListener();
     this.initializeApp();
     //this.event.publish('user:refresh', {});
   }
-
+  ngOnInit() {
+  
+  }
+ 
   initializeApp() {
     
     this.platform.ready().then(() => {
       if (this.platform.is('capacitor')) {
         this.setStatusBar();
+        //  this.requestNotificationPermission();
       }
       this.checkNetworkStatus();
     });
@@ -69,7 +74,8 @@ export class AppComponent {
       } else {
         this.user_data = "";
       }
-    }, 3000);
+      console.log("Run...");
+    }, 4000);
    
     this.event.subscribe('user:refresh', (data: any) => {
 

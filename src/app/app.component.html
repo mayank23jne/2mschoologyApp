@@ -11,10 +11,12 @@
       <ion-content>
         <ion-list id="inbox-list">
           <ion-menu-toggle *ngIf="user_data != ''">
-            <ion-item>
+            <ion-item style="--min-height: 70px;">
               <ion-icon name="person"></ion-icon>
-              <ion-label class="uname capitalize">{{ user_data?.name }}</ion-label>
-              <br><span class="capitalize role_badge">{{user_data?.role}}</span>
+              <div class="user-info">
+                <ion-label class="uname capitalize">{{ user_data?.name }}</ion-label>
+                <span class="role_badge capitalize">{{ user_data?.role }}</span>
+              </div>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle>

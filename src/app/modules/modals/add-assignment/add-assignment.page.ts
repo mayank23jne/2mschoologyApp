@@ -274,8 +274,9 @@ export class AddAssignmentPage implements OnInit {
       hideurlbar: 'yes'
     };
     const fileName = this.syllabus_file_name;
-    const pageno = 1;
-    fileUrl = `https://2mschoology.com/api/pdf/${fileName}/${pageno}`;
+    const pageno = '1';
+    const pageNumber = pageno && pageno.includes(',') ? pageno.split(',')[0] : pageno;
+    fileUrl = `https://2mschoology.com/api/pdf/${fileName}/${pageNumber}`;
     const browser = this.iab.create(fileUrl, '_self', options);
     browser.show();
   }

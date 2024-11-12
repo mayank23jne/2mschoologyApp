@@ -75,20 +75,20 @@ export class GeneralSettingsPage implements OnInit {
   submit(){
   console.log(this.generalSettingForm.value);
       let formData = this.generalSettingForm.value;
-      // this.fetch.updateGeneralSettings(formData).subscribe({
-      //   next: (res: any) => {
-      //     if (res.code == 200) {
-      //       this.loader.dismiss();
-      //        this.toastService.presentToast("Updated");
-      //     }
-      //     else {
-      //     }
-      //     this.loader.dismiss();
-      //   },
-      //   error: (error: any) => {
-      //     this.loader.dismiss();
-      //   }
-      // });
+      this.fetch.updateGeneralSettings(formData).subscribe({
+        next: (res: any) => {
+          if (res.code == 200) {
+            this.loader.dismiss();
+             this.toastService.presentToast("Updated");
+          }
+          else {
+          }
+          this.loader.dismiss();
+        },
+        error: (error: any) => {
+          this.loader.dismiss();
+        }
+      });
   }
 
   loadProfileFromDevice(event: any,type:any) {

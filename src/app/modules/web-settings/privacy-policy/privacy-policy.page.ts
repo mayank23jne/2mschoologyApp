@@ -53,20 +53,20 @@ export class PrivacyPolicyPage implements OnInit {
   submit(){
       console.log(this.policyForm.value);
       let formData = this.policyForm.value;
-      // this.fetch.updatePrivacyPolicy(formData).subscribe({
-      //   next: (res: any) => {
-      //     if (res.code == 200) {
-      //       this.loader.dismiss();
-      //        this.toastService.presentToast("Updated");
-      //     }
-      //     else {
-      //     }
-      //     this.loader.dismiss();
-      //   },
-      //   error: (error: any) => {
-      //     this.loader.dismiss();
-      //   }
-      // });
+      this.fetch.updatePrivacyPolicy(formData).subscribe({
+        next: (res: any) => {
+          if (res.code == 200) {
+            this.loader.dismiss();
+             this.toastService.presentToast("Updated");
+          }
+          else {
+          }
+          this.loader.dismiss();
+        },
+        error: (error: any) => {
+          this.loader.dismiss();
+        }
+      });
   }
 
 }

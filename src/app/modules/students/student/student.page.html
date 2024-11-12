@@ -15,7 +15,7 @@
       <ion-checkbox [(ngModel)]="selectAllChecked" (ionChange)="toggleSelectAll()"></ion-checkbox>
       <ion-button *ngIf="ShowDelete" color="danger" (click)="deleteSelectedStudents()">Delete Selected</ion-button>
     </ion-item>
-    <ion-card class="list-card" *ngFor="let item of studentData" (click)="openDetailModal(item)">
+    <ion-card class="list-card" *ngFor="let item of studentData" >
         <ion-row>
           <ng-container *ngIf="item.image; else noImage">
             <ion-col size="3" class="pro-img" imgPath>
@@ -29,7 +29,7 @@
               </ion-avatar>
             </ion-col>
           </ng-template>
-          <ion-col size="7">
+          <ion-col size="7" (click)="openDetailModal(item)">
             <ion-row>
               <p class="capitalize">Student id : {{ item.student_id }}</p>
             </ion-row>

@@ -8,6 +8,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FilesTransferService } from 'src/app/core/services/files-transfer.service';
 
 @Component({
   selector: 'app-syllabus',
@@ -26,7 +27,7 @@ export class SyllabusPage implements OnInit {
   search: any = "";
   downloading: any;
   progress: any;
-  constructor(private http: HttpClient, ngZone: NgZone, private cdr: ChangeDetectorRef, private toastService: ToastService, private fetch: SchoolDataService, private loader: LoaderService, private data: DataService, private modalController: ModalController) {
+  constructor(private fd: FilesTransferService, private http: HttpClient, ngZone: NgZone, private cdr: ChangeDetectorRef, private toastService: ToastService, private fetch: SchoolDataService, private loader: LoaderService, private data: DataService, private modalController: ModalController) {
     Filesystem.addListener('progress', (progressStatus) => {
       ngZone.run(() => {
         this.progress = progressStatus.bytes / progressStatus.contentLength;
@@ -128,7 +129,13 @@ export class SyllabusPage implements OnInit {
     return `${baseName}_${timestamp}`;
   }
   download_pdf(fileUrl: any) {
+           const fileExtension = this.getFileExtension(fileUrl);
 
+          if (!fileExtension) {
+            throw new Error('Unable to extract file extension');
+          }
+  const fileName = this.generateUniqueFileName('Syllabus') + fileExtension;
+  
     this.downloading = true;
     this.loader.present();
     if (fileUrl) {
@@ -170,6 +177,7 @@ export class SyllabusPage implements OnInit {
       this.toastService.presentErrorToast('Syllabus link not available');
     }
   }
+ 
 
   getFileExtension(fileUrl: string): string {
     const fileParts = fileUrl.split('.');

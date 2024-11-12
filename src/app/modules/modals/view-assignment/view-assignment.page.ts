@@ -77,11 +77,12 @@ export class ViewAssignmentPage implements OnInit {
       hideurlbar: 'yes' 
     };
     const fileName = this.homeworkData?.homework_file_name;
-    let pageno = 1;
+    let pageno = '1';
     if(this.homeworkData.homework.page_number){
       pageno = this.homeworkData.homework.page_number;
     } 
-    fileUrl = `https://2mschoology.com/api/pdf/${fileName}/${pageno}`;
+    const pageNumber = pageno && pageno.includes(',') ? pageno.split(',')[0] : pageno;
+    fileUrl = `https://2mschoology.com/api/pdf/${fileName}/${pageNumber}`;
     const browser = this.iab.create(fileUrl, '_self',options);
     browser.show();
   }

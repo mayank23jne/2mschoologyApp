@@ -47,24 +47,26 @@ body {
   /* Dark mode styles */
   @media (prefers-color-scheme: dark) {
     body {
-      --input-background: #1e1e1e; /* Dark background for input fields */
-      --input-color: #ffffff; /* Text color for input fields */
       --input-placeholder-color: #aaaaaa; /* Placeholder text color */
-      --input-caret-color: #ffffff; /* Cursor color */
+      --input-caret-color: #000000;
     }
   }
   
-  /* Apply these variables to your input fields */
-  input {
-    background-color: var(--input-background);
-    color: var(--input-color);
-    caret-color: var(--input-caret-color); /* Set cursor color */
-  }
-  
-  input::placeholder {
-    color: var(--input-placeholder-color);
-  }
-
+    /* Ensure the dark background applies to the inner part of ion-select */
+    form ion-select .select-text,
+    form ion-select .select-placeholder {
+        color:  #000000;
+    }
+    
+    /* Additional styles to ensure the dropdown text and options in ion-select align with dark mode */
+    form ion-select .select-interface-options,
+    form ion-select-option {
+        background-color:  #ffffff;
+        color:  #000000;
+    }
+.select-text{
+    padding-bottom: 10px;
+}
 .submit-btn{
     --background: #727cf5;;
     color: #ffffff;
@@ -176,6 +178,7 @@ form .err{
    --background: #f4f6f9;
     border-radius: 10px;
     height: 45px;
+    color: #000000;
 }
 ion-button{
     text-transform: capitalize;

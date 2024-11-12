@@ -53,20 +53,20 @@ export class TermsPage implements OnInit {
   submit(){
     console.log(this.termsForm.value);
       let formData = this.termsForm.value;
-      // this.fetch.updateTermsAndConditions(formData).subscribe({
-      //   next: (res: any) => {
-      //     if (res.code == 200) {
-      //       this.loader.dismiss();
-      //        this.toastService.presentToast("Updated");
-      //     }
-      //     else {
-      //     }
-      //     this.loader.dismiss();
-      //   },
-      //   error: (error: any) => {
-      //     this.loader.dismiss();
-      //   }
-      // });
+      this.fetch.updateTermsAndConditions(formData).subscribe({
+        next: (res: any) => {
+          if (res.code == 200) {
+            this.loader.dismiss();
+             this.toastService.presentToast("Updated");
+          }
+          else {
+          }
+          this.loader.dismiss();
+        },
+        error: (error: any) => {
+          this.loader.dismiss();
+        }
+      });
     }
 
 }

@@ -102,7 +102,8 @@ export class SubmitAssignmentPage implements OnInit {
     };
     const fileName = this.homeworkData?.file_name;
     const pageno = this.homeworkData?.page_number;
-    fileUrl = `https://2mschoology.com/api/pdf/${fileName}/${pageno}`;
+    const pageNumber = pageno && pageno.includes(',') ? pageno.split(',')[0] : pageno;
+    fileUrl = `https://2mschoology.com/api/pdf/${fileName}/${pageNumber}`;
     const browser = this.iab.create(fileUrl, '_self', options);
     browser.show();
   }
