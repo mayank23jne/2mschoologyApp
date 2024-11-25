@@ -19,7 +19,7 @@
               </div>
             </ion-item>
           </ion-menu-toggle>
-          <ion-menu-toggle>
+          <ion-menu-toggle *ngIf="user_data != ''">
             <ion-item  lines="none" detail="false" (click)="dashboard()" [class.selected]="isSelectedHome('/tabs/tab1')" >
               <ion-icon name="speedometer"></ion-icon>
               <ion-label class="uname">Dashboard</ion-label>

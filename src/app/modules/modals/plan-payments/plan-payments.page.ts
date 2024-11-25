@@ -105,7 +105,7 @@ export class PlanPaymentsPage implements OnInit {
   
   createSubscription(planId: string, currency: string): Promise<any> {
     const options = {
-     'client-id':this.PaypalPaymentDetail?.paypal_client_id_sandbox, 
+     'client-id': this.PaypalPaymentDetail?.paypal_mode == 'sandbox' ? this.PaypalPaymentDetail?.paypal_client_id_sandbox : this.PaypalPaymentDetail?.paypal_client_id_production, 
       currency: currency
     };
   

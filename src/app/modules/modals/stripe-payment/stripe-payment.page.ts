@@ -71,10 +71,10 @@ export class StripePaymentPage implements OnInit {
 
   async pay(pi:any) {
     if (this.isProcessing) {
-      return; // Prevent multiple submissions
+      return; 
     }
 
-    this.isProcessing = true; // Set processing state
+    this.isProcessing = true; 
     try {
       
       const stripe = await this.dataService.getStripe();
@@ -82,8 +82,9 @@ export class StripePaymentPage implements OnInit {
         console.error('Stripe failed to load');
         return;
       }
+      console.log(this.cardElement);
       const { error, paymentIntent } = await this.dataService.confirmCardPayment(pi, this.cardElement);
-
+      console.log(paymentIntent);
       if (error) {
         this.toastService.presentErrorToast("Payment error");
         console.error('Payment failed:', error.message);
@@ -118,8 +119,7 @@ export class StripePaymentPage implements OnInit {
         next: async (res: any) => {
           console.log(res);
           if (res && res.data) {
-            this.clientSecret = res.data.paymentIntent;
-            this.pay(this.clientSecret);
+            this.pay(res.data?.paymentIntent);
             // const ephemeralKey = res.data.paymentIntent;
             // const customer = res.data.customer;
           } else {

@@ -4,6 +4,7 @@ import { SchoolDataService } from './school-data.service';
 import { AlertController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
+import { PaymentServiceService } from './payment-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,32 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 export class DataService {
   private teacherData: any;
   
-  private stripePromise: Promise<Stripe | null>;
+  private stripePromise!: Promise<Stripe | null>;
   private roleSubject = new BehaviorSubject<string>(localStorage.getItem('role') || '');
   role$ = this.roleSubject.asObservable();
   
-  constructor(private alertController: AlertController,private datePipe: DatePipe,private fetch: SchoolDataService,) {
-    this.stripePromise = loadStripe('pk_test_51HMKNhKWFHVxBazQvcSopBzg3fLOE7Or7KFN95kbfvYDMU63ujYKyqIcE2oCSlKtz164F77xkzvjaFLUvQhhEnt50013y0n5cR');
+  constructor(private payservice:PaymentServiceService,private alertController: AlertController,private datePipe: DatePipe,private fetch: SchoolDataService,) {
+    this.initializeStripe();
+    //this.stripePromise = loadStripe('pk_test_51HMKNhKWFHVxBazQvcSopBzg3fLOE7Or7KFN95kbfvYDMU63ujYKyqIcE2oCSlKtz164F77xkzvjaFLUvQhhEnt50013y0n5cR');
   }
+
+  async initializeStripe() {
+    try {
+      // Fetch payment credentials
+      const paymentCreds = await this.payservice.getAdminPaymentCreds();
+      console.log(paymentCreds);
+      if (!paymentCreds || !paymentCreds.stripe_test_public_key) {
+        throw new Error('Failed to retrieve publishableKey');
+      }
+
+      // Load Stripe with the retrieved publishableKey
+      this.stripePromise = loadStripe(paymentCreds.stripe_test_public_key);
+    } catch (error) {
+      console.error('Error loading Stripe:', error);
+      this.stripePromise = Promise.resolve(null);
+    }
+  }
+  
 
   setTeachersData(data: any) {
     this.teacherData = data;
@@ -115,9 +135,14 @@ export class DataService {
       await alert.present();
     });
   }
+ 
   confirmCardPayment(clientSecret: string, cardElement: any) {
+    console.log('Client Secret:', clientSecret);
+    console.log('Card Element:', cardElement);
+  
     return this.getStripe().then(stripe => {
       if (!stripe) {
+        console.error('Stripe failed to load');
         throw new Error('Stripe failed to load');
       }
       return stripe.confirmCardPayment(clientSecret, {

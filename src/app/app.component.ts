@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { AuthService } from './core/guards/auth.service';
 import { EventService } from './core/services/event.service';
 import { AlertController, MenuController, Platform } from '@ionic/angular';
@@ -34,7 +34,7 @@ export class AppComponent {
   appPages: AppPage[] = [];
   planStatus:any;
 
-  constructor(private fd: FilesTransferService,private payService:PaymentServiceService ,private alertController: AlertController,private toastService:ToastService,private platform: Platform, private router: Router, private fetch: SchoolDataService, private menu: MenuController, private authservice: AuthService, private event: EventService) {
+  constructor(private cdr: ChangeDetectorRef,private fd: FilesTransferService,private payService:PaymentServiceService ,private alertController: AlertController,private toastService:ToastService,private platform: Platform, private router: Router, private fetch: SchoolDataService, private menu: MenuController, private authservice: AuthService, private event: EventService) {
     this.initializeNetworkListener();
     this.initializeApp();
     //this.event.publish('user:refresh', {});
@@ -42,63 +42,85 @@ export class AppComponent {
   ngOnInit() {
   
   }
- 
-  initializeApp() {
-    
+  async initializeApp() {
+    console.log(this.user_data);
     this.platform.ready().then(() => {
       if (this.platform.is('capacitor')) {
         this.setStatusBar();
-        //  this.requestNotificationPermission();
       }
       this.checkNetworkStatus();
     });
-      let log = this.authservice.ifLoggedIn();
-      this.user_data = localStorage.getItem('loginUserData');
-      this.loadSubscriptionDetails();
-      setTimeout(() => {
-      if (this.user_data) {
+    try {
+      const data = await this.fetchLocalStorageData();
+      const sdata = await this.loadSubscriptionDetails();
+      console.log('Fetched data:', data);
+      if(data){
+        this.startApplication(data);
+      }
       
-        if(this.planStatus == 'Active'){
-            this.sidebar();
+    } catch (error) {
+      console.error('Error during initialization:', error);
+    }
+  }
+
+  fetchLocalStorageData() {
+    return new Promise((resolve, reject) => {
+      try {
+        const data = localStorage.getItem('loginUserData');
+        
+        if (data) {
+          setTimeout(() => resolve(JSON.parse(data)), 100); 
+        } else {
+          resolve(null); 
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  
+  startApplication(data:any) {
+    this.user_data =  data;
+    console.log(this.user_data);
+      if (this.user_data) {
+        if(this.user_data.role == 'superadmin'){
+          this.sidebar();
         }else{
-         
-          if(this.user_data.role == 'superadmin'){
+          if(this.planStatus == 'Active'){
             this.sidebar();
             this.router.navigateByUrl('/tabs/tab1');
-          }else{
-           
+            }else{
             this.router.navigateByUrl('/update_plan');
           }
         }
-        this.user_data = JSON.parse(this.user_data);
+        this.event.publish('user:refresh', {});
       } else {
         this.user_data = "";
       }
-      console.log("Run...");
-    }, 4000);
-   
+     
     this.event.subscribe('user:refresh', (data: any) => {
 
     this.user_data = localStorage.getItem('loginUserData');
-    this.loadSubscriptionDetails();
-    setTimeout(() => {
+    this.user_data =  JSON.parse(this.user_data);
+    this.cdr.detectChanges();
       if (this.user_data) {
-        console.log(this.user_data.role);
-        if(this.planStatus == 'Active'){
-            this.sidebar();
+        // console.log(this.user_data.role);
+        if(this.user_data.role == 'superadmin'){
+          this.sidebar();
         }else{
-          if(this.user_data.role == 'superadmin'){
+          if(this.planStatus == 'Active'){
             this.sidebar();
             this.router.navigateByUrl('/tabs/tab1');
-          }else{
+            }else{
+             
             this.router.navigateByUrl('/update_plan');
+            }
           }
+          this.menu.enable(true, 'start');
+        }else{
+          this.user_data = "";
         }
-        this.menu.enable(true, 'start');
-      } else {
-        this.user_data = "";
-      }
-    }, 1000);
+
     });
   }
 
@@ -137,7 +159,7 @@ export class AppComponent {
         {
           text: 'Action',
           handler: () => {
-            console.log('Action button clicked');
+            // console.log('Action button clicked');
             App.exitApp();
           }
         }

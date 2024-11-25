@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Stripe Payment</ion-title>
+    <ion-title>Plan Stripe Payment</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">Close</ion-button>
     </ion-buttons>
@@ -25,7 +25,7 @@
     </ion-col>
   </ion-row>
   <form (ngSubmit)="getPaymentIntent()" class="payment-form">
-    <div id="card-element" class="card-element"></div>
+    <div id="element-card" class="card-element"></div>
     <button type="submit" [disabled]="isProcessing" class="pay-button">Pay <span *ngIf="amount"> ${{amount}}</span></button>
   </form>
 </ion-content>
