@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: '',
+  apiUrl: 'https://2mschoology.com/api',
   Url: '/login',
-  fileUrl: '',
+  fileUrl: 'https://2mschoology.com/uploads/syllabus/',
 };
 
 /*
